@@ -61,9 +61,28 @@
 
 ## Different views
 ### Client
-- 
+- Do not store anything
+- Is the machine where the user digits the movement
+- Create a message and send it to the server, waits the confirmation message to send something else
+- Receve message with new pacman vision
+- Show vision on the screen
+- Can recive only one file at a time and show it at the same time
+- *Can show a window on the side with the history of messages between sever and client*
+    - Better for debuging and work presentation
+     
 ### Server
-- 
+- Create and load world
+- Conects client
+- Send initial visualization
+- Wait to receve movement from client
+    - Calculate ghost's movements
+    - Send new visualization to the client
+    - If the client finds a pill -> send file
+- Do not have contact with the user
+- Takes care of:
+    - Pacman's death
+    - Pacman's hit the wall
+
 ## Protocol
 | init marker |   size   |   sequence   |   type   |   data   |    CRC    |
 |     8bits   |  5bits   |    6bits     |   5byts  |  31bytes |   8bits   |
@@ -113,3 +132,34 @@
 1. Read RAWsocks stuff
 2. Try to send anything to another machine with the network cable
 3. we will know what to do next
+
+## Everything Explained, to us dummies
+
+### Ethernet frame vs Protocole
+[ dest MAC | src MAC | EtherType | payload | CRC ]
+   6 bytes    6 bytes    2 bytes   up to 1500b  4b
+   
+[ dest MAC | src MAC | EtherType |        payload         | CRC ]
+                                  [ our protocol message ]
+                                  
+1. We call sendto()
+2. ethernet frame travels through cable
+3. receiver gets the whole frame
+4. receiver reads payload → finds our protocol message inside
+
+it is kind of a letter, there is a sender and a receiver, the content of the letter (out data), than a check of the content (the CRC)
+
+#### CRC: Cyclic Redundancy Check
+It is a detecting error mechanism in 32 bits, frame check sequence, added at the end of each ethernet frame to ensure data quality
+
+how does it work?
+The sender calculates the CRC based on the content of the frame and anex it to the end.
+The receptor redo the calculus, if the value isn't the same the content is discarted
+
+- ethernet frame CRC
+    - The network card calculates and adds it by itself when sending
+    - It's invisible to us (the machine already does it)
+    - It protects againts physican errors: cable noise, eletrical interference, bit flips
+- our protocole CRC
+    - We have to write the code that calculates and checks it
+    - It protects againts local error: bugs in our code, wrong message assembly, corrupted data in memory
