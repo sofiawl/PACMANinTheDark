@@ -1,5 +1,45 @@
 # PACMAN In The Dark
 
+## How to run
+
+
+### On the client:
+
+First:
+```
+// Get your pc's interface name 
+ip link show
+
+// Fill in this information in client.cpp
+```
+``` 
+g++ client.cpp protocol.cpp -o server
+sudo ./client
+``` 
+
+### On the server:
+
+First:
+```
+// Get your pc's interface name 
+ip link show
+
+// Then get your pc's MAC
+ip link show (your interface name)
+
+// Fill in those informations in server.cpp
+```
+
+Notice: if nothing like *en*something appears in the first command, you should plug the network cable before and then try it again!
+
+Then:
+``` 
+g++ server.cpp protocol.cpp -o server
+sudo ./server
+```
+
+PS: we can make an especific make client/ make server to run
+
 ## Docs
 [RAWsocket, basics with Todt](https://wiki.inf.ufpr.br/todt/doku.php?id=raw_socket)
 
@@ -85,6 +125,7 @@
 
 ## Protocol
 | init marker |   size   |   sequence   |   type   |   data   |    CRC    |
+
 |     8bits   |  5bits   |    6bits     |   5byts  |  31bytes |   8bits   |
 
 - init marker: *01111110*
@@ -137,10 +178,12 @@
 
 ### Ethernet frame vs Protocole
 [ dest MAC | src MAC | EtherType | payload | CRC ]
+
    6 bytes    6 bytes    2 bytes   up to 1500b  4b
    
-[ dest MAC | src MAC | EtherType |        payload         | CRC ]
-                                  [ our protocol message ]
+[ dest MAC | src MAC | EtherType |  [ our protocol message ]   | CRC ]
+                                
+                                  
                                   
 1. We call sendto()
 2. ethernet frame travels through cable
