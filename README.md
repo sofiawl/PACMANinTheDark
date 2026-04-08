@@ -12,6 +12,8 @@ ip link show
 
 // Fill in this information in client.cpp
 ```
+
+Then:
 ``` 
 g++ client.cpp protocol.cpp -o server
 sudo ./client
