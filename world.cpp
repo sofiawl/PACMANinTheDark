@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <random>
 #include <algorithm>
 #include <fstream>
@@ -86,87 +87,40 @@ void draw_world_ncurses_from_csv(const char* csv_path) {
     curs_set(0);
     keypad(stdscr, TRUE);
 
-    if (has_colors()) {
-        start_color();
-        init_pair(1, COLOR_BLUE, COLOR_BLACK);
-        init_pair(2, COLOR_YELLOW, COLOR_BLACK);
-        init_pair(3, COLOR_RED, COLOR_BLACK);
-        init_pair(4, COLOR_CYAN, COLOR_BLACK);
-        init_pair(5, COLOR_GREEN, COLOR_BLACK);
-        init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
-    }
-
-    // Single-column ASCII so each world cell uses exactly one terminal column (UTF-8 glyphs can span 2 cols).
-    auto draw_tile = [](int y, int x, char tile) {
-        switch (tile) {
-            case 'X':
-                attron(COLOR_PAIR(1));
-                mvaddch(y, x, '#');
-                attroff(COLOR_PAIR(1));
-                break;
-            case 'P':
-                attron(COLOR_PAIR(2));
-                mvaddch(y, x, 'P');
-                attroff(COLOR_PAIR(2));
-                break;
-            case 'R':
-                attron(COLOR_PAIR(3));
-                mvaddch(y, x, 'R');
-                attroff(COLOR_PAIR(3));
-                break;
-            case 'B':
-                attron(COLOR_PAIR(4));
-                mvaddch(y, x, 'B');
-                attroff(COLOR_PAIR(4));
-                break;
-            case 'G':
-                attron(COLOR_PAIR(5));
-                mvaddch(y, x, 'G');
-                attroff(COLOR_PAIR(5));
-                break;
-            case 'Y':
-                attron(COLOR_PAIR(6));
-                mvaddch(y, x, 'Y');
-                attroff(COLOR_PAIR(6));
-                break;
-            case '0':
-                mvaddch(y, x, ' ');
-                break;
-            default:
-                mvaddch(y, x, tile);
-                break;
-        }
-    };
-
-    const int status_rows = 1;
+    // Plain text only: 40 columns wide, 41 rows tall (40 map + 1 hint), centered as one block.
+    const int grid_w = SIZE_WORLD;
+    const int grid_h = SIZE_WORLD + 1;
 
     while (true) {
         int rows = 0, cols = 0;
         getmaxyx(stdscr, rows, cols);
-        int avail_h = rows - status_rows;
-        if (avail_h < 1) avail_h = 1;
 
         clear();
 
-        if (cols >= SIZE_WORLD && avail_h >= SIZE_WORLD) {
-            int base_y = (avail_h - SIZE_WORLD) / 2;
-            int base_x = (cols - SIZE_WORLD) / 2;
+        if (cols >= grid_w && rows >= grid_h) {
+            int base_y = (rows - grid_h) / 2;
+            int base_x = (cols - grid_w) / 2;
 
             for (int i = 0; i < SIZE_WORLD; ++i) {
                 for (int j = 0; j < SIZE_WORLD; ++j) {
-                    draw_tile(base_y + i, base_x + j, world[i][j]);
+                    char c = world[i][j];
+                    if (c == '0') c = ' ';
+                    mvaddch(base_y + i, base_x + j, static_cast<unsigned char>(c));
                 }
             }
+
+            char hint[grid_w + 1];
+            snprintf(hint, sizeof(hint), "%-*s", grid_w, "q=quit");
+            mvprintw(base_y + SIZE_WORLD, base_x, "%s", hint);
         } else {
             mvprintw(
                 rows / 2,
                 0,
-                "Terminal too small: need at least %d cols x %d rows (incl. status line).",
-                SIZE_WORLD,
-                SIZE_WORLD + status_rows);
+                "Terminal too small: need at least %d cols x %d rows.",
+                grid_w,
+                grid_h);
         }
 
-        mvprintw(rows - status_rows, 0, "Press q to quit. Resize to center the map.");
         refresh();
 
         timeout(150);
