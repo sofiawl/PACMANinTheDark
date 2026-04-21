@@ -93,39 +93,40 @@ void draw_world_ncurses_from_csv(const char* csv_path) {
         init_pair(3, COLOR_RED, COLOR_BLACK);
         init_pair(4, COLOR_CYAN, COLOR_BLACK);
         init_pair(5, COLOR_GREEN, COLOR_BLACK);
-        init_pair(6, COLOR_ORANGE, COLOR_BLACK);
+        init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
     }
 
+    // Single-column ASCII so each world cell uses exactly one terminal column (UTF-8 glyphs can span 2 cols).
     auto draw_tile = [](int y, int x, char tile) {
         switch (tile) {
             case 'X':
                 attron(COLOR_PAIR(1));
-                mvaddch(y, x, '|');
+                mvaddch(y, x, '#');
                 attroff(COLOR_PAIR(1));
                 break;
             case 'P':
                 attron(COLOR_PAIR(2));
-                mvaddch(y, x, '(⍩)');
+                mvaddch(y, x, 'P');
                 attroff(COLOR_PAIR(2));
                 break;
             case 'R':
                 attron(COLOR_PAIR(3));
-                mvaddch(y, x, '𔓎');
+                mvaddch(y, x, 'R');
                 attroff(COLOR_PAIR(3));
                 break;
             case 'B':
                 attron(COLOR_PAIR(4));
-                mvaddch(y, x, '𔓎');
+                mvaddch(y, x, 'B');
                 attroff(COLOR_PAIR(4));
                 break;
             case 'G':
                 attron(COLOR_PAIR(5));
-                mvaddch(y, x, '𔓎');
+                mvaddch(y, x, 'G');
                 attroff(COLOR_PAIR(5));
                 break;
             case 'Y':
                 attron(COLOR_PAIR(6));
-                mvaddch(y, x, '𔓎');
+                mvaddch(y, x, 'Y');
                 attroff(COLOR_PAIR(6));
                 break;
             case '0':
@@ -137,27 +138,35 @@ void draw_world_ncurses_from_csv(const char* csv_path) {
         }
     };
 
+    const int status_rows = 1;
+
     while (true) {
         int rows = 0, cols = 0;
         getmaxyx(stdscr, rows, cols);
-        int draw_rows = (rows > 1) ? rows - 1 : 1;
-        int draw_cols = (cols > 0) ? cols : 1;
+        int avail_h = rows - status_rows;
+        if (avail_h < 1) avail_h = 1;
 
         clear();
 
-        for (int y = 0; y < draw_rows; ++y) {
-            int world_i = (y * SIZE_WORLD) / draw_rows;
-            if (world_i >= SIZE_WORLD) world_i = SIZE_WORLD - 1;
+        if (cols >= SIZE_WORLD && avail_h >= SIZE_WORLD) {
+            int base_y = (avail_h - SIZE_WORLD) / 2;
+            int base_x = (cols - SIZE_WORLD) / 2;
 
-            for (int x = 0; x < draw_cols; ++x) {
-                int world_j = (x * SIZE_WORLD) / draw_cols;
-                if (world_j >= SIZE_WORLD) world_j = SIZE_WORLD - 1;
-
-                draw_tile(y, x, world[world_i][world_j]);
+            for (int i = 0; i < SIZE_WORLD; ++i) {
+                for (int j = 0; j < SIZE_WORLD; ++j) {
+                    draw_tile(base_y + i, base_x + j, world[i][j]);
+                }
             }
+        } else {
+            mvprintw(
+                rows / 2,
+                0,
+                "Terminal too small: need at least %d cols x %d rows (incl. status line).",
+                SIZE_WORLD,
+                SIZE_WORLD + status_rows);
         }
 
-        mvprintw(rows - 1, 0, "Press q to quit. Resize terminal anytime.");
+        mvprintw(rows - status_rows, 0, "Press q to quit. Resize to center the map.");
         refresh();
 
         timeout(150);
