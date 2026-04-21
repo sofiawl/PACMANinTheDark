@@ -2,6 +2,16 @@
 
 ## How to run
 
+###
+Building the game interface with [ncurses](https://github.com/mcdaniel/curses_tutorial)
+
+So, before running, you should install the necessaary packge:
+
+```
+sudo apt update
+sudo apt install libncurses-dev libncursesw5-dev
+make clean && make
+```
 
 ### On the client:
 
