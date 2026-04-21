@@ -3,7 +3,7 @@ CFLAGS = -Wall -g
 LDLIBS = -lncursesw
 
 SERVER_SRCS = server.cpp world.cpp protocol.cpp vision.cpp file_transfer.cpp
-CLIENT_SRCS = client.cpp protocol.cpp vision.cpp file_transfer.cpp
+CLIENT_SRCS = client.cpp world.cpp protocol.cpp vision.cpp file_transfer.cpp
 
 SERVER_OBJS = $(SERVER_SRCS:.cpp=.o)
 CLIENT_OBJS = $(CLIENT_SRCS:.cpp=.o)

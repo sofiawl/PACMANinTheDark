@@ -96,53 +96,75 @@ void draw_world_ncurses_from_csv(const char* csv_path) {
         init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
     }
 
-    clear();
-    for (int i = 0; i < SIZE_WORLD; ++i) {
-        for (int j = 0; j < SIZE_WORLD; ++j) {
-            char tile = world[i][j];
-            switch (tile) {
-                case 'X':
-                    attron(COLOR_PAIR(1));
-                    mvaddch(i, j, '#');
-                    attroff(COLOR_PAIR(1));
-                    break;
-                case 'P':
-                    attron(COLOR_PAIR(2));
-                    mvaddch(i, j, 'P');
-                    attroff(COLOR_PAIR(2));
-                    break;
-                case 'R':
-                    attron(COLOR_PAIR(3));
-                    mvaddch(i, j, 'R');
-                    attroff(COLOR_PAIR(3));
-                    break;
-                case 'B':
-                    attron(COLOR_PAIR(4));
-                    mvaddch(i, j, 'B');
-                    attroff(COLOR_PAIR(4));
-                    break;
-                case 'G':
-                    attron(COLOR_PAIR(5));
-                    mvaddch(i, j, 'G');
-                    attroff(COLOR_PAIR(5));
-                    break;
-                case 'Y':
-                    attron(COLOR_PAIR(6));
-                    mvaddch(i, j, 'Y');
-                    attroff(COLOR_PAIR(6));
-                    break;
-                case '0':
-                    mvaddch(i, j, ' ');
-                    break;
-                default:
-                    mvaddch(i, j, tile);
-                    break;
+    auto draw_tile = [](int y, int x, char tile) {
+        switch (tile) {
+            case 'X':
+                attron(COLOR_PAIR(1));
+                mvaddch(y, x, '#');
+                attroff(COLOR_PAIR(1));
+                break;
+            case 'P':
+                attron(COLOR_PAIR(2));
+                mvaddch(y, x, 'P');
+                attroff(COLOR_PAIR(2));
+                break;
+            case 'R':
+                attron(COLOR_PAIR(3));
+                mvaddch(y, x, 'R');
+                attroff(COLOR_PAIR(3));
+                break;
+            case 'B':
+                attron(COLOR_PAIR(4));
+                mvaddch(y, x, 'B');
+                attroff(COLOR_PAIR(4));
+                break;
+            case 'G':
+                attron(COLOR_PAIR(5));
+                mvaddch(y, x, 'G');
+                attroff(COLOR_PAIR(5));
+                break;
+            case 'Y':
+                attron(COLOR_PAIR(6));
+                mvaddch(y, x, 'Y');
+                attroff(COLOR_PAIR(6));
+                break;
+            case '0':
+                mvaddch(y, x, ' ');
+                break;
+            default:
+                mvaddch(y, x, tile);
+                break;
+        }
+    };
+
+    while (true) {
+        int rows = 0, cols = 0;
+        getmaxyx(stdscr, rows, cols);
+        int draw_rows = (rows > 1) ? rows - 1 : 1;
+        int draw_cols = (cols > 0) ? cols : 1;
+
+        clear();
+
+        for (int y = 0; y < draw_rows; ++y) {
+            int world_i = (y * SIZE_WORLD) / draw_rows;
+            if (world_i >= SIZE_WORLD) world_i = SIZE_WORLD - 1;
+
+            for (int x = 0; x < draw_cols; ++x) {
+                int world_j = (x * SIZE_WORLD) / draw_cols;
+                if (world_j >= SIZE_WORLD) world_j = SIZE_WORLD - 1;
+
+                draw_tile(y, x, world[world_i][world_j]);
             }
         }
+
+        mvprintw(rows - 1, 0, "Press q to quit. Resize terminal anytime.");
+        refresh();
+
+        timeout(150);
+        int key = getch();
+        timeout(-1);
+        if (key == 'q' || key == 'Q') break;
     }
 
-    mvprintw(SIZE_WORLD + 1, 0, "Press q to quit.");
-    refresh();
-    while (getch() != 'q') {}
     endwin();
 }
