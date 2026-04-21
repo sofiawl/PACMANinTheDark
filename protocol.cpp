@@ -160,6 +160,7 @@ int send_frame(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_
 
     eth_frame[12] = 0x08;
     eth_frame[13] = 0x88;
+    memcpy(eth_frame + 14, f, sizeof(Frame));
 
     struct sockaddr_ll addr = {0};
     addr.sll_ifindex = if_nametoindex(iface);

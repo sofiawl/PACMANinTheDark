@@ -15,7 +15,7 @@ const char* network_interface_pc2sofia = "enx00e04c034558";
 // get this information with: ip link show *your ip link name*
 // put THE CLIENT MAC address here
 unsigned char src_mac_pc2sofia[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
-unsigned char dest_mac_pc2sofia[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
+unsigned char dest_mac_pc1sofia[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
 
 
 int main(){
@@ -34,7 +34,7 @@ int main(){
     for (int i = 0; i< SIZE_WORLD; i++){
         data = (uint8_t*)world[i];
         build_frame(&f, seq, msgtype, data, data_size); // add checks for errors later
-        send_frame(sock, &f, src_mac_pc2sofia, dest_mac_pc2sofia, network_interface_pc2sofia); // here too
+        send_frame(sock, &f, src_mac_pc2sofia, dest_mac_pc1sofia, network_interface_pc2sofia); // here too
         seq++;
     }
 }
