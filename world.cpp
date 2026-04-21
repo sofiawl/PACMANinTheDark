@@ -1,5 +1,6 @@
 #include <random>
 #include <algorithm>
+#include <fstream>
 #include "world.h"
 
 void init_world(char world[SIZE_WORLD][SIZE_WORLD]){
@@ -48,4 +49,13 @@ void init_world(char world[SIZE_WORLD][SIZE_WORLD]){
     world[pos1 / SIZE_WORLD][pos1 % SIZE_WORLD] = 'B';
     world[pos2 / SIZE_WORLD][pos2 % SIZE_WORLD] = 'G';
     world[pos3 / SIZE_WORLD][pos3 % SIZE_WORLD] = 'Y';
+
+    // save world to mundo.csv
+    std::ofstream mundo_file("mundo.csv", std::ios::trunc);
+    if (!mundo_file.is_open()) return;
+
+    for (int i = 0; i < SIZE_WORLD; ++i) {
+      mundo_file.write(world[i], SIZE_WORLD);
+      mundo_file.put('\n');
+    }
 }

@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <cstdio>
 #include <net/ethernet.h>
 #include <linux/if_packet.h>
 #include <net/if.h>
@@ -22,19 +23,49 @@ int main(){
     int sock = create_raw_socket(network_interface_pc2sofia);
 
     Frame f;
-    uint8_t seq, *data, data_size;
-    MessageType msgtype;
+    uint8_t seq = 0;
     char world[SIZE_WORLD][SIZE_WORLD];
 
     init_world(world);
 
-    data_size = SIZE_WORLD;
-    msgtype = MSG_INIT;
-    seq = 0;
-    for (int i = 0; i< SIZE_WORLD; i++){
-        data = (uint8_t*)world[i];
-        build_frame(&f, seq, msgtype, data, data_size); // add checks for errors later
-        send_frame(sock, &f, src_mac_pc2sofia, dest_mac_pc1sofia, network_interface_pc2sofia); // here too
+    FILE* mundo = fopen("mundo.csv", "rb");
+    if (!mundo) {
+        fprintf(stderr, "Could not open mundo.csv for sending\n");
+        return 1;
+    }
+
+    while (1) {
+        uint8_t buffer[DATA_SIZE];
+        size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
+        if (bytes_read == 0) break;
+
+        if (seq > 63) {
+            fprintf(stderr, "File too large for current sequence field\n");
+            fclose(mundo);
+            return 1;
+        }
+
+        if (build_frame(&f, seq, MSG_TXT, buffer, (uint8_t)bytes_read) != 0) {
+            fprintf(stderr, "Failed to build frame %u\n", seq);
+            fclose(mundo);
+            return 1;
+        }
+
+        if (send_frame(sock, &f, src_mac_pc2sofia, dest_mac_pc1sofia, network_interface_pc2sofia) < 0) {
+            fprintf(stderr, "Failed to send frame %u\n", seq);
+            fclose(mundo);
+            return 1;
+        }
+
         seq++;
     }
+
+    fclose(mundo);
+
+    if (build_frame(&f, seq, MSG_END, nullptr, 0) == 0) {
+        send_frame(sock, &f, src_mac_pc2sofia, dest_mac_pc1sofia, network_interface_pc2sofia);
+    }
+
+    printf("mundo.csv sent in %u data frames\n", seq);
+    return 0;
 }
