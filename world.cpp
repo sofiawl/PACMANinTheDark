@@ -93,39 +93,39 @@ void draw_world_ncurses_from_csv(const char* csv_path) {
         init_pair(3, COLOR_RED, COLOR_BLACK);
         init_pair(4, COLOR_CYAN, COLOR_BLACK);
         init_pair(5, COLOR_GREEN, COLOR_BLACK);
-        init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
+        init_pair(6, COLOR_ORANGE, COLOR_BLACK);
     }
 
     auto draw_tile = [](int y, int x, char tile) {
         switch (tile) {
             case 'X':
                 attron(COLOR_PAIR(1));
-                mvaddch(y, x, '#');
+                mvaddch(y, x, '|');
                 attroff(COLOR_PAIR(1));
                 break;
             case 'P':
                 attron(COLOR_PAIR(2));
-                mvaddch(y, x, 'P');
+                mvaddch(y, x, '(⍩)');
                 attroff(COLOR_PAIR(2));
                 break;
             case 'R':
                 attron(COLOR_PAIR(3));
-                mvaddch(y, x, 'R');
+                mvaddch(y, x, '𔓎');
                 attroff(COLOR_PAIR(3));
                 break;
             case 'B':
                 attron(COLOR_PAIR(4));
-                mvaddch(y, x, 'B');
+                mvaddch(y, x, '𔓎');
                 attroff(COLOR_PAIR(4));
                 break;
             case 'G':
                 attron(COLOR_PAIR(5));
-                mvaddch(y, x, 'G');
+                mvaddch(y, x, '𔓎');
                 attroff(COLOR_PAIR(5));
                 break;
             case 'Y':
                 attron(COLOR_PAIR(6));
-                mvaddch(y, x, 'Y');
+                mvaddch(y, x, '𔓎');
                 attroff(COLOR_PAIR(6));
                 break;
             case '0':
