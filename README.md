@@ -42,6 +42,16 @@ sudo ./server
 
 PS: we can make an especific make client/ make server to run
 
+### With docker network
+``` 
+sudo docker rm -f pc2
+sudo docker run -dit --name pc2 --network labnet --ip 172.18.0.3 -v /home/pipa/26barra1/PACMANinTheDark:/workspace:Z ubuntu:24.04 bash
+sudo docker exec -it pc2 bash
+cd /workspace
+apt update && apt install -y libstdc++6 libc6
+./client
+```
+
 ## Docs
 [RAWsocket, basics with Todt](https://wiki.inf.ufpr.br/todt/doku.php?id=raw_socket)
 
@@ -208,3 +218,14 @@ The receptor redo the calculus, if the value isn't the same the content is disca
 - our protocole CRC
     - We have to write the code that calculates and checks it
     - It protects againts local error: bugs in our code, wrong message assembly, corrupted data in memory
+
+
+#### A vector of a matrix, that would be so cool
+Soooo, instead of sending each line of a matrix
+We just would send ONE LINE that would contain the whole matrix
+
+But how??? Just like i did in world.cpp
+
+The cons are: 
+- processing it, but since it is only a 40x40 matrix i think it is worth it
+- Do we need to do that to with the archives?? Theeeen this will be a problem. But no, cus of the type in protocol.

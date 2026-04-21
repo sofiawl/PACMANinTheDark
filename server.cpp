@@ -1,51 +1,40 @@
-#include <string.h>
-#include <stdio.h>
+#include <cstdint>
 #include <net/ethernet.h>
 #include <linux/if_packet.h>
 #include <net/if.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <sys/types.h>
 
-# include "protocol.h"
+#include "protocol.h"
+#include "world.h"
 
 // get this information in bash with: ip link show
-const char* interface_pc1sofia = "enp4s0";
+const char* network_interface_pc2sofia = "enx00e04c034558";
 
 // get this information with: ip link show *your ip link name*
 // put THE CLIENT MAC address here
-unsigned char mac_pc1sofia[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
+unsigned char src_mac_pc2sofia[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
+unsigned char dest_mac_pc2sofia[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
+
 
 int main(){
-    int sock = create_raw_socket(interface_pc1sofia);
+    int sock = create_raw_socket(network_interface_pc2sofia);
 
-    // Build a raw ethernet frame
-    unsigned char frame[64] = {0};
+    Frame f;
+    uint8_t seq, *data, data_size;
+    MessageType msgtype;
+    char world[SIZE_WORLD][SIZE_WORLD];
 
-    // Destination MAC (first 6 bytes)
-    memcpy(frame, mac_pc1sofia, 6);
+    init_world(world);
 
-    // Source MAC — get from interface (bytes 6-11)
-    // For now just put 0s, promiscuous mode on receiver will catch it anyway
-    memset(frame + 6, 0x00, 6);
-
-    // EtherType — use a custom one so receiver knows it's ours (bytes 12-13)
-    frame[12] = 0x08;
-    frame[13] = 0x88;
-
-    // Payload — our message (bytes 14+)
-    const char* msg = "Hello from Server!";
-    memcpy(frame + 14, msg, strlen(msg));
-
-    // Send
-    struct sockaddr_ll addr = {0};
-    addr.sll_ifindex  = if_nametoindex(interface_pc1sofia);
-    addr.sll_halen    = ETH_ALEN;
-    memcpy(addr.sll_addr, mac_pc1sofia, 6);
-
-    int sent = sendto(sock, frame, 64, 0, (struct sockaddr*)&addr, sizeof(addr));
-    if (sent == -1) {
-        perror("sendto failed");
-    } else {
-        printf("Sent %d bytes!\n", sent);
+    data_size = SIZE_WORLD;
+    msgtype = MSG_INIT;
+    seq = 0;
+    for (int i = 0; i< SIZE_WORLD; i++){
+        data = (uint8_t*)world[i];
+        build_frame(&f, seq, msgtype, data, data_size); // add checks for errors later
+        send_frame(sock, &f, src_mac_pc2sofia, dest_mac_pc2sofia, network_interface_pc2sofia); // here too
+        seq++;
     }
 }

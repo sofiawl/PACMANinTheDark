@@ -1,0 +1,51 @@
+#include <random>
+#include <algorithm>
+#include "world.h"
+
+void init_world(char world[SIZE_WORLD][SIZE_WORLD]){
+    for (int i=0; i<SIZE_WORLD; i++) {
+      world[i][0] = 'X';
+      world[i][SIZE_WORLD-1] = 'X';
+      world[0][i] = 'X';
+      world[SIZE_WORLD-1][i] = 'X';
+    }
+
+    for (int i=1; i<SIZE_WORLD-1; i++) {
+      for (int j=1; j<SIZE_WORLD-1; j++) {
+        world[i][j] = '0';
+      }
+    }
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    world[(SIZE_WORLD-1)/2][(SIZE_WORLD-1)/2] = 'P';
+
+    // build list of allowed flattened positions (a vector of a matrix), exclude center
+    std::vector<std::size_t> allowed;
+    allowed.reserve(SIZE_WORLD*SIZE_WORLD - 1); // the allowed positions, does not include the wall
+    for (std::size_t i = 0; i < SIZE_WORLD; ++i) {
+      for (std::size_t j = 0; j < SIZE_WORLD; ++j) {
+        if (!(i == (SIZE_WORLD-1)/2 && j == (SIZE_WORLD-1)/2)) // reserve center, PACMAN position [19][19]
+          allowed.push_back(i * SIZE_WORLD + j);
+      }
+    }
+
+    std::shuffle(allowed.begin(), allowed.end(), gen);
+
+    auto pos0 = allowed[0];
+    auto pos1 = allowed[1];
+    auto pos2 = allowed[2];
+    auto pos3 = allowed[3];
+
+    // pos / SIZE_WORLD gives the row, pos % SIZE_WORLD gives the column
+    /* Example:
+     * SIZE_WORLD == 40 and pos == 123, then
+     * row = 123 / 40 = 3
+     * col = 123 % 40 = 3 so world[3][3] is set
+    */
+    world[pos0 / SIZE_WORLD][pos0 % SIZE_WORLD] = 'R';
+    world[pos1 / SIZE_WORLD][pos1 % SIZE_WORLD] = 'B';
+    world[pos2 / SIZE_WORLD][pos2 % SIZE_WORLD] = 'G';
+    world[pos3 / SIZE_WORLD][pos3 % SIZE_WORLD] = 'Y';
+}

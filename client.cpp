@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <sys/socket.h>
+#include <string.h>
 
 #include "protocol.h"
+#include "world.h"
 
 // get this information in bash with: ip link show
 const char* network_interface_pc1sofia = "enp4s0";
@@ -9,21 +11,33 @@ const char* network_interface_pc1sofia = "enp4s0";
 int main(){
     int sock = create_raw_socket(network_interface_pc1sofia);
 
-    unsigned char frame[64] = {0};
+    Frame frame;
+    char world[SIZE_WORLD][SIZE_WORLD];
 
     printf("Waiting for message...\n");
 
     while (1) {
-        int bytes = recv(sock, frame, sizeof(frame), 0);
+        int rv = recv_frame(sock, &frame);
 
-        if (bytes == -1) {
+        if (rv == -1) {
             // timeout: keep waiting just for this test
             continue;
         }
 
-        if (frame[12] == 0x08 && frame[13] == 0x88) {
-            // Payload starts at byte 14
-            printf("Received: %s\n", (char*)(frame + 14));
+        uint8_t row = frame.sequence;
+        if (row >= SIZE_WORLD) continue;
+
+        size_t copy_len = (frame.size <= SIZE_WORLD) ? frame.size : SIZE_WORLD;
+        memcpy(world[row], frame.data, copy_len);
+
+        if (row == SIZE_WORLD - 1) {
+            // print world and exit
+            printf("Received full world (end seq %u):\n", row);
+            for (int i = 0; i < SIZE_WORLD; ++i) {
+                for (int j = 0; j < SIZE_WORLD; ++j)
+                    putchar(world[i][j]);
+                putchar('\n');
+            }
             break;
         }
     }
