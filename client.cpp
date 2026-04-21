@@ -38,7 +38,7 @@ int main(){
     fclose(out);
     printf("Saved file as mundo_received.csv\n");
 
-    draw_world_ncurses_from_csv("mundo_received.csv");
+    draw_world_terminal_from_csv("mundo_received.csv");
 
     return 0;
 }
