@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -Wall -g
-CLIENT_LDLIBS = -lncursesw
+LDLIBS = -lncursesw
 
 SERVER_SRCS = server.cpp world.cpp protocol.cpp vision.cpp file_transfer.cpp
 CLIENT_SRCS = client.cpp protocol.cpp vision.cpp file_transfer.cpp
@@ -11,10 +11,10 @@ CLIENT_OBJS = $(CLIENT_SRCS:.cpp=.o)
 all: server client
 
 server: $(SERVER_OBJS)
-	$(CC) $(CFLAGS) -o server $(SERVER_OBJS)
+	$(CC) $(CFLAGS) -o server $(SERVER_OBJS) $(LDLIBS)
 
 client: $(CLIENT_OBJS)
-	$(CC) $(CFLAGS) -o client $(CLIENT_OBJS) $(CLIENT_LDLIBS)
+	$(CC) $(CFLAGS) -o client $(CLIENT_OBJS) $(LDLIBS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@

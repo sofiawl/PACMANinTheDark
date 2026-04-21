@@ -1,6 +1,7 @@
 #include <random>
 #include <algorithm>
 #include <fstream>
+#include <ncurses.h>
 #include "world.h"
 
 void init_world(char world[SIZE_WORLD][SIZE_WORLD]){
@@ -58,4 +59,90 @@ void init_world(char world[SIZE_WORLD][SIZE_WORLD]){
       mundo_file.write(world[i], SIZE_WORLD);
       mundo_file.put('\n');
     }
+}
+
+void draw_world_ncurses_from_csv(const char* csv_path) {
+    std::ifstream in(csv_path, std::ios::binary);
+    if (!in.is_open()) return;
+
+    char world[SIZE_WORLD][SIZE_WORLD];
+    for (int i = 0; i < SIZE_WORLD; ++i) {
+        int j = 0;
+        char c = '\0';
+        while (j < SIZE_WORLD && in.get(c)) {
+            if (c == '\n' || c == '\r') continue;
+            world[i][j] = c;
+            ++j;
+        }
+        while (j < SIZE_WORLD) {
+            world[i][j] = '0';
+            ++j;
+        }
+    }
+
+    initscr();
+    cbreak();
+    noecho();
+    curs_set(0);
+    keypad(stdscr, TRUE);
+
+    if (has_colors()) {
+        start_color();
+        init_pair(1, COLOR_BLUE, COLOR_BLACK);
+        init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+        init_pair(3, COLOR_RED, COLOR_BLACK);
+        init_pair(4, COLOR_CYAN, COLOR_BLACK);
+        init_pair(5, COLOR_GREEN, COLOR_BLACK);
+        init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
+    }
+
+    clear();
+    for (int i = 0; i < SIZE_WORLD; ++i) {
+        for (int j = 0; j < SIZE_WORLD; ++j) {
+            char tile = world[i][j];
+            switch (tile) {
+                case 'X':
+                    attron(COLOR_PAIR(1));
+                    mvaddch(i, j, '#');
+                    attroff(COLOR_PAIR(1));
+                    break;
+                case 'P':
+                    attron(COLOR_PAIR(2));
+                    mvaddch(i, j, 'P');
+                    attroff(COLOR_PAIR(2));
+                    break;
+                case 'R':
+                    attron(COLOR_PAIR(3));
+                    mvaddch(i, j, 'R');
+                    attroff(COLOR_PAIR(3));
+                    break;
+                case 'B':
+                    attron(COLOR_PAIR(4));
+                    mvaddch(i, j, 'B');
+                    attroff(COLOR_PAIR(4));
+                    break;
+                case 'G':
+                    attron(COLOR_PAIR(5));
+                    mvaddch(i, j, 'G');
+                    attroff(COLOR_PAIR(5));
+                    break;
+                case 'Y':
+                    attron(COLOR_PAIR(6));
+                    mvaddch(i, j, 'Y');
+                    attroff(COLOR_PAIR(6));
+                    break;
+                case '0':
+                    mvaddch(i, j, ' ');
+                    break;
+                default:
+                    mvaddch(i, j, tile);
+                    break;
+            }
+        }
+    }
+
+    mvprintw(SIZE_WORLD + 1, 0, "Press q to quit.");
+    refresh();
+    while (getch() != 'q') {}
+    endwin();
 }
