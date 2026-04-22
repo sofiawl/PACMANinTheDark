@@ -2,7 +2,7 @@
 #include <sys/socket.h>
 
 #include "protocol.h"
-#include "world.h"
+#include "client_view.h"
 
 // get this information in bash with: ip link show
 const char* network_interface_pc1sofia = "enp4s0";
@@ -38,7 +38,7 @@ int main(){
     fclose(out);
     printf("Saved file as mundo_received.csv\n");
 
-    draw_world_terminal_from_csv("mundo_received.csv");
+    draw_client_view_from_csv("mundo_received.csv");
 
     return 0;
 }

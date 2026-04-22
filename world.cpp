@@ -1,50 +1,7 @@
-#include <cstdio>
-#include <cstdlib>
 #include <random>
 #include <algorithm>
 #include <fstream>
-#include <unistd.h>
-#include <sys/ioctl.h>
-#include <termios.h>
 #include "world.h"
-
-static void terminal_size(int* rows, int* cols) {
-    struct winsize ws {};
-    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0 && ws.ws_row > 0 && ws.ws_col > 0) {
-        *rows = ws.ws_row;
-        *cols = ws.ws_col;
-        return;
-    }
-    const char* ce = std::getenv("COLUMNS");
-    const char* li = std::getenv("LINES");
-    *cols = (ce && std::atoi(ce) > 0) ? std::atoi(ce) : 80;
-    *rows = (li && std::atoi(li) > 0) ? std::atoi(li) : 24;
-}
-
-static void print_padx(int pad_x) {
-    for (int x = 0; x < pad_x; ++x) putchar(' ');
-}
-
-static void wait_for_q() {
-    fflush(stdout);
-    struct termios oldt {};
-    if (tcgetattr(STDIN_FILENO, &oldt) != 0) {
-        (void)getchar();
-        return;
-    }
-    struct termios newt = oldt;
-    newt.c_lflag &= static_cast<tcflag_t>(~(ICANON | ECHO));
-    newt.c_cc[VMIN] = 1;
-    newt.c_cc[VTIME] = 0;
-    if (tcsetattr(STDIN_FILENO, TCSANOW, &newt) != 0) {
-        (void)getchar();
-        (void)tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-        return;
-    }
-    int c = 0;
-    while ((c = getchar()) != 'q' && c != 'Q') {}
-    (void)tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-}
 
 void init_world(char world[SIZE_WORLD][SIZE_WORLD]){
     for (int i=0; i<SIZE_WORLD; i++) {
@@ -101,71 +58,4 @@ void init_world(char world[SIZE_WORLD][SIZE_WORLD]){
       mundo_file.write(world[i], SIZE_WORLD);
       mundo_file.put('\n');
     }
-}
-
-void draw_world_terminal_from_csv(const char* csv_path) {
-    std::ifstream in(csv_path, std::ios::binary);
-    if (!in.is_open()) return;
-
-    char world[SIZE_WORLD][SIZE_WORLD];
-    for (int i = 0; i < SIZE_WORLD; ++i) {
-        int j = 0;
-        char c = '\0';
-        while (j < SIZE_WORLD && in.get(c)) {
-            if (c == '\n' || c == '\r') continue;
-            world[i][j] = c;
-            ++j;
-        }
-        while (j < SIZE_WORLD) {
-            world[i][j] = '0';
-            ++j;
-        }
-    }
-
-    const int grid_w = SIZE_WORLD;
-    const int grid_h = SIZE_WORLD + 1;
-
-    int term_rows = 0, term_cols = 0;
-    terminal_size(&term_rows, &term_cols);
-
-    // Clear screen + home cursor: one character per cell, no ncurses width quirks.
-    std::fputs("\033[2J\033[H", stdout);
-
-    if (term_cols < grid_w || term_rows < grid_h) {
-        std::fprintf(
-            stderr,
-            "Terminal too small: need at least %d columns x %d rows (got %d x %d).\n",
-            grid_w,
-            grid_h,
-            term_cols,
-            term_rows);
-        std::fprintf(stderr, "Press q to exit. ");
-        wait_for_q();
-        return;
-    }
-
-    int pad_x = (term_cols - grid_w) / 2;
-    int pad_y = (term_rows - grid_h) / 2;
-    if (pad_x < 0) pad_x = 0;
-    if (pad_y < 0) pad_y = 0;
-
-    for (int y = 0; y < pad_y; ++y) putchar('\n');
-
-    for (int i = 0; i < SIZE_WORLD; ++i) {
-        print_padx(pad_x);
-        for (int j = 0; j < SIZE_WORLD; ++j) {
-            char ch = world[i][j];
-            if (ch == '0') ch = ' ';
-            putchar(ch);
-        }
-        putchar('\n');
-    }
-
-    char hint[grid_w + 1];
-    std::snprintf(hint, sizeof(hint), "%-*s", grid_w, "q=quit");
-    print_padx(pad_x);
-    std::fputs(hint, stdout);
-    putchar('\n');
-
-    wait_for_q();
 }
