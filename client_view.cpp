@@ -1,6 +1,7 @@
 #include "client_view.h"
 #include "world.h"
 
+#include <algorithm>
 #include <cstdio>
 #include <cstring>
 #include <fstream>
@@ -30,8 +31,7 @@ void draw_client_view_from_csv(const char* csv_path) {
         return;
     }
 
-    const int map_w = SIZE_WORLD;
-    const int map_h = SIZE_WORLD;
+    constexpr int hint_rows = 1;
 
     initscr();
     noecho();
@@ -42,24 +42,27 @@ void draw_client_view_from_csv(const char* csv_path) {
     int scr_h = 0, scr_w = 0;
     getmaxyx(stdscr, scr_h, scr_w);
 
-    if (scr_w < map_w || scr_h < map_h) {
+    // Each world cell is cell×cell terminal characters so the map is always a square
+    // of side (SIZE_WORLD * cell) columns and the same number of rows.
+    int cell = std::min(scr_w / SIZE_WORLD, (scr_h - hint_rows) / SIZE_WORLD);
+    if (cell < 1) {
         endwin();
         std::fprintf(
             stderr,
             "Terminal too small: need at least %d cols x %d rows (have %d x %d)\n",
-            map_w,
-            map_h,
+            SIZE_WORLD,
+            SIZE_WORLD + hint_rows,
             scr_w,
             scr_h);
         return;
     }
 
-    const int hint_h = (scr_h >= map_h + 1) ? 1 : 0;
-    const int win_w = map_w;
-    const int win_h = map_h + hint_h;
+    const int square_side = SIZE_WORLD * cell;
+    const int win_w = square_side;
+    const int win_h = square_side + hint_rows;
 
-    const int origin_y = (scr_h - win_h) / 2;
     const int origin_x = (scr_w - win_w) / 2;
+    const int origin_y = (scr_h - win_h) / 2;
 
     erase();
     WINDOW* box = newwin(win_h, win_w, origin_y, origin_x);
@@ -74,23 +77,27 @@ void draw_client_view_from_csv(const char* csv_path) {
         for (int j = 0; j < SIZE_WORLD; ++j) {
             char ch = world[i][j];
             if (ch == '0') ch = ' ';
-            mvwaddch(box, i, j, static_cast<unsigned char>(ch));
+            const int base_r = i * cell;
+            const int base_c = j * cell;
+            for (int dr = 0; dr < cell; ++dr) {
+                for (int dc = 0; dc < cell; ++dc) {
+                    mvwaddch(box, base_r + dr, base_c + dc, static_cast<unsigned char>(ch));
+                }
+            }
         }
     }
 
-    if (hint_h) {
-        const char* msg = "q=quit";
-        const int msglen = (int)std::strlen(msg);
-        int col = (win_w - msglen) / 2;
-        if (col < 0) col = 0;
-        mvwprintw(box, map_h, col, "%s", msg);
-    }
+    const char* msg = "q=quit";
+    const int msglen = (int)std::strlen(msg);
+    int col = (win_w - msglen) / 2;
+    if (col < 0) col = 0;
+    mvwprintw(box, square_side, col, "%s", msg);
 
     wrefresh(box);
     refresh();
 
-    int k = 0;
-    while ((k = wgetch(box)) != 'q' && k != 'Q') {}
+    int key = 0;
+    while ((key = wgetch(box)) != 'q' && key != 'Q') {}
 
     delwin(box);
     endwin();
