@@ -30,10 +30,10 @@ void draw_client_view_from_csv(const char* csv_path) {
         return;
     }
 
-    // Fixed viewport in terminal character cells (ncurses has no pixel API).
-    constexpr int VIEW_W = 160;
-    constexpr int VIEW_H = 162;
-    constexpr int CELL = 2;
+    // Fixed viewport in terminal character cells 
+    constexpr int VIEW_W = 40;
+    constexpr int VIEW_H = 40;
+    constexpr int CELL = 1;
 
     const int MAP_W = SIZE_WORLD * CELL;
     const int MAP_H = SIZE_WORLD * CELL;
