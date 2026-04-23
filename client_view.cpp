@@ -42,22 +42,36 @@ void draw_client_view_from_csv(const char* csv_path) {
     int scr_h = 0, scr_w = 0;
     getmaxyx(stdscr, scr_h, scr_w);
 
-    // Each world cell is cell×cell terminal characters so the map is always a square
-    // of side (SIZE_WORLD * cell) columns and the same number of rows.
-    int cell = std::min(scr_w / SIZE_WORLD, (scr_h - hint_rows) / SIZE_WORLD);
-    if (cell < 1) {
+    const int map_budget_rows = scr_h - hint_rows;
+    if (scr_w < 1 || map_budget_rows < 1) {
         endwin();
         std::fprintf(
             stderr,
-            "Terminal too small: need at least %d cols x %d rows (have %d x %d)\n",
-            SIZE_WORLD,
-            SIZE_WORLD + hint_rows,
+            "Terminal too small: need at least 1 column and 2 rows (have %d x %d)\n",
             scr_w,
             scr_h);
         return;
     }
 
-    const int square_side = SIZE_WORLD * cell;
+    // Largest square (side×side world cells), each drawn as cell×cell terminal chars,
+    // center-cropped from the 40×40 world. Fits any terminal that can show at least 1×1 + hint.
+    const int max_side = std::min(SIZE_WORLD, std::min(scr_w, map_budget_rows));
+    int best_side = 1;
+    int best_cell = 1;
+    for (int side = max_side; side >= 1; --side) {
+        const int cell = std::min(scr_w / side, map_budget_rows / side);
+        if (cell < 1) continue;
+        const int area = side * cell;
+        if (area > best_side * best_cell) {
+            best_side = side;
+            best_cell = cell;
+        }
+    }
+
+    const int off_r = (SIZE_WORLD - best_side) / 2;
+    const int off_c = (SIZE_WORLD - best_side) / 2;
+
+    const int square_side = best_side * best_cell;
     const int win_w = square_side;
     const int win_h = square_side + hint_rows;
 
@@ -73,21 +87,21 @@ void draw_client_view_from_csv(const char* csv_path) {
     }
 
     werase(box);
-    for (int i = 0; i < SIZE_WORLD; ++i) {
-        for (int j = 0; j < SIZE_WORLD; ++j) {
-            char ch = world[i][j];
+    for (int i = 0; i < best_side; ++i) {
+        for (int j = 0; j < best_side; ++j) {
+            char ch = world[off_r + i][off_c + j];
             if (ch == '0') ch = ' ';
-            const int base_r = i * cell;
-            const int base_c = j * cell;
-            for (int dr = 0; dr < cell; ++dr) {
-                for (int dc = 0; dc < cell; ++dc) {
+            const int base_r = i * best_cell;
+            const int base_c = j * best_cell;
+            for (int dr = 0; dr < best_cell; ++dr) {
+                for (int dc = 0; dc < best_cell; ++dc) {
                     mvwaddch(box, base_r + dr, base_c + dc, static_cast<unsigned char>(ch));
                 }
             }
         }
     }
 
-    const char* msg = "q=quit";
+    const char* msg = (best_side < SIZE_WORLD) ? "q=quit (cropped)" : "q=quit";
     const int msglen = (int)std::strlen(msg);
     int col = (win_w - msglen) / 2;
     if (col < 0) col = 0;
