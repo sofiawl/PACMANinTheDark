@@ -2,36 +2,61 @@
 #include "world.h"
 
 #include <algorithm>
+#include <cstdlib>
 #include <cstdio>
 #include <cstring>
 #include <fstream>
+#include <string>
 #include <ncurses.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
-    std::ifstream in(csv_path, std::ios::binary);
+    std::ifstream in(csv_path);
     if (!in.is_open()) return false;
 
+    std::string line;
     for (int i = 0; i < SIZE_WORLD; ++i) {
-        int j = 0;
-        char c = '\0';
-        while (j < SIZE_WORLD && in.get(c)) {
-            if (c == '\n' || c == '\r') continue;
-            world[i][j] = c;
-            ++j;
+        if (!std::getline(in, line)) return false;
+        if (!line.empty() && line.back() == '\r') line.pop_back();
+        for (int j = 0; j < SIZE_WORLD; ++j) {
+            world[i][j] = (j < (int)line.size()) ? line[j] : '0';
         }
-        while (j < SIZE_WORLD) world[i][j++] = '0';
     }
     return true;
+}
+
+static void query_screen_size(int* scr_h, int* scr_w) {
+    getmaxyx(stdscr, *scr_h, *scr_w);
+    if (*scr_h > 2 && *scr_w > 2) return;
+    struct winsize ws {};
+    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == 0 && ws.ws_row > 0 && ws.ws_col > 0) {
+        *scr_h = ws.ws_row;
+        *scr_w = ws.ws_col;
+        return;
+    }
+    const char* cs = std::getenv("COLUMNS");
+    const char* ls = std::getenv("LINES");
+    if (cs && ls) {
+        *scr_w = std::max(1, std::atoi(cs));
+        *scr_h = std::max(1, std::atoi(ls));
+    }
 }
 
 void draw_client_view_from_csv(const char* csv_path) {
     char world[SIZE_WORLD][SIZE_WORLD];
     if (!load_world_csv(csv_path, world)) {
-        std::fprintf(stderr, "Could not open %s\n", csv_path);
+        std::fprintf(
+            stderr,
+            "Could not load %s (need 40 lines, each with 40 characters)\n",
+            csv_path);
         return;
     }
 
     constexpr int hint_rows = 1;
+
+    std::fflush(stdout);
+    std::fflush(stderr);
 
     initscr();
     noecho();
@@ -40,7 +65,7 @@ void draw_client_view_from_csv(const char* csv_path) {
     keypad(stdscr, TRUE);
 
     int scr_h = 0, scr_w = 0;
-    getmaxyx(stdscr, scr_h, scr_w);
+    query_screen_size(&scr_h, &scr_w);
 
     const int map_budget_rows = scr_h - hint_rows;
     if (scr_w < 1 || map_budget_rows < 1) {
@@ -86,6 +111,7 @@ void draw_client_view_from_csv(const char* csv_path) {
         return;
     }
 
+    keypad(box, TRUE);
     werase(box);
     for (int i = 0; i < best_side; ++i) {
         for (int j = 0; j < best_side; ++j) {

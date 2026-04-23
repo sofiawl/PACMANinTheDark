@@ -35,8 +35,10 @@ int main(){
         if (frame.type == MSG_END) break;
     }
 
+    fflush(out);
     fclose(out);
     printf("Saved file as mundo_received.csv\n");
+    fflush(stdout);
 
     draw_client_view_from_csv("mundo_received.csv");
 
