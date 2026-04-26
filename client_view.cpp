@@ -7,7 +7,7 @@
 #include <cstring>
 #include <fstream>
 #include <string>
-#include <ncurses.h>
+#include <ncursesw/ncurses.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -46,99 +46,107 @@ static void query_screen_size(int* scr_h, int* scr_w) {
 void draw_client_view_from_csv(const char* csv_path) {
     char world[SIZE_WORLD][SIZE_WORLD];
     if (!load_world_csv(csv_path, world)) {
-        std::fprintf(
-            stderr,
-            "Could not load %s (need 40 lines, each with 40 characters)\n",
-            csv_path);
+        std::fprintf(stderr, "Could not load %s\n", csv_path);
         return;
     }
-
     constexpr int hint_rows = 1;
 
-    std::fflush(stdout);
-    std::fflush(stderr);
-
+    setlocale(LC_ALL, "");  // ← enables UTF-8 in ncurses
     initscr();
     noecho();
     cbreak();
     curs_set(0);
     keypad(stdscr, TRUE);
+    start_color();
+    use_default_colors();
+    refresh();
 
     int scr_h = 0, scr_w = 0;
     query_screen_size(&scr_h, &scr_w);
 
-    const int map_budget_rows = scr_h - hint_rows;
-    if (scr_w < 1 || map_budget_rows < 1) {
+    // 2 world rows per terminal row via half-blocks
+    const int term_rows_needed = SIZE_WORLD / 2;  // 20
+    const int term_cols_needed = SIZE_WORLD;       // 40
+
+    if (scr_h - hint_rows < term_rows_needed || scr_w < term_cols_needed) {
         endwin();
-        std::fprintf(
-            stderr,
-            "Terminal too small: need at least 1 column and 2 rows (have %d x %d)\n",
-            scr_w,
-            scr_h);
+        std::fprintf(stderr, "Terminal too small: need %dx%d, have %dx%d\n",
+            term_cols_needed, term_rows_needed + hint_rows, scr_w, scr_h);
         return;
     }
 
-    // Largest square (side×side world cells), each drawn as cell×cell terminal chars,
-    // center-cropped from the 40×40 world. Fits any terminal that can show at least 1×1 + hint.
-    const int max_side = std::min(SIZE_WORLD, std::min(scr_w, map_budget_rows));
-    int best_side = 1;
-    int best_cell = 1;
-    for (int side = max_side; side >= 1; --side) {
-        const int cell = std::min(scr_w / side, map_budget_rows / side);
-        if (cell < 1) continue;
-        const int area = side * cell;
-        if (area > best_side * best_cell) {
-            best_side = side;
-            best_cell = cell;
-        }
-    }
-
-    const int off_r = (SIZE_WORLD - best_side) / 2;
-    const int off_c = (SIZE_WORLD - best_side) / 2;
-
-    const int square_side = best_side * best_cell;
-    const int win_w = square_side;
-    const int win_h = square_side + hint_rows;
-
-    const int origin_x = (scr_w - win_w) / 2;
+    // each world cell is 1 terminal row tall (via half-block) and cell_w cols wide
+    const int cell_w = scr_w / SIZE_WORLD;
+    const int win_h  = term_rows_needed + hint_rows;  // 21
+    const int win_w  = SIZE_WORLD * cell_w;
     const int origin_y = (scr_h - win_h) / 2;
+    const int origin_x = (scr_w - win_w) / 2;
 
-    erase();
+    // build a color pair for each unique (top, bottom) combo on demand
+    // we use a simple map: pair index stored in a 2D array keyed by char
+    // chars we expect: 'X','G','B','R','P','Y',' ' → max ~7 chars → 49 pairs
+    static const char CHARS[] = " XGBRPY";
+    constexpr int NC = sizeof(CHARS) - 1;
+    // pair[top_idx][bot_idx] → color pair number (1-based)
+    short pair_id[NC][NC];
+    memset(pair_id, 0, sizeof(pair_id));
+    int next_pair = 1;
+
+    auto char_color = [](char c) -> short {
+        switch (c) {
+            case 'X': return COLOR_WHITE;
+            case 'G': return COLOR_GREEN;
+            case 'B': return COLOR_BLUE;
+            case 'R': return COLOR_RED;
+            case 'P': return COLOR_MAGENTA;
+            case 'Y': return COLOR_YELLOW;
+            case ' ': return COLOR_BLACK;  // ← explicit black for empty space
+            default:  return COLOR_BLACK;
+        }
+    };
+    auto char_idx = [&](char c) -> int {
+        for (int k = 0; k < NC; ++k) if (CHARS[k] == c) return k;
+        return 0;
+    };
+
     WINDOW* box = newwin(win_h, win_w, origin_y, origin_x);
-    if (!box) {
-        endwin();
-        std::fprintf(stderr, "newwin failed\n");
-        return;
-    }
-
+    if (!box) { endwin(); std::fprintf(stderr, "newwin failed\n"); return; }
     keypad(box, TRUE);
     werase(box);
-    for (int i = 0; i < best_side; ++i) {
-        for (int j = 0; j < best_side; ++j) {
-            char ch = world[off_r + i][off_c + j];
-            if (ch == '0') ch = ' ';
-            const int base_r = i * best_cell;
-            const int base_c = j * best_cell;
-            for (int dr = 0; dr < best_cell; ++dr) {
-                for (int dc = 0; dc < best_cell; ++dc) {
-                    mvwaddch(box, base_r + dr, base_c + dc, static_cast<unsigned char>(ch));
-                }
+
+    for (int i = 0; i < SIZE_WORLD; i += 2) {
+        int term_row = i / 2;
+        for (int j = 0; j < SIZE_WORLD; ++j) {
+            char top = world[i][j];
+            char bot = (i + 1 < SIZE_WORLD) ? world[i + 1][j] : '0';
+            if (top == '0') top = ' ';
+            if (bot == '0') bot = ' ';
+
+            int ti = char_idx(top);
+            int bi = char_idx(bot);
+            if (!pair_id[ti][bi]) {
+                // ▀ = upper half block: foreground = top color, background = bot color
+                init_pair(next_pair, char_color(top), char_color(bot));
+                pair_id[ti][bi] = next_pair++;
+            }
+
+            cchar_t wch;
+            wchar_t wstr[2] = { L'▀', L'\0' };
+            setcchar(&wch, wstr, A_NORMAL, pair_id[ti][bi], nullptr);
+            for (int dc = 0; dc < cell_w; ++dc) {
+                mvwadd_wch(box, term_row, j * cell_w + dc, &wch);
             }
         }
     }
 
-    const char* msg = (best_side < SIZE_WORLD) ? "q=quit (cropped)" : "q=quit";
-    const int msglen = (int)std::strlen(msg);
-    int col = (win_w - msglen) / 2;
+    const char* msg = "q=quit";
+    int col = (win_w - (int)std::strlen(msg)) / 2;
     if (col < 0) col = 0;
-    mvwprintw(box, square_side, col, "%s", msg);
+    mvwprintw(box, term_rows_needed, col, "%s", msg);
 
     wrefresh(box);
-    refresh();
-
     int key = 0;
     while ((key = wgetch(box)) != 'q' && key != 'Q') {}
-
     delwin(box);
     endwin();
 }

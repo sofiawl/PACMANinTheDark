@@ -8,8 +8,8 @@ Building the game interface with [ncurses](https://github.com/mcdaniel/curses_tu
 So, before running, you should install the necessaary packge:
 
 ```
-sudo apt update
-sudo apt install libncurses-dev libncursesw5-dev
+sudo apk update
+sudo apk install libncurses-dev libncursesw5-dev
 make clean && make
 ```
 
