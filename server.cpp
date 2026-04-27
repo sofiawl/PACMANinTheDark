@@ -12,12 +12,14 @@
 
 // get this information in bash with: ip link show
 const char* network_interface_pc2sofia = "enx00e04c034558";
+const char* network_interface_pchelena = "enx00e04c360252";
 
 // get this information with: ip link show *your ip link name*
 // put THE CLIENT MAC address here
 unsigned char src_mac_pc2sofia[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
 unsigned char dest_mac_pc1sofia[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
 
+unsigned char SERVER_mac_pchelena[6] = {0x00, 0xe0, 0x4c, 0x36, 0x02, 0x52};
 
 int main(){
     int sock = create_raw_socket(network_interface_pc2sofia);
@@ -51,7 +53,7 @@ int main(){
             return 1;
         }
 
-        if (send_frame(sock, &f, src_mac_pc2sofia, dest_mac_pc1sofia, network_interface_pc2sofia) < 0) {
+        if (send_frame(sock, &f, SERVER_mac_pchelena, dest_mac_pc1sofia, network_interface_pchelena) < 0) {
             fprintf(stderr, "Failed to send frame %u\n", seq);
             fclose(mundo);
             return 1;
