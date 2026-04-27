@@ -192,9 +192,14 @@ apt update && apt install -y libstdc++6 libc6
 - [ ] it must be printed for the presentation!
 
 ## Action Plan implementation
-1. Read RAWsocks stuff
-2. Try to send anything to another machine with the network cable
-3. we will know what to do next
+1. Send file from pc to another [:check:]
+2. Game stuff, pacman and ghosts movimentation
+3. Send packages through (not through pills)
+4. Timeout and other error handling
+5. Add pills to the world
+6. Make it dark
+6. Janelas deslizantes : ) 
+
 
 ## Everything Explained, to us dummies
 
