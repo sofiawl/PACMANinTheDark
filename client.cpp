@@ -6,9 +6,37 @@
 
 // get this information in bash with: ip link show
 const char* network_interface_pc1sofia = "enp4s0";
+const char* network_interface_pcVeth1 = "veth1";
+
+// implement this on the main 
+void recv_file(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface, Frame *f){
+    FILE *arq = fopen("name", "wb");
+    bool transmiting = true;  
+
+    while(transmiting){
+        if(calc_CRC(f) == f->CRC){
+
+            if(f->type == 16){
+                send_ack(sock, f->sequence, src_mac, dest_mac, iface);
+                transmiting = false; 
+            } else {
+                fwrite(f->data, 1, f->size, arq); 
+                send_ack(sock, f->sequence, src_mac, dest_mac, iface); 
+
+                recv_frame(sock, f); 
+            }
+        } else {
+            send_nack(sock, f->sequence, src_mac, dest_mac, iface); 
+            recv_frame(sock, f); 
+        }
+
+        fclose(arq); 
+    }
+}
+
 
 int main(){
-    int sock = create_raw_socket(network_interface_pc1sofia);
+    int sock = create_raw_socket(network_interface_pcVeth1);
 
     Frame frame;
     FILE* out = fopen("mundo_received.csv", "wb");

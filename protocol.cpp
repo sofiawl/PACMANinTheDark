@@ -188,6 +188,23 @@ int recv_frame(int sock, Frame* f){
     return 0;
 }
 
+
+int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
+    Frame f; 
+
+    build_frame(&f, seq, static_cast<MessageType>(0), nullptr, 0); 
+    calc_CRC(&f); 
+    return send_frame(sock, &f, src_mac, dest_mac, iface); 
+}   
+
+int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
+    Frame f; 
+
+    build_frame(&f, seq, static_cast<MessageType>(1), nullptr, 0); 
+    calc_CRC(&f); 
+    return send_frame(sock, &f, src_mac, dest_mac, iface); 
+}
+
 /*
  *
  * 2. i dont get these values, how does this actually works?
