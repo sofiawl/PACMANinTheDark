@@ -11,6 +11,24 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+static WINDOW* box_win = nullptr;  // kept alive across calls
+static int s_cell_h = 0;
+static int s_cell_w = 0;
+static int s_view_side = 0;
+
+static short color_for(char c) {
+    switch (c) {
+        case 'X': return COLOR_WHITE;
+        case 'G': return COLOR_GREEN;
+        case 'B': return COLOR_BLUE;
+        case 'R': return COLOR_RED;
+        case 'P': return COLOR_YELLOW;
+        case 'Y': return COLOR_MAGENTA;
+        case ' ': return COLOR_BLACK;
+        default:  return COLOR_BLACK;
+    }
+}
+
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
     std::ifstream in(csv_path);
     if (!in.is_open()) return false;
@@ -43,15 +61,9 @@ static void query_screen_size(int* scr_h, int* scr_w) {
     }
 }
 
-void draw_client_view_from_csv(const char* csv_path) {
-    char world[SIZE_WORLD][SIZE_WORLD];
-    if (!load_world_csv(csv_path, world)) {
-        std::fprintf(stderr, "Could not load %s\n", csv_path);
-        return;
-    }
-    constexpr int hint_rows = 1;
-
-    setlocale(LC_ALL, "");  // ← enables UTF-8 in ncurses
+// call once at startup
+void init_client_view() {
+    setlocale(LC_ALL, "");
     initscr();
     noecho();
     cbreak();
@@ -64,89 +76,95 @@ void draw_client_view_from_csv(const char* csv_path) {
     int scr_h = 0, scr_w = 0;
     query_screen_size(&scr_h, &scr_w);
 
-    // 2 world rows per terminal row via half-blocks
-    const int term_rows_needed = SIZE_WORLD / 2;  // 20
-    const int term_cols_needed = SIZE_WORLD;       // 40
+    constexpr int hint_rows = 1;
+    s_cell_h = 1;
+    s_cell_w = 2;
+    s_view_side = std::min({SIZE_WORLD, 2 * (scr_h - hint_rows), scr_w / s_cell_w});
 
-    if (scr_h - hint_rows < term_rows_needed || scr_w < term_cols_needed) {
+    if (s_view_side < 1) {
         endwin();
-        std::fprintf(stderr, "Terminal too small: need %dx%d, have %dx%d\n",
-            term_cols_needed, term_rows_needed + hint_rows, scr_w, scr_h);
+        fprintf(stderr, "Terminal too small\n");
         return;
     }
 
-    // each world cell is 1 terminal row tall (via half-block) and cell_w cols wide
-    const int cell_w = scr_w / SIZE_WORLD;
-    const int win_h  = term_rows_needed + hint_rows;  // 21
-    const int win_w  = SIZE_WORLD * cell_w;
+    const int win_h = s_view_side / 2 + hint_rows;
+    const int win_w = s_view_side * s_cell_w;
     const int origin_y = (scr_h - win_h) / 2;
     const int origin_x = (scr_w - win_w) / 2;
 
-    // build a color pair for each unique (top, bottom) combo on demand
-    // we use a simple map: pair index stored in a 2D array keyed by char
-    // chars we expect: 'X','G','B','R','P','Y',' ' → max ~7 chars → 49 pairs
-    static const char CHARS[] = " XGBRPY";
-    constexpr int NC = sizeof(CHARS) - 1;
-    // pair[top_idx][bot_idx] → color pair number (1-based)
-    short pair_id[NC][NC];
-    memset(pair_id, 0, sizeof(pair_id));
-    int next_pair = 1;
+    box_win = newwin(win_h, win_w, origin_y, origin_x);
+    keypad(box_win, TRUE);
+    wtimeout(box_win, 0);  // non-blocking: returns ERR immediately if no key buffered
+}
 
-    auto char_color = [](char c) -> short {
-        switch (c) {
-            case 'X': return COLOR_WHITE;
-            case 'G': return COLOR_GREEN;
-            case 'B': return COLOR_BLUE;
-            case 'R': return COLOR_RED;
-            case 'P': return COLOR_MAGENTA;
-            case 'Y': return COLOR_YELLOW;
-            case ' ': return COLOR_BLACK;  // ← explicit black for empty space
-            default:  return COLOR_BLACK;
-        }
-    };
+// call once at shutdown
+void close_client_view() {
+    if (box_win) {
+        delwin(box_win);
+        box_win = nullptr;
+    }
+    endwin();
+}
+
+// draws the world and returns the key pressed
+int draw_client_view_and_get_key(const char* csv_path) {
+    if (!box_win) return 'q';
+
+    char world[SIZE_WORLD][SIZE_WORLD];
+    if (!load_world_csv(csv_path, world)) {
+        fprintf(stderr, "Could not load %s\n", csv_path);
+        return ERR;
+    }
+
+    // build color pairs on demand
+    static short pair_id[8][8] = {};
+    static bool pairs_init = false;
+    if (!pairs_init) {
+        memset(pair_id, 0, sizeof(pair_id));
+        pairs_init = true;
+    }
+    static int next_pair = 1;
+
+    static const char CHARS[] = " XGBRPY0";
+    constexpr int NC = sizeof(CHARS) - 1;
+
     auto char_idx = [&](char c) -> int {
         for (int k = 0; k < NC; ++k) if (CHARS[k] == c) return k;
         return 0;
     };
 
-    WINDOW* box = newwin(win_h, win_w, origin_y, origin_x);
-    if (!box) { endwin(); std::fprintf(stderr, "newwin failed\n"); return; }
-    keypad(box, TRUE);
-    werase(box);
+    werase(box_win);
 
-    for (int i = 0; i < SIZE_WORLD; i += 2) {
+    for (int i = 0; i < s_view_side; i += 2) {
         int term_row = i / 2;
-        for (int j = 0; j < SIZE_WORLD; ++j) {
+        for (int j = 0; j < s_view_side; ++j) {
             char top = world[i][j];
-            char bot = (i + 1 < SIZE_WORLD) ? world[i + 1][j] : '0';
+            char bot = (i + 1 < s_view_side) ? world[i + 1][j] : '0';
             if (top == '0') top = ' ';
             if (bot == '0') bot = ' ';
 
             int ti = char_idx(top);
             int bi = char_idx(bot);
             if (!pair_id[ti][bi]) {
-                // ▀ = upper half block: foreground = top color, background = bot color
-                init_pair(next_pair, char_color(top), char_color(bot));
+                init_pair(next_pair, color_for(top), color_for(bot));
                 pair_id[ti][bi] = next_pair++;
             }
 
             cchar_t wch;
-            wchar_t wstr[2] = { L'▀', L'\0' };
+            wchar_t wstr[2] = {L'▀', L'\0'};
             setcchar(&wch, wstr, A_NORMAL, pair_id[ti][bi], nullptr);
-            for (int dc = 0; dc < cell_w; ++dc) {
-                mvwadd_wch(box, term_row, j * cell_w + dc, &wch);
-            }
+            for (int dc = 0; dc < s_cell_w; ++dc)
+                mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
         }
     }
 
     const char* msg = "q=quit";
-    int col = (win_w - (int)std::strlen(msg)) / 2;
-    if (col < 0) col = 0;
-    mvwprintw(box, term_rows_needed, col, "%s", msg);
+    int msg_col = (s_view_side * s_cell_w - (int)strlen(msg)) / 2;
+    if (msg_col < 0) msg_col = 0;
+    mvwprintw(box_win, s_view_side / 2, msg_col, "%s", msg);
 
-    wrefresh(box);
-    int key = 0;
-    while ((key = wgetch(box)) != 'q' && key != 'Q') {}
-    delwin(box);
-    endwin();
+    wrefresh(box_win);
+
+    // wait for keypress
+    return wgetch(box_win);
 }

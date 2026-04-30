@@ -21,7 +21,8 @@ typedef enum {
     MSG_UP = 12,
     MSG_DOWN = 13,
     MSG_ERROR = 15,
-    MSG_END = 16
+    MSG_END = 16,
+    MSG_WORLD = 14
 } MessageType;
 
 typedef struct {
@@ -42,8 +43,6 @@ int build_frame(Frame *f, uint8_t seq, MessageType msgtype, uint8_t *data, uint8
 int send_frame(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface);
 
 int recv_frame(int sock, Frame* f);
-
-uint8_t send_file(uint8_t *data); 
 
 int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface);
 

@@ -7,6 +7,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <string>
+#include <vector>
+#include <chrono>
 
 #include "protocol.h"
 #include "world.h"
@@ -33,7 +35,7 @@ int identify_type(std::string nomeArquivo) {
 }
 
 
-uint8_t send_file(const char* arquivo, int sock, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
+uint8_t send_file(const char* arquivo, int sock){
     printf("Debug: [send_file]\n");
     Frame f; 
     uint8_t buffer[1024];
@@ -52,22 +54,22 @@ uint8_t send_file(const char* arquivo, int sock, unsigned char src_mac[6], unsig
         while(!ack_received){
             build_frame(&f, seq, type, buffer, bytes_lidos); 
             calc_CRC(&f); 
-            send_frame(sock, &f, src_mac, dest_mac, iface); 
-        }
+            send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0); 
 
-        // stop and wait 
-        Frame answer; 
-        int status = recv_frame(sock, &answer);
+            // stop and wait 
+            Frame answer; 
+            int status = recv_frame(sock, &answer);
 
-        if(status > 0){
-            // it does not enter this part (of course it doesn't you have to implement the client first)
-            printf("Debug: [send_file] status > 0\n");
-            if(answer.type == 0 && answer.sequence == seq){
-                ack_received = true;
-                seq++; 
-                printf("%d\n", seq); 
-            } else {
-                printf("Timeout!"); 
+            if(status > 0){
+                // it does not enter this part (of course it doesn't you have to implement the client first)
+                printf("Debug: [send_file] status > 0\n");
+                if(answer.type == 0 && answer.sequence == seq){
+                    ack_received = true;
+                    seq++; 
+                    printf("%d\n", seq); 
+                } else {
+                    printf("Timeout!"); 
+                }
             }
         }
     }
@@ -78,56 +80,86 @@ uint8_t send_file(const char* arquivo, int sock, unsigned char src_mac[6], unsig
 }
 
 
-int main(){
-    int sock = create_raw_socket(network_interface_pcVeth0);
-
-    Frame f;
-    uint8_t seq = 0;
-    char world[SIZE_WORLD][SIZE_WORLD];
-
-    init_world(world);
+void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
+    update_world_csv(world);
 
     FILE* mundo = fopen("mundo.csv", "rb");
     if (!mundo) {
         fprintf(stderr, "Could not open mundo.csv for sending\n");
-        return 1;
+        return;
     }
 
+    Frame f;
+    uint8_t seq = 0;
     while (1) {
         uint8_t buffer[DATA_SIZE];
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
         if (bytes_read == 0) break;
-
-        if (seq > 63) {
-            fprintf(stderr, "File too large for current sequence field\n");
-            fclose(mundo);
-            return 1;
-        }
-
-        if (build_frame(&f, seq, MSG_TXT, buffer, (uint8_t)bytes_read) != 0) {
-            fprintf(stderr, "Failed to build frame %u\n", seq);
-            fclose(mundo);
-            return 1;
-        }
-
-        if (send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0) < 0) {
-            fprintf(stderr, "Failed to send frame %u\n", seq);
-            fclose(mundo);
-            return 1;
-        }
-
-
+        if (build_frame(&f, seq, MSG_TXT, buffer, (uint8_t)bytes_read) != 0) break;
+        if (send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0) < 0) break;
         seq++;
     }
-
     fclose(mundo);
 
-    if (build_frame(&f, seq, MSG_END, nullptr, 0) == 0) {
+    // send END frame to signal world transmission is complete
+    if (build_frame(&f, seq, MSG_END, nullptr, 0) == 0)
         send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
-        printf("Debug: [build_frame]\n");
-        send_file("1.txt", sock, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0); 
+}
+
+
+int main(){
+    int sock = create_raw_socket(network_interface_pcVeth0);
+
+    // 10ms recv timeout — server loop never blocks waiting for client input
+    struct timeval tv = {0, 10000};
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+
+    char world[SIZE_WORLD][SIZE_WORLD];
+
+    std::pair<int, int> pacman_coord = {{(SIZE_WORLD-1)/2}, {(SIZE_WORLD-1)/2}};
+    std::vector<std::pair<int, int>> ghost_coords = init_world(world, pacman_coord);
+    bool green_go_left  = false;
+    bool red_going_right = true;
+    bool blue_going_up   = true;
+
+    send_world(sock, world);
+
+    Frame f;
+    auto last_tick = std::chrono::steady_clock::now();
+    const auto ghost_interval = std::chrono::milliseconds(300);
+
+    while (1) {
+        // non-blocking key check: returns after 10ms if client sent nothing
+        if (recv_frame(sock, &f) >= 0) {
+            if (f.type == MSG_END) break;
+            if (f.type == MSG_TXT && f.size > 0) { // why is f.type MSG_TXT shouldn't be RIGHT, LEFT, UP or DOWN? 
+                printf("Debug: [main_server while] key pressed\n");
+                send_file("1.txt", sock); 
+                int key = f.data[0];
+                if (key == 'q' || key == 'Q') break;
+                if (move_pacman(world, pacman_coord, key) == -1) break;
+                send_world(sock, world);  // respond immediately so Pacman feels responsive
+            }
+        }
+
+        // ghost tick: fires every 300ms regardless of client input
+        auto now = std::chrono::steady_clock::now();
+        if (now - last_tick >= ghost_interval) {
+            last_tick = now;
+            if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1) break;
+            send_world(sock, world);
+        }
     }
 
-    printf("mundo.csv sent in %u data frames\n", seq);
+    printf("Game over\n");
     return 0;
 }
+
+/*
+o mundo só vai ser mandado depois que tudo acontecer dentro do while(1)
+como que eu faço para:
+1. manda o mundo 
+2. esperar o cliente andar para algum lugar
+3. checar se comeu pastilha, bateu na parede ou só atualizar a coordenada 
+4. mandar a mensagem da pilula 
+*/
