@@ -37,38 +37,50 @@ int identify_type(std::string nomeArquivo) {
 
 uint8_t send_file(const char* arquivo, int sock){
     printf("Debug: [send_file]\n");
-    Frame f; 
-    uint8_t buffer[1024];
-    uint16_t seq = 0; 
-    size_t bytes_lidos; 
-    bool ack_received; 
     
     FILE *arq = fopen(arquivo, "rb"); 
+    if(!arq){
+        fprintf(stderr, "Could not open file for sending"); 
+        return -1; 
+    }
+
+    Frame f; 
+    uint16_t seq = 0; 
+    bool ack_received;
+
     int type_int = identify_type(arquivo);  
     MessageType type = (MessageType) type_int; 
 
-    while((bytes_lidos = fread(buffer, 1, 1024, arq)) > 0){
-        printf("Debug: [send_file] first while\n");
-        ack_received = false; 
+
+    while (1) {
+        ack_received = false;
+
+        uint8_t buffer[1024];
+        size_t bytes_read = fread(buffer, 1, 1024, arq);
+        if (bytes_read == 0) break;
+        if (build_frame(&f, seq, type, buffer, (uint8_t)bytes_read) != 0) break;
+        if (send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0) < 0) break;
+        seq++;
+
+        // send END frame to signal world transmission is complete
+        if (build_frame(&f, seq, MSG_END, nullptr, 0) == 0){
+            send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
+            printf("Debug: [send_file] file sent\n");
+        }
 
         while(!ack_received){
-            build_frame(&f, seq, type, buffer, bytes_lidos); 
-            calc_CRC(&f); 
-            send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0); 
-
-            // stop and wait 
             Frame answer; 
             int status = recv_frame(sock, &answer);
 
-            if(status > 0){
-                // it does not enter this part (of course it doesn't you have to implement the client first)
-                printf("Debug: [send_file] status > 0\n");
-                if(answer.type == 0 && answer.sequence == seq){
+            //it is receiving way too many acks while the client only sends one ack 
+            if(status){
+                if(answer.type == 0 ){ //&& answer.sequence == seq
+                    printf("Debug: [send_file] ack received\n");
                     ack_received = true;
                     seq++; 
                     printf("%d\n", seq); 
-                } else {
-                    printf("Timeout!"); 
+                } else if(answer.type == 1){
+                    printf("Timeout!\n"); 
                 }
             }
         }
@@ -132,13 +144,16 @@ int main(){
         // non-blocking key check: returns after 10ms if client sent nothing
         if (recv_frame(sock, &f) >= 0) {
             if (f.type == MSG_END) break;
-            if (f.type == MSG_TXT && f.size > 0) { // why is f.type MSG_TXT shouldn't be RIGHT, LEFT, UP or DOWN? 
-                printf("Debug: [main_server while] key pressed\n");
-                send_file("1.txt", sock); 
+            if (f.type == MSG_TXT && f.size > 0) { // why is f.type MSG_TXT shouldn't be RIGHT, LEFT, UP or DOWN?  
                 int key = f.data[0];
                 if (key == 'q' || key == 'Q') break;
                 if (move_pacman(world, pacman_coord, key) == -1) break;
                 send_world(sock, world);  // respond immediately so Pacman feels responsive
+                
+                if(key == 'w' || key == 's'|| key == 'a' || key == 'd'){
+                    printf("Debug: [main_server while] key pressed\n");
+                    send_file("teste_grande.jpg", sock);
+                }   
             }
         }
 

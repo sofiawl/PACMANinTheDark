@@ -190,6 +190,7 @@ int recv_frame(int sock, Frame* f){
 
 
 int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
+    printf("Debug: [send_ack]\n");
     Frame f; 
 
     build_frame(&f, seq, static_cast<MessageType>(0), nullptr, 0); 

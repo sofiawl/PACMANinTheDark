@@ -34,18 +34,23 @@ void recv_file(int sock, Frame *f, const char* name){
 
             if(f->type == 16){
                 send_ack(sock, f->sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
-                //printf("Debug: [recv_file] ack sent\n");
+                recv_frame(sock, f); 
+                printf("Debug: [recv_file] end ack sent\n");
                 transmiting = false; 
             } else {
                 fwrite(f->data, 1, f->size, arq); 
+                //it is sending to many acks and the acks are not being received 
                 send_ack(sock, f->sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0); 
                 recv_frame(sock, f); 
+                printf("Debug: [recv_file]ack sent\n");
             }
-        } else {
+        } /*else {
+            // here is sending a bunch of nacks 
+            // it should only send one nack if necessary, this loop doensn't make sense 
             send_nack(sock, f->sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0); 
             //printf("Debug: [recv_file] nack sent\n");
             recv_frame(sock, f); 
-        }
+        }*/
 
     }
 
@@ -99,6 +104,7 @@ int main() {
             }
 
             Frame f;
+            //why is it MSG_TXT if it is sending a movement
             if (build_frame(&f, 0, MSG_TXT, &key_byte, 1) == 0)
                 send_frame(sock, &f, dest_mac_pcVeth1, SERVER_mac_pcVeth0, network_interface_pcVeth1);
 
@@ -107,10 +113,14 @@ int main() {
 
         // this should only happen after pressing a key and receving a file but it is happening every time 
         //The problem is here, I don't know where to put this part 
-        /*Frame frame; 
+        //Should I create a type world so I know when a file is world or not? 
+        Frame frame; 
         if((recv_frame(sock, &frame))){
-            recv_file(sock, &frame, "1");
-        }*/
+            if(frame.type == 6 || frame.type == 7){
+                printf("Debug: [main_client] received file\n");
+                recv_file(sock, &frame, "1");
+            }
+        }
         
         // block here until server pushes the next world update (every 300ms)
         if (!receive_world(sock)) break;
@@ -150,7 +160,7 @@ Ordem dos eventos:
 
 Fazer um while para o mundo e um outro while para mensagens
 
-The ghosts are not moving anymore which means that it senses that the file is receives and gets stuck in a loop somewhere
+Should I really create a type world? 
 */
 
 

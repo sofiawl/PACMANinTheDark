@@ -5,7 +5,7 @@
 ###
 Building the game interface with [ncurses](https://github.com/mcdaniel/curses_tutorial)
 
-So, before running, you should install the necessaary packge:
+So, before running, you should install the necessary packge:
 
 ```
 sudo apk update
@@ -14,6 +14,8 @@ make clean && make
 ```
 
 ### On the client:
+
+*You should start the client first*
 
 First:
 ```
@@ -36,7 +38,10 @@ First:
 // Get your pc's interface name 
 ip link show
 
-// Then get your pc's MAC
+// Then get your pc's MAC (the server)
+ip link show (your interface name)
+
+// Get your other pc's MAC (the client)
 ip link show (your interface name)
 
 // Fill in those informations in server.cpp
@@ -51,16 +56,6 @@ sudo ./server
 ```
 
 PS: we can make an especific make client/ make server to run
-
-### With docker network
-``` 
-sudo docker rm -f pc2
-sudo docker run -dit --name pc2 --network labnet --ip 172.18.0.3 -v /home/pipa/26barra1/PACMANinTheDark:/workspace:Z ubuntu:24.04 bash
-sudo docker exec -it pc2 bash
-cd /workspace
-apt update && apt install -y libstdc++6 libc6
-./client
-```
 
 ## Docs
 [RAWsocket, basics with Todt](https://wiki.inf.ufpr.br/todt/doku.php?id=raw_socket)
@@ -239,3 +234,83 @@ But how??? Just like i did in world.cpp
 The cons are: 
 - processing it, but since it is only a 40x40 matrix i think it is worth it
 - Do we need to do that to with the archives?? Theeeen this will be a problem. But no, cus of the type in protocol.
+
+
+#### Unfortunatly had to use 'w', 'a', 's', 'd' to move Pacman and here is why
+KEY_UP=259, cast to uint8_t = 3 -> it made an overflow
+
+Server passes f.data[0]=3 to move_pacman, whose switch compares
+  against KEY_UP=259 — never matches → Pacman never moves.
+
+#### Making the ghosts move independly 
+Before, the ghosts were only moving when pacman moved. Because the client was only sending message to the server when it pressed a key, then the server moved the pacman and updated.
+
+But now, the server has it's one timeclock that moves the ghosts accordingly to his game. The server keeps sending this update world messages to the client so that it updates the view. And if the client clicks a key, then the server receives the key that was pressed, move pacman and send world atualized to the client.
+
+before:
+```
+    Client                    Server 
+                            init_world
+   receive world   <------- send world
+   
+   [begin loop]
+   draw world
+   wait for key (100ms)
+   send key  ----------->
+                           move_pacman(key)
+                           move_ghosts()
+   receive world <-------- send world
+   
+   [repeat]
+```
+
+now:
+```
+    Client                    Server
+                            init_world
+    receive world <-------- send_world
+    
+    [begin loop]
+    draw world
+    
+    if key pressed:
+    send key  ──────────────>  recv_frame() gets key
+                               move_pacman(key)                                    
+    receive_world() <───────── send world              ← Pacman update
+
+                                move_ghosts()                           |  This happens every 300ms,    
+    receive_world() <────────── send_world()           ← ghost update   |  independently on pacman move.
+                                                          
+    draw_world()
+    [repeat]
+```  
+The socket has a kernel receive buffer. When the server sends two worlds back-to-back, both land in that buffer:
+
+```
+  Socket buffer:  [TXT][TXT]...[END]         [TXT][TXT]...[END]
+                  receive world 1 ──────►  receive world 2 ──────►
+                  
+``` 
+
+receive_world reads frames one by one until it hits MSG_END, then returns. World 2 stays untouched in the buffer. On the next loop iteration the client calls receive_world again and finds world 2 already waiting, it reads it immediately without blocking.
+
+So the client processes them sequentially, one per loop iteration:
+- Loop iteration 1:  receive world 1 (Pacman moved) → draw → check key
+- Loop iteration 2:  receive world 2 (ghosts moved)  → draw → check key
+
+Review this logic in the future, when we are sending archives that are really big and have many messages to send them to the client at the same time. How the buffer will handle??
+
+
+#### Thing sofia must add
+1. UFPR page instead of "Waiting for initial world"
+2. EndGame page
+3. EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
+4. Vision expansion grr
+5. Later: timeouts and error handling
+6. Janela deslizantes
+
+#### Thing Helena must add
+1. Sending files
+2. Showing files for the client 
+3. Timeout
+4. Error handling 
