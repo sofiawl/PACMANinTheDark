@@ -310,10 +310,25 @@ Review this logic in the future, when we are sending archives that are really bi
 6. Janela deslizantes
 
 #### Thing Helena must add
-1. Sending files
-2. Showing files for the client 
-3. Timeout
-4. Error handling 
+1. Ack / nack
+2. Sincronize client and server
+3. Send big files
+4. Timeout 
+4. Show the files for the client  
+5. Error handling 
+6. Log
+
+## How to do loopback 
+- Cria o par de interfaces virtuais (veth0 e veth1)
+sudo ip link add veth0 type veth peer name veth1
+
+- Ativa as interfaces
+sudo ip link set veth0 up
+sudo ip link set veth1 up
+
+- (Opcional) Atribuir IPs apenas para facilitar, embora o RAWSocket possa usar o endereço MAC
+sudo ip addr add 10.0.0.1/24 dev veth0
+sudo ip addr add 10.0.0.2/24 dev veth1
 
 #### Thing Helena changed 
 - Message type 
@@ -323,13 +338,24 @@ Review this logic in the future, when we are sending archives that are really bi
 - Server is always waiting 
     - The server should be the one that starts first, to do that the client sends a frame that tells the server that the client has logged in and wants to play. The frame type is MSG_INIT
 
-#### The bitmask might be wrong 
-- How I am checking that: 
-    
+#### Things to check
+- Bitmask: 
+
     sudo tcpdump -i veth0 -v > /tmp/log-int.txt &
-    ps -ef | grep tcpdump
 
     runs the game 
 
     more /tmp/log-int.txt -> here there is everything that is going throught the computers
+
+    ps -ef | grep tcpdump
     sudo kill [number]
+
+- how much time should the receive wait?
+
+- UFPR map
+    I am not sure how to implement that but I belive the user should be able to insert a map and if that does not happen then the standart map is the UFPR one. 
+
+### What I don't understand
+- How I am going to sincronize them? They are not waiting for the ack and nacks 
+
+

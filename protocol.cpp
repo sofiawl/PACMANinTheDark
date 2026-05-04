@@ -46,7 +46,7 @@ int create_raw_socket(const char* network_interface_name) {
         exit(-1);
     }
 
-    const int timeoutMillis = 300; // 300 milisegundos de timeout por exemplo
+    const int timeoutMillis = 1000; // 300 milisegundos de timeout por exemplo
     struct timeval timeout = { .tv_sec = timeoutMillis / 1000, .tv_usec = (timeoutMillis % 1000) * 1000 };
     setsockopt(sk, SOL_SOCKET, SO_RCVTIMEO, (char*) &timeout, sizeof(timeout));
 
@@ -182,6 +182,7 @@ int recv_frame(int sock, Frame* f){
     memcpy(f, eth_frame + 14, sizeof(Frame));
 
     if (f->marker != MARKER) return -1;
+    // printf("Marker - Type: %d - %d\n",f->marker, f->type);
 
     uint8_t expected = calc_CRC(f);
     if (expected != f->CRC) {
@@ -194,20 +195,29 @@ int recv_frame(int sock, Frame* f){
 
 
 int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
-    printf("Debug: [send_ack]\n");
+    //printf("Debug: [send_ack]\n");
     Frame f; 
 
-    build_frame(&f, seq, static_cast<MessageType>(0), nullptr, 0); 
-    //calc_CRC(&f); 
+    build_frame(&f, seq, MSG_ACK, nullptr, 0); 
     return send_frame(sock, &f, src_mac, dest_mac, iface); 
 }   
 
 int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
     Frame f; 
 
-    build_frame(&f, seq, static_cast<MessageType>(1), nullptr, 0); 
-    //calc_CRC(&f); 
+    build_frame(&f, seq, MSG_NACK, nullptr, 0); 
     return send_frame(sock, &f, src_mac, dest_mac, iface); 
+}
+
+int recv_ackNAck(int sock, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
+    int timeout;
+    Frame f_recv; 
+    while(1) {
+        if (recv_frame(sock, &f_recv) && f_recv.type == MSG_ACK) break;
+        if (f_recv.type == MSG_NACK) return 1;
+        if (timeout++ > TIMEOUT) return -1; 
+    }
+    return 0; 
 }
 
 /*

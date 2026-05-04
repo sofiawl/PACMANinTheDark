@@ -5,40 +5,25 @@
 #include "protocol.h"
 #include "client_view.h"
 
-// get this information in bash with: ip link show
-const char* network_interface_pc1sofia = "enp4s0";
-const char* network_interface_pcVeth1 = "veth1";
-
-// get this information in bash with: ip link show
-const char* network_interface_pc2sofia = "enx00e04c034558";
-const char* network_interface_pcVeth0 = "veth0";
-
-// get this information with: ip link show *your ip link name*
-// put THE CLIENT MAC address here
-unsigned char src_mac_pc2sofia[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
-unsigned char dest_mac_pc1sofia[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
-
-unsigned char SERVER_mac_pcVeth0[6] = {0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c};
-unsigned char dest_mac_pcVeth1[6] = {0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7};
-
 
 int send_init(int sock) {
-
     // sends a message to tell the server that it wants to start
-    int timeout;
-    Frame f_send, f_receive;
+    Frame f_send, f_recv;
     if(build_frame(&f_send, 0, MSG_INIT, nullptr, 1) == 0){
-        send_frame(sock, &f_send, dest_mac_pcVeth1, SERVER_mac_pcVeth0, network_interface_pcVeth1);
+        send_frame(sock, &f_send, CLIENT, SERVER, INTERFACE1);
     }
-
+    
+    int timeout;
     while(1) {
-        if (recv_frame(sock, &f_receive) && f_receive.type == MSG_ACK) break;
-        if (f_receive.type == MSG_NACK) {
-            send_frame(sock, &f_send, dest_mac_pcVeth1, SERVER_mac_pcVeth0, network_interface_pcVeth1);
+        if (recv_frame(sock, &f_recv) >= 0) {
+
+            if (f_recv.type == MSG_ACK) break;
+
+            if (f_recv.type == MSG_NACK)
+                send_frame(sock, &f_send, CLIENT, SERVER, INTERFACE1); 
         }
         if (timeout++ > TIMEOUT) return -1; 
     }
-
     return 0;
 }
 
@@ -48,20 +33,24 @@ void recv_file(int sock, Frame *f, const char* name){
     printf("Debug: [recv_file] \n");
 
     FILE *arq = fopen(name, "wb");
+    if(arq == NULL){
+        printf("Erro ao abrir arquivo\n");
+        return; 
+    }
     bool transmiting = true;  
 
     while(transmiting){
         if(recv_frame(sock, f)){
 
             if(f->type == MSG_END){
-                send_ack(sock, f->sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
+                send_ack(sock, f->sequence,CLIENT, SERVER, INTERFACE1);
                 /* recv_frame(sock, f); */
                 printf("Debug [recv_file] END - seq: %d\n", f->sequence); 
                 transmiting = false; 
             } else { // TRATAR NACK DO SERVIDOR - retransmissao guardar ultima msg + TRATAR O NR SEQ
                 fwrite(f->data, 1, f->size, arq); 
                 //it is sending to many acks and the acks are not being received 
-                send_ack(sock, f->sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0); 
+                send_ack(sock, f->sequence, CLIENT, SERVER, INTERFACE1); 
                 // recv_frame(sock, f); 
                 printf("Debug [recv_file] seq: %d\n", f->sequence); 
                 printf("Debug: [recv_file]ack sent\n");
@@ -69,7 +58,7 @@ void recv_file(int sock, Frame *f, const char* name){
         } /*else {
             // here is sending a bunch of nacks 
             // it should only send one nack if necessary, this loop doensn't make sense 
-            send_nack(sock, f->sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0); 
+            send_nack(sock, f->sequence, CLIENT, SERVER, INTERFACE1); 
             //printf("Debug: [recv_file] nack sent\n");
             recv_frame(sock, f); 
         }*/
@@ -91,6 +80,7 @@ bool receive_world(int sock) {
         int rv = recv_frame(sock, &frame);
         if (rv < 0) continue;  // timeout, keep waiting for server push
         if (frame.type == MSG_WORLD) {
+            send_ack(sock, frame.sequence, CLIENT, SERVER, INTERFACE1); 
             fwrite(frame.data, 1, frame.size, out);
             continue;
         }
@@ -102,9 +92,9 @@ bool receive_world(int sock) {
 }
 
 int main() {
-    int sock = create_raw_socket(network_interface_pcVeth1);
+    int sock = create_raw_socket(INTERFACE1);
 
-    if (!send_init(sock)) {
+    if (send_init(sock) != 0) {
         printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
         return -1;
     }
@@ -133,22 +123,22 @@ int main() {
             printf("key recv_frame (%d)\n",key);
 
             Frame f;
-            //why is it MSG_TXT if it is sending a movement
             if (build_frame(&f, 0, type, nullptr, 1) == 0)
-                send_frame(sock, &f, dest_mac_pcVeth1, SERVER_mac_pcVeth0, network_interface_pcVeth1);
+                send_frame(sock, &f, CLIENT, SERVER, INTERFACE1);
 
             if (key == 'q' || key == 'Q') break;
-        }
 
-        // this should only happen after pressing a key and receving a file but it is happening every time 
-        //The problem is here, I don't know where to put this part 
-        //Should I create a type world so I know when a file is world or not? 
-        Frame frame; 
-        if((recv_frame(sock, &frame))){
-            if(frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4){
-                recv_file(sock, &frame, "1");
+            // this should only happen after pressing a key and receving a file but it is happening every time 
+            //The problem is here, I don't know where to put this part 
+            Frame frame; 
+            if((recv_frame(sock, &frame))){
+                if(frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4){
+                    recv_file(sock, &frame, "1");
+                }
             }
         }
+
+        
         
         // block here until server pushes the next world update (every 300ms)
         if (!receive_world(sock)) break;
