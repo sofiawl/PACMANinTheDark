@@ -55,12 +55,11 @@ uint8_t send_file(const char* arquivo, int sock){
     while (1) {
         ack_received = false;
 
-        uint8_t buffer[1024];
-        size_t bytes_read = fread(buffer, 1, 1024, arq);
+        uint8_t buffer[DATA_SIZE];
+        size_t bytes_read = fread(buffer, 1,DATA_SIZE, arq);
         if (bytes_read == 0) break;
         if (build_frame(&f, seq, type, buffer, (uint8_t)bytes_read) != 0) break;
         if (send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0) < 0) break;
-        seq++;
 
         // send END frame to signal world transmission is complete
         if (build_frame(&f, seq, MSG_END, nullptr, 0) == 0){
@@ -74,14 +73,16 @@ uint8_t send_file(const char* arquivo, int sock){
 
             //it is receiving way too many acks while the client only sends one ack 
             if(status){
-                if(answer.type == 0 ){ //&& answer.sequence == seq
+                if(answer.type == MSG_ACK ){ //&& answer.sequence == seq
                     printf("Debug: [send_file] ack received\n");
                     ack_received = true;
                     seq++; 
-                    printf("%d\n", seq); 
-                } else if(answer.type == 1){
-                    printf("Timeout!\n"); 
+                    printf("Debug [send_file] seq: %d\n", seq); 
+                } else if(answer.type == MSG_NACK){
+                    printf("Timeout!\n"); // tratar retransmissao
                 }
+            } else {
+                printf("Debug: Malformed frame.\n"); // mandar NACK PARA O CLIENTE
             }
         }
     }
@@ -107,24 +108,38 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
         uint8_t buffer[DATA_SIZE];
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
         if (bytes_read == 0) break;
-        if (build_frame(&f, seq, MSG_TXT, buffer, (uint8_t)bytes_read) != 0) break;
+        if (build_frame(&f, seq, MSG_WORLD, buffer, (uint8_t)bytes_read) != 0) break;
         if (send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0) < 0) break;
         seq++;
     }
     fclose(mundo);
 
     // send END frame to signal world transmission is complete
+    // should I change the end too?
     if (build_frame(&f, seq, MSG_END, nullptr, 0) == 0)
         send_frame(sock, &f, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
 }
 
 
 int main(){
-    int sock = create_raw_socket(network_interface_pcVeth0);
+    bool start = false; 
 
+    int sock = create_raw_socket(network_interface_pcVeth0);
+  
     // 10ms recv timeout — server loop never blocks waiting for client input
     struct timeval tv = {0, 10000};
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+
+    while(!start){
+         // The client wants to play
+        Frame first;
+        if(recv_frame(sock, &first) >= 0){
+            if (first.type == MSG_INIT) {
+                send_ack(sock, first.sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
+                start = true;
+            }
+        }
+    }
 
     char world[SIZE_WORLD][SIZE_WORLD];
 
@@ -144,19 +159,17 @@ int main(){
         // non-blocking key check: returns after 10ms if client sent nothing
         if (recv_frame(sock, &f) >= 0) {
             if (f.type == MSG_END) break;
-            if (f.type == MSG_TXT && f.size > 0) { // why is f.type MSG_TXT shouldn't be RIGHT, LEFT, UP or DOWN?  
-                int key = f.data[0];
-                if (key == 'q' || key == 'Q') break;
-                if (move_pacman(world, pacman_coord, key) == -1) break;
+            if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && f.size > 0) { // why is f.type MSG_TXT shouldn't be RIGHT, LEFT, UP or DOWN?  
+                //if (key == 'q' || key == 'Q') break;
+                if (move_pacman(world, pacman_coord, f.type) == -1) break;
                 send_world(sock, world);  // respond immediately so Pacman feels responsive
-                
-                if(key == 'w' || key == 's'|| key == 'a' || key == 'd'){
+
                     printf("Debug: [main_server while] key pressed\n");
-                    send_file("teste_grande.jpg", sock);
-                }   
+                    send_file("teste-jpg.jpg", sock);
             }
         }
 
+        printf("f.type (%d)\n",f.type);
         // ghost tick: fires every 300ms regardless of client input
         auto now = std::chrono::steady_clock::now();
         if (now - last_tick >= ghost_interval) {
@@ -168,6 +181,7 @@ int main(){
 
     printf("Game over\n");
     return 0;
+
 }
 
 /*

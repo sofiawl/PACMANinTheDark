@@ -314,3 +314,22 @@ Review this logic in the future, when we are sending archives that are really bi
 2. Showing files for the client 
 3. Timeout
 4. Error handling 
+
+#### Thing Helena changed 
+- Message type 
+    - when server sends world = MSG_WORLD (14) - maybe it could also be MSG_VIS I am not sure
+    - when client sends pressed key = MSG_UP, MSG_DOWN, MSG_LEFT or MSG_DOWN - nothing in the data part
+
+- Server is always waiting 
+    - The server should be the one that starts first, to do that the client sends a frame that tells the server that the client has logged in and wants to play. The frame type is MSG_INIT
+
+#### The bitmask might be wrong 
+- How I am checking that: 
+    
+    sudo tcpdump -i veth0 -v > /tmp/log-int.txt &
+    ps -ef | grep tcpdump
+
+    runs the game 
+
+    more /tmp/log-int.txt -> here there is everything that is going throught the computers
+    sudo kill [number]

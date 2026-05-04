@@ -121,6 +121,7 @@ uint8_t calc_CRC(Frame* f) {
  *
  * But it was baaaad, because it crashed without warning. So i changed it
  */
+ // it is using 3 bytes and can only use 2. The bitmask is not working
 int build_frame(Frame *f, uint8_t seq, MessageType msgtype, uint8_t *data, uint8_t data_size){
     if (seq > 63) {
         fprintf(stderr, "build_frame: sequence %d out of range(0-63)\n", seq);
@@ -183,7 +184,10 @@ int recv_frame(int sock, Frame* f){
     if (f->marker != MARKER) return -1;
 
     uint8_t expected = calc_CRC(f);
-    if (expected != f->CRC) return -1;
+    if (expected != f->CRC) {
+//        send_nack(sock, f.sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
+        return -1;
+    }
 
     return 0;
 }

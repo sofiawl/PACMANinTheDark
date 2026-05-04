@@ -5,7 +5,8 @@
 #include <cstdint>
 #include <stdint.h>
 
-#define DATA_SIZE 40
+#define DATA_SIZE 31
+#define TIMEOUT 1000
 
 typedef enum {
     MSG_ACK = 0,
