@@ -171,7 +171,7 @@ int send_frame(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_
     return sendto(sock, eth_frame, sizeof(eth_frame), 0, (struct sockaddr*)&addr, sizeof(addr));
 }
 
-int recv_frame(int sock, Frame* f){
+int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
     unsigned char eth_frame[14 + sizeof(Frame)];
     int bytes = recv(sock, eth_frame, sizeof(eth_frame), 0);
 
@@ -185,13 +185,37 @@ int recv_frame(int sock, Frame* f){
     // printf("Marker - Type: %d - %d\n",f->marker, f->type);
 
     uint8_t expected = calc_CRC(f);
-    if (expected != f->CRC) {
-//        send_nack(sock, f.sequence, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
+    if (expected != f->CRC && src_mac != NULL) {
+        send_nack(sock, f->sequence, src_mac, dest_mac, iface);
         return -1;
+    } else if (src_mac != NULL){
+        send_ack(sock, f->sequence, src_mac, dest_mac, iface);
     }
 
     return 0;
 }
+
+// Eu fiz outra função pq fiquei com medo do q ia acontecer na função recursiva 
+int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
+    Frame f_recv; 
+    // ele vai receber um ack e mandar um ack por cima 
+    if(send_frame(sock, f, src_mac, dest_mac, iface) < 0) return -1; 
+    else{
+        if(recv_frame(sock, &f_recv, NULL, NULL, NULL) >= 0 && f_recv.type == MSG_ACK){
+            return 0; 
+        }
+
+        do {
+            if (f_recv.type == MSG_NACK) {
+                printf("Debug [send_world] nack recv\n");
+                send_frame(sock, f, src_mac, dest_mac, iface);
+            } 
+        } while (f_recv.type == MSG_NACK);
+    } 
+
+    return 0; 
+}
+
 
 
 int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
@@ -209,16 +233,6 @@ int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const
     return send_frame(sock, &f, src_mac, dest_mac, iface); 
 }
 
-int recv_ackNAck(int sock, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
-    int timeout;
-    Frame f_recv; 
-    while(1) {
-        if (recv_frame(sock, &f_recv) && f_recv.type == MSG_ACK) break;
-        if (f_recv.type == MSG_NACK) return 1;
-        if (timeout++ > TIMEOUT) return -1; 
-    }
-    return 0; 
-}
 
 /*
  *

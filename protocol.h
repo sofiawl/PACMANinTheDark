@@ -57,12 +57,12 @@ int build_frame(Frame *f, uint8_t seq, MessageType msgtype, uint8_t *data, uint8
 
 int send_frame(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface);
 
-int recv_frame(int sock, Frame* f);
+int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface);
 
 int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface);
 
 int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface);
 
-int recv_ackNAck(int sock, uint8_t *src_mac, uint8_t *dest_mac, const char* iface);
+int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface);
 
 #endif

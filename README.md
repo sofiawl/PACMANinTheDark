@@ -356,6 +356,7 @@ sudo ip addr add 10.0.0.2/24 dev veth1
     I am not sure how to implement that but I belive the user should be able to insert a map and if that does not happen then the standart map is the UFPR one. 
 
 ### What I don't understand
-- How I am going to sincronize them? They are not waiting for the ack and nacks 
+- It is not writing on the document
+- Show the file on the screen
 
 
