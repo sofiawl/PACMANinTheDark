@@ -35,9 +35,9 @@ typedef enum {
     MSG_LEFT = 11,
     MSG_UP = 12,
     MSG_DOWN = 13,
+    MSG_WORLD = 14,
     MSG_ERROR = 15,
-    MSG_END = 16,
-    MSG_WORLD = 14
+    MSG_END = 16
 } MessageType;
 
 typedef struct {

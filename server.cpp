@@ -113,7 +113,7 @@ int main(){
     while (1) {
         // non-blocking key check: returns after 10ms if client sent nothing
         if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2) >= 0) {
-            printf("Debug [main server] recv type: %d\n", f.type); 
+            //printf("Debug [main server] recv type: %d\n", f.type); 
 
             // trata END
             if (f.type == MSG_END) break;

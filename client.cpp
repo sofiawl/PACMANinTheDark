@@ -33,13 +33,16 @@ bool recv_file(int sock, Frame *f, const char* name){
         printf("Debug [recv_file] type: %d\n", frame.type);
         if (frame.type == MSG_JPG) {
             fwrite(frame.data, 1, frame.size, out);
-            printf("Debug [recv_file] Data: %hhn", frame.data); 
             continue;
         }
-        if (frame.type == MSG_END) break;
+        if (frame.type == MSG_END) {
+            printf("Debug [recv_file] msg_end\n");
+            break;
+        }
     }
     fflush(out);
     fclose(out);
+    printf("Debug [recv_file] saida\n");
     return true;
 }
 
@@ -90,7 +93,7 @@ void receive_key(int sock, int key){
 
         
         // block here until server pushes the next world update (every 300ms)
-        if (!receive_world(sock));// break;
+        //if (!receive_world(sock));// break;
     //}
 
 }
@@ -98,18 +101,24 @@ void receive_key(int sock, int key){
 int main() {
     int sock = create_raw_socket(INTERFACE1);
 
-    if (send_init(sock) != 0) {
-        printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
-        return -1;
-    }
-
-    if (!receive_world(sock)) return 1;
-
-    init_client_view();
-
     while(1){
+        if (send_init(sock) != 0) {
+            printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
+            return -1;
+        }
+
+        if (!receive_world(sock)) return 1;
+
+        init_client_view();
+
         int key = draw_client_view_and_get_key("mundo.csv");
-        if(key != ERR) receive_key(sock, key); 
+        if(key != ERR){
+            receive_key(sock, key);
+
+            //when I build the other functions hopefully this will work better 
+            // if this is not here it will start building a world on top of the old one
+            close_client_view();
+        }  
     }
     
 

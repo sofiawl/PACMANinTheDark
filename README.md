@@ -310,13 +310,18 @@ Review this logic in the future, when we are sending archives that are really bi
 6. Janela deslizantes
 
 #### Thing Helena must add
-1. Ack / nack
-2. Sincronize client and server
-3. Send big files
-4. Timeout 
-4. Show the files for the client  
-5. Error handling 
-6. Log
+1. [x] Ack / nack
+2. [x] Sincronize client and server 
+3. [ ] Check sequence 
+4. [ ] Send big files
+5. [ ] Implement pills 
+6. [ ] Timeout 
+7. [ ] Show the files for the client  
+8. [ ] Error handling 
+9. [ ] Log
+
+And then, if everything works perfectly:
+10. [ ] Janelas deslizantes 
 
 ## How to do loopback 
 - Cria o par de interfaces virtuais (veth0 e veth1)
@@ -355,8 +360,5 @@ sudo ip addr add 10.0.0.2/24 dev veth1
 - UFPR map
     I am not sure how to implement that but I belive the user should be able to insert a map and if that does not happen then the standart map is the UFPR one. 
 
-### What I don't understand
-- It is not writing on the document
-- Show the file on the screen
 
 
