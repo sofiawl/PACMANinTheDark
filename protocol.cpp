@@ -233,6 +233,17 @@ int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const
     return send_frame(sock, &f, src_mac, dest_mac, iface); 
 }
 
+int send_init(int sock) {
+    // sends a message to tell the server that it wants to start
+    Frame f_send;
+    if(build_frame(&f_send, 0, MSG_INIT, nullptr, 1) == 0){
+        send(sock, &f_send, CLIENT, SERVER, INTERFACE1);
+    }
+
+    return 0;
+}
+
+
 
 /*
  *

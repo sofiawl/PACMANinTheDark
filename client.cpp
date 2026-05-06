@@ -6,15 +6,6 @@
 #include "client_view.h"
 
 
-int send_init(int sock) {
-    // sends a message to tell the server that it wants to start
-    Frame f_send;
-    if(build_frame(&f_send, 0, MSG_INIT, nullptr, 1) == 0){
-        send(sock, &f_send, CLIENT, SERVER, INTERFACE1);
-    }
-
-    return 0;
-}
 
 
 // implement this on the main 
@@ -107,6 +98,15 @@ int main() {
             return -1;
         }
 
+        // both the client and the server can start first
+        if(recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2) >= 0){
+
+            
+            if(f.type == MSG_INIT) {
+                send_init(sock); 
+            }
+        }
+
         if (!receive_world(sock)) return 1;
 
         init_client_view();
@@ -133,32 +133,17 @@ int main() {
 
 
 /*
-    int movement = capture_movement(); 
-    Frame out_frame; 
-
-    if (build_frame(&out_frame, seq_client++, (MessageType)movement, nullptr, 0) == 0) {
-        send(sock, &out_frame, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0);
-    }   
-        }
-
-        if (frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4){
-            recv_file(sock, SERVER_mac_pcVeth0, dest_mac_pcVeth1, network_interface_pcVeth0, "name", &frame); 
-            continue; 
-        }
-        
-        if (frame.type == MSG_END) break;
-
-
-
-    */
-
-    
-
-/*
 Ordem dos eventos:
 1. receber mundo 
 2. scanf movimento
 3. recv_file 
+
+First message goes to trash 
+
+client starts first:
+client starts and send init message
+waits to receive a ack or init?
+if receives init then sends init 
 
 
 

@@ -306,26 +306,26 @@ Review this logic in the future, when we are sending archives that are really bi
 
 
 #### Thing sofia must add
-1. UFPR page instead of "Waiting for initial world"
-2. EndGame page
-3. EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
-4. Vision expansion grr
-5. Later: timeouts and error handling
-6. Janela deslizantes
+[ ] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hits. If the client wants they can add another map and then the UPFR map is not used 
+[ ] EndGame page
+[ ] Vision expansion grr
 
+ 
 #### Thing Helena must add
-1. [x] Ack / nack
-2. [x] Sincronize client and server 
-3. [ ] Check sequence 
-4. [ ] Send big files
-5. [ ] Implement pills 
-6. [ ] Timeout 
-7. [ ] Show the files for the client  
-8. [ ] Error handling 
-9. [ ] Log
+[x] Ack / nack
+[x] Sincronize client and server 
+[ ] Start with the client 
+[ ] Check sequence 
+[ ] Send big files
+[ ] Implement pills 
+[ ] Timeout 
+[ ] Show the files for the client  
+[ ] Error handling 
+[ ] EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
+[ ] Log
 
 And then, if everything works perfectly:
-10. [ ] Janelas deslizantes 
+[ ] Janelas deslizantes 
 
 ## How to do loopback 
 - Cria o par de interfaces virtuais (veth0 e veth1)
