@@ -249,23 +249,6 @@ But now, the server has it's one timeclock that moves the ghosts accordingly to 
 
 before:
 ```
-    Client                    Server 
-                            init_world
-   receive world   <------- send world
-   
-   [begin loop]
-   draw world
-   wait for key (100ms)
-   send key  ----------->
-                           move_pacman(key)
-                           move_ghosts()
-   receive world <-------- send world
-   
-   [repeat]
-```
-
-now:
-```
     Client                    Server
                             init_world
     receive world <-------- send_world
@@ -280,6 +263,27 @@ now:
 
                                 move_ghosts()                           |  This happens every 300ms,    
     receive_world() <────────── send_world()           ← ghost update   |  independently on pacman move.
+                                                          
+    draw_world()
+    [repeat]
+``
+
+Everytime the client wants to update the world it sends a message to the server with MSG_INIT, the server does not send anything automatically, it only sends what is asked. And the client always ask for the world in the beginning of the loop. 
+now:
+```
+    Client                        Server
+    [begin loop]                  
+    init_world    -------->                  
+    receive world <--------     send_world
+    
+    draw world
+    
+    if key pressed:
+    send key  ──────────────>  recv_frame() gets key
+                               move_pacman(key)                                    
+    receive_file() <───────── send file             
+
+                                move_ghosts()                          
                                                           
     draw_world()
     [repeat]
