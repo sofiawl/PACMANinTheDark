@@ -266,7 +266,7 @@ before:
                                                           
     draw_world()
     [repeat]
-``
+```
 
 Everytime the client wants to update the world it sends a message to the server with MSG_INIT, the server does not send anything automatically, it only sends what is asked. And the client always ask for the world in the beginning of the loop. 
 now:
