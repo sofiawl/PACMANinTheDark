@@ -8,6 +8,7 @@
 #include <string.h>
 #include <string>
 #include <vector>
+#include <cerrno>
 #include "protocol.h"
 
 // Why this value? Cause it is *01111110* in hex
@@ -46,7 +47,7 @@ int create_raw_socket(const char* network_interface_name) {
         exit(-1);
     }
 
-    const int timeoutMillis = 1000; // 300 milisegundos de timeout por exemplo
+    const int timeoutMillis = 300; // 300 milisegundos de timeout por exemplo
     struct timeval timeout = { .tv_sec = timeoutMillis / 1000, .tv_usec = (timeoutMillis % 1000) * 1000 };
     setsockopt(sk, SOL_SOCKET, SO_RCVTIMEO, (char*) &timeout, sizeof(timeout));
 
@@ -188,8 +189,22 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     if (expected != f->CRC && src_mac != NULL) {
         send_nack(sock, f->sequence, src_mac, dest_mac, iface);
         return -1;
-    } else if (src_mac != NULL){
+    } 
+    else if ((src_mac != NULL) && (f->type != MSG_ACK) && (f->type != MSG_NACK)){
+        //printf("Debug [recv_frame] ack sent, type: %d\n", f->type);
         send_ack(sock, f->sequence, src_mac, dest_mac, iface);
+    }
+
+    // timeout 
+    if (bytes < 0) {
+        // não chegou nada 
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            return -1; 
+        }
+
+        // deu erro 
+        perror("Erro no recv!\n");
+        return -2;
     }
 
     return 0;
@@ -207,7 +222,6 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
 
         do {
             if (f_recv.type == MSG_NACK) {
-                printf("Debug [send_world] nack recv\n");
                 send_frame(sock, f, src_mac, dest_mac, iface);
             } 
         } while (f_recv.type == MSG_NACK);
@@ -234,6 +248,7 @@ int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const
 }
 
 int send_init(int sock) {
+    //printf("Debug [send_init] Init was sent\n");
     // sends a message to tell the server that it wants to start
     Frame f_send;
     if(build_frame(&f_send, 0, MSG_INIT, nullptr, 1) == 0){
@@ -259,4 +274,9 @@ int send_init(int sock) {
 
  eth_frame[12] = 0x08;
  eth_frame[13] = 0x88;
+
+
+ server recebe que quer mundo
+ e manda ack
+ ai recebe ack só né
  */

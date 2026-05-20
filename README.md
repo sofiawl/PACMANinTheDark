@@ -306,22 +306,37 @@ Review this logic in the future, when we are sending archives that are really bi
 
 
 #### Thing sofia must add
-[ ] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hits. If the client wants they can add another map and then the UPFR map is not used 
+[ ] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
+
 [ ] EndGame page
+
 [ ] Vision expansion grr
+
 
  
 #### Thing Helena must add
 [x] Ack / nack
+
 [x] Sincronize client and server 
-[ ] Start with the client 
-[ ] Check sequence 
-[ ] Send big files
-[ ] Implement pills 
+
+[x] Start with the client 
+
 [ ] Timeout 
+
+[ ] Check sequence 
+
+[ ] Send big files
+
+[ ] Implement pills 
+
 [ ] Show the files for the client  
+
 [ ] Error handling 
-[ ] EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
+
+[x] EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
+
+[ ] If pacman hits a ghost send MESG_END
+
 [ ] Log
 
 And then, if everything works perfectly:
@@ -364,5 +379,6 @@ sudo ip addr add 10.0.0.2/24 dev veth1
 - UFPR map
     I am not sure how to implement that but I belive the user should be able to insert a map and if that does not happen then the standart map is the UFPR one. 
 
+- when pacman hits a ghost must also send a package 
 
 

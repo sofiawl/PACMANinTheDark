@@ -31,6 +31,7 @@ uint8_t send_file(const char* arquivo, int sock){
         return -1;
     }
 
+    printf("Debug [send_file] passou aqui\n"); 
     MessageType type = identify_type(arquivo);
     printf("Debug [send_file] type: %d\n", type);
 
@@ -49,7 +50,6 @@ uint8_t send_file(const char* arquivo, int sock){
     fclose(file);
 
     // send END frame to signal world transmission is complete
-    // should I change the end too?
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
         send(sock, &f_send, SERVER, CLIENT, INTERFACE2);
 
@@ -110,29 +110,46 @@ int main(){
     auto last_tick = std::chrono::steady_clock::now();
     const auto ghost_interval = std::chrono::milliseconds(300);
 
+
     while (1) {
         // non-blocking key check: returns after 10ms if client sent nothing
-        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2) >= 0) {
-            //printf("Debug [main server] recv type: %d\n", f.type); 
+        //int status = recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2);
 
+        // trata timeout
+        /*
+        if (status == -1) {
+            printf("Debug [main server] Timeout\n");
+            continue; 
+        }
+            */
+    
+        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2) >= 0) {
+            
             // trata END
             if (f.type == MSG_END) break;
 
             // trata o INIT
             if (f.type == MSG_INIT) {
+                //send_ack(sock, 0, SERVER, CLIENT, INTERFACE2);
                 start = true;
                 send_world(sock, world);
             }
 
+            // não está entrando aqui
             // trata movimento
-            if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) { // why is f.type MSG_TXT shouldn't be RIGHT, LEFT, UP or DOWN?  
-                //if (key == 'q' || key == 'Q') break;
+            if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) { 
+                printf("Debug [main server moviment] entrou\n");
                 if (move_pacman(world, pacman_coord, f.type) == -1) break;
                 
                 printf("Debug: [main_server while] key pressed\n");
-                send_file("teste-jpg.jpg", sock);
+                send_file("teste-jpg.txt", sock);
 
                 //send_world(sock, world);  // respond immediately so Pacman feels responsive
+            }
+
+            // trata final
+            if (f.type == MSG_OVER && start) {
+                break; 
             }
 
         }
