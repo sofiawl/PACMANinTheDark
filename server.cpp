@@ -14,24 +14,24 @@
 #include "world.h"
 
 
-// It can also identified by the pills 
+// It can also identified by the pills
 MessageType identify_type(std::string nomeArquivo) {
     if (nomeArquivo.find(".txt") != std::string::npos) return MSG_TXT;
     if (nomeArquivo.find(".jpg") != std::string::npos) return MSG_JPG;
     if (nomeArquivo.find(".mp4") != std::string::npos) return MSG_MP4;
-    return MSG_ERROR; 
+    return MSG_ERROR;
 }
 
 
 uint8_t send_file(const char* arquivo, int sock){
-    printf("Debug [send_file] entrou\n"); 
+    printf("Debug [send_file] entrou\n");
     FILE* file = fopen(arquivo, "rb");
     if (!file) {
         fprintf(stderr, "Could not open file for sending\n");
         return -1;
     }
 
-    printf("Debug [send_file] passou aqui\n"); 
+    printf("Debug [send_file] passou aqui\n");
     MessageType type = identify_type(arquivo);
     printf("Debug [send_file] type: %d\n", type);
 
@@ -53,7 +53,7 @@ uint8_t send_file(const char* arquivo, int sock){
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
         send(sock, &f_send, SERVER, CLIENT, INTERFACE2);
 
-    return 0; 
+    return 0;
 
 }
 
@@ -89,10 +89,10 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
 
 
 int main(){
-    bool start = false; 
+    bool start = false;
 
     int sock = create_raw_socket(INTERFACE2);
-  
+
     // 10ms recv timeout — server loop never blocks waiting for client input
     struct timeval tv = {0, 10000};
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
@@ -119,17 +119,18 @@ int main(){
         /*
         if (status == -1) {
             printf("Debug [main server] Timeout\n");
-            continue; 
+            continue;
         }
             */
-    
+
         if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2) >= 0) {
-            
+
             // trata END
             if (f.type == MSG_END) break;
 
             // trata o INIT
             if (f.type == MSG_INIT) {
+
                 //send_ack(sock, 0, SERVER, CLIENT, INTERFACE2);
                 start = true;
                 send_world(sock, world);
@@ -137,10 +138,10 @@ int main(){
 
             // não está entrando aqui
             // trata movimento
-            if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) { 
+            if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) {
                 printf("Debug [main server moviment] entrou\n");
                 if (move_pacman(world, pacman_coord, f.type) == -1) break;
-                
+
                 printf("Debug: [main_server while] key pressed\n");
                 send_file("teste-jpg.txt", sock);
 
@@ -149,7 +150,7 @@ int main(){
 
             // trata final
             if (f.type == MSG_OVER && start) {
-                break; 
+                break;
             }
 
         }
@@ -172,8 +173,8 @@ int main(){
 /*
 o mundo só vai ser mandado depois que tudo acontecer dentro do while(1)
 como que eu faço para:
-1. manda o mundo 
+1. manda o mundo
 2. esperar o cliente andar para algum lugar
-3. checar se comeu pastilha, bateu na parede ou só atualizar a coordenada 
-4. mandar a mensagem da pilula 
+3. checar se comeu pastilha, bateu na parede ou só atualizar a coordenada
+4. mandar a mensagem da pilula
 */

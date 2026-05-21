@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "world.h"
+#include "protocol.h"
 
 enum GhostIndex { RED = 0, BLUE = 1, GREEN = 2, YELLOW = 3 };
 
@@ -86,10 +87,10 @@ int move_pacman(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int, int> &pacman_
     int new_x = old_x, new_y = old_y;
 
     switch (key) {
-        case 'w': new_x = old_x - 1; break;
-        case 's': new_x = old_x + 1; break;
-        case 'a': new_y = old_y - 1; break;
-        case 'd': new_y = old_y + 1; break;
+        case MSG_UP: new_x = old_x - 1; break;
+        case MSG_DOWN: new_x = old_x + 1; break;
+        case MSG_LEFT: new_y = old_y - 1; break;
+        case MSG_RIGHT: new_y = old_y + 1; break;
         default: return 0;
     }
 

@@ -312,6 +312,8 @@ Review this logic in the future, when we are sending archives that are really bi
 
 [ ] Vision expansion grr
 
+[ ] Protection to other keyboard selection from client
+
 
  
 #### Thing Helena must add
@@ -344,15 +346,21 @@ And then, if everything works perfectly:
 
 ## How to do loopback 
 - Cria o par de interfaces virtuais (veth0 e veth1)
+``` 
 sudo ip link add veth0 type veth peer name veth1
+``` 
 
 - Ativa as interfaces
+``` 
 sudo ip link set veth0 up
 sudo ip link set veth1 up
+``` 
 
 - (Opcional) Atribuir IPs apenas para facilitar, embora o RAWSocket possa usar o endereço MAC
+``` 
 sudo ip addr add 10.0.0.1/24 dev veth0
 sudo ip addr add 10.0.0.2/24 dev veth1
+``` 
 
 #### Thing Helena changed 
 - Message type 
@@ -379,6 +387,4 @@ sudo ip addr add 10.0.0.2/24 dev veth1
 - UFPR map
     I am not sure how to implement that but I belive the user should be able to insert a map and if that does not happen then the standart map is the UFPR one. 
 
-- when pacman hits a ghost must also send a package 
-
-
+- when pacman hits a ghost must also send a package
