@@ -323,19 +323,19 @@ Review this logic in the future, when we are sending archives that are really bi
 
 [ ] Timeout 
 
-[ ] Check sequence 
+[x] Check sequence 
 
-[ ] Send big files
+[x] Send big files
 
 [ ] Implement pills 
 
-[ ] Show the files for the client  
+[x] Show the files for the client  
 
 [ ] Error handling 
 
 [x] EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
 
-[ ] If pacman hits a ghost send MESG_END
+[x] If pacman hits a ghost send MESG_END
 
 [ ] Log
 
@@ -353,6 +353,8 @@ sudo ip link set veth1 up
 - (Opcional) Atribuir IPs apenas para facilitar, embora o RAWSocket possa usar o endereço MAC
 sudo ip addr add 10.0.0.1/24 dev veth0
 sudo ip addr add 10.0.0.2/24 dev veth1
+
+## Changes
 
 #### Thing Helena changed 
 - Message type 
@@ -382,3 +384,31 @@ sudo ip addr add 10.0.0.2/24 dev veth1
 - when pacman hits a ghost must also send a package 
 
 
+## Showing things on the screen
+One way I found is to ask the OS to do it, it doesn't look good and I am not sure if that's what they are asking for 
+
+### How to run 
+It can doesn't work if you are using sudo so you have to give sudo more power: 
+In each of the terminals you do: 
+
+```
+sudo setcap cap_net_raw+ep ./client
+./client
+```
+```
+sudo setcap cap_net_raw+ep ./server
+./server
+```
+
+It might not work for videos then you have to do: 
+
+```
+sudo apt update
+sudo apt install vlc -y
+``` 
+
+e definir o vlc como padrão 
+
+``` 
+xdg-mime default vlc.desktop video/mp4
+``` 

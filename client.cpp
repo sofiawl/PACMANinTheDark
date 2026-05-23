@@ -2,6 +2,9 @@
 #include <sys/socket.h>
 #include <ncursesw/ncurses.h>
 #include <cstdlib>
+#include <unistd.h>
+#include <iostream>
+#include <string>
 
 #include "protocol.h"
 #include "client_view.h"
@@ -20,8 +23,9 @@ bool recv_file(int sock, Frame *f, const char* name){
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE1);
         if (rv < 0) continue;  
-        printf("Debug [recv_file] type: %d\n", frame.type);
-        if (frame.type == MSG_JPG) {
+        // printf("Debug [recv_file] type: %d\n", frame.type);
+        // sleep(10);
+        if (frame.type == MSG_JPG || frame.type == MSG_TXT || frame.type == MSG_MP4) {
             fwrite(frame.data, 1, frame.size, out);
             continue;
         }
@@ -63,20 +67,23 @@ bool receive_world(int sock) {
 }
 
 int receive_key(int sock, int key){
+    printf("Debug [receive_key] entrou aqui\n");
     //while (1) {
         // draw world and check for a key immediately (non-blocking, wtimeout=0)
         
         // map arrow keys to single bytes the server understands
+        // why is it sending always MSG_RIGHT???
         MessageType type; 
         switch (key) {
-            case KEY_UP:     type = MSG_UP; 
-            case KEY_DOWN:   type = MSG_DOWN; 
-            case KEY_LEFT:   type = MSG_LEFT; 
-            case KEY_RIGHT:  type = MSG_RIGHT; 
+            case KEY_UP:     type = MSG_UP; break; 
+            case KEY_DOWN:   type = MSG_DOWN; break;
+            case KEY_LEFT:   type = MSG_LEFT; break;
+            case KEY_RIGHT:  type = MSG_RIGHT; break; 
         }
         if(key == 'q' || key == 'Q'){
             type = MSG_END; 
         }
+        //printf("Debug [receive_key] type: %d\n", type); 
         //printf("key recv_frame (%d)\n",key);
 
         Frame f;
@@ -91,57 +98,18 @@ int receive_key(int sock, int key){
 }
 
 
-void exibir_premio_txt(const char* nome_arquivo) {
-    FILE* arq = fopen(nome_arquivo, "r");
-    if (!arq) {
-        mvprintw(0, 0, "Erro ao abrir o arquivo de texto: %s", nome_arquivo);
-        refresh();
-        return;
-    }
+void show(const std::string& nomeArquivo) {
+    std::string comando = "xdg-open ./" + nomeArquivo;
 
-    clear();    
-    move(0, 0); 
-
-    char linha[256];
-    while (fgets(linha, sizeof(linha), arq)) {
-        printw("%s", linha); 
-    }
-    fclose(arq);
-
+    std::cout << "Tentando abrir: " << nomeArquivo << "..." << std::endl;
     
-    mvprintw(LINES - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
-    refresh(); 
-    
-    // is suposed to stop the game 
-    int c = getch(); 
-    
-    clear(); 
-}
+    int resultado = std::system(comando.c_str());
 
-void mostrar_premio(const char* nome_arquivo, int tipo) {
-    printf("Debug [mostrar premio] entrou aqui\n");
-    if (tipo == 5) { 
-        exibir_premio_txt(nome_arquivo); 
+    if (resultado != 0) {
+        std::cout << "Erro ao tentar abrir o arquivo. Verifique se o nome está correto." << std::endl;
     }
-    else if (tipo == 6 || tipo == 7) {
-        char comando[512];
-        
-        char chmod_cmd[128];
-        sprintf(chmod_cmd, "chmod 777 %s", nome_arquivo);
-        system(chmod_cmd);
 
-        // faz com que mostre a pag de video 
-        sprintf(comando, "su $SUDO_USER -c \"xdg-open %s\" &", nome_arquivo);
-        system(comando);
-
-        clear();
-        mvprintw(LINES / 2, (COLS / 2) - 15, "Prêmio aberto em uma janela externa!");
-        mvprintw((LINES / 2) + 2, (COLS / 2) - 20, "Aperte qualquer tecla no terminal para voltar ao jogo...");
-        refresh();
-        
-        getch(); 
-        clear();
-    }
+    sleep(10);
 }
 
 int main() {
@@ -167,8 +135,8 @@ int main() {
             }
 
             Frame frame; 
-            recv_file(sock, &frame, "1");
-            mostrar_premio("1", frame.type); 
+            recv_file(sock, &frame, "teste-recv.txt");
+            show("teste-recv.txt");
 
             //when I build the other functions hopefully this will work better 
             // if this is not here it will start building a world on top of the old one
