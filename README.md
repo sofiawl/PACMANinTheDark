@@ -306,82 +306,82 @@ Review this logic in the future, when we are sending archives that are really bi
 
 
 #### Thing sofia must add
-[ ] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
+- [ ] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
 
-[ ] EndGame page
+- [ ] EndGame page
 
-[ ] Vision expansion grr
+- [ ] Vision expansion grr
 
 
  
 #### Thing Helena must add
-[x] Ack / nack
+- [x] Ack / nack
 
-[x] Sincronize client and server 
+- [x] Sincronize client and server 
 
-[x] Start with the client 
+- [x] Start with the client 
 
-[ ] Timeout 
+- [ ] Timeout 
 
-[x] Check sequence 
+- [x] Check sequence 
 
-[x] Send big files
+- [x] Send big files
 
-[ ] Implement pills 
+- [ ] Implement pills 
 
-[x] Show the files for the client  
+- [x] Show the files for the client  
 
-[ ] Error handling 
+- [ ] Error handling 
 
-[x] EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
+- [x] EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
 
-[x] If pacman hits a ghost send MESG_END
+- [x] If pacman hits a ghost send MESG_END
 
-[ ] Log
+- [ ] Log
 
 And then, if everything works perfectly:
-[ ] Janelas deslizantes 
+
+- [ ] Janelas deslizantes 
 
 ## How to do loopback 
 - Cria o par de interfaces virtuais (veth0 e veth1)
+```
 sudo ip link add veth0 type veth peer name veth1
-
+```
 - Ativa as interfaces
+```
 sudo ip link set veth0 up
 sudo ip link set veth1 up
-
+```
 - (Opcional) Atribuir IPs apenas para facilitar, embora o RAWSocket possa usar o endereço MAC
 sudo ip addr add 10.0.0.1/24 dev veth0
 sudo ip addr add 10.0.0.2/24 dev veth1
 
-## Changes
 
-#### Thing Helena changed 
-- Message type 
-    - when server sends world = MSG_WORLD (14) - maybe it could also be MSG_VIS I am not sure
-    - when client sends pressed key = MSG_UP, MSG_DOWN, MSG_LEFT or MSG_DOWN - nothing in the data part
 
-- Server is always waiting 
-    - The server should be the one that starts first, to do that the client sends a frame that tells the server that the client has logged in and wants to play. The frame type is MSG_INIT
-
-#### Things to check
+## Things to check
 - Bitmask: 
-
+    ```
     sudo tcpdump -i veth0 -v > /tmp/log-int.txt &
-
-    runs the game 
-
+    ```
+    run the game 
+    ```
     more /tmp/log-int.txt -> here there is everything that is going throught the computers
-
+    
     ps -ef | grep tcpdump
     sudo kill [number]
+    ```
 
 - how much time should the receive wait?
 
 - UFPR map
     I am not sure how to implement that but I belive the user should be able to insert a map and if that does not happen then the standart map is the UFPR one. 
 
-- when pacman hits a ghost must also send a package 
+- when pacman hits a ghost must also send a package !!!! is this true ???
+
+- Timeout = we can use sleep to check it 
+
+- CRC - we could use a random number to see if it checks correctly
 
 
 ## Showing things on the screen
@@ -412,3 +412,9 @@ e definir o vlc como padrão
 ``` 
 xdg-mime default vlc.desktop video/mp4
 ``` 
+
+## Log 
+syslog, there are also other options we could talk with the professor about this
+
+### How to deal with error 
+Send the error to the log and then go back to the part that is error free, the program doesn't have to stop or show the error in the screen 

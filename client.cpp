@@ -135,8 +135,8 @@ int main() {
             }
 
             Frame frame; 
-            recv_file(sock, &frame, "teste-recv.txt");
-            show("teste-recv.txt");
+            recv_file(sock, &frame, "teste-recv.mp4");
+            show("teste-recv.mp4");
 
             //when I build the other functions hopefully this will work better 
             // if this is not here it will start building a world on top of the old one

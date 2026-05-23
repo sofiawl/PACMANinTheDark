@@ -145,7 +145,7 @@ int main(){
                 if (move_pacman(world, pacman_coord, f.type) == -1) break;
                 
                 printf("Debug: [main_server while] key pressed\n");
-                send_file("teste3.txt", sock);
+                send_file("teste2.mp4", sock);
 
                 //send_world(sock, world);  // respond immediately so Pacman feels responsive
             }
