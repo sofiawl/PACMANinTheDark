@@ -6,9 +6,13 @@
 
 #define SIZE_WORLD 40
 
+#define UFPR_MAP 1
+#define DEFAULT_MAP 2
+
+
 void update_world_csv(char world[SIZE_WORLD][SIZE_WORLD]);
 
-std::vector<std::pair<int, int>> init_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int, int> pacman_coord);
+std::vector<std::pair<int, int>> init_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int, int> pacman_coord, int map_type);
 
 int move_pacman(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int, int> &pacman_coord, int key);
 

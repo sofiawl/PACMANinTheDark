@@ -8,13 +8,16 @@
 #define DATA_SIZE 31
 #define TIMEOUT 1000
 
-//Helena 
+#define UFPR_MAP 1
+#define DEFAULT_MAP 2
+
+//Helena
 #define INTERFACE1 "veth1"
 #define INTERFACE2 "veth0"
 #define SERVER (unsigned char[]){0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c}
 #define CLIENT (unsigned char[]){0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7}
 
-//Sofia 
+//Sofia
 /*
 #define INTERFACE1 "enp4s0"
 #define INTERFACE2 "enx00e04c034558"
@@ -31,14 +34,14 @@ typedef enum {
     MSG_TXT = 5,
     MSG_JPG = 6,
     MSG_MP4 = 7,
-    MSG_OVER = 8, 
+    MSG_OVER = 8,
     MSG_RIGHT = 10,
     MSG_LEFT = 11,
     MSG_UP = 12,
     MSG_DOWN = 13,
     MSG_WORLD = 14,
     MSG_ERROR = 15,
-    MSG_END = 16
+    MSG_END = 16,
 } MessageType;
 
 typedef struct {

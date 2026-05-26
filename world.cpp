@@ -18,12 +18,12 @@ void update_world_csv(char world[SIZE_WORLD][SIZE_WORLD]) {
     }
 }
 
-std::vector<std::pair<int, int>> init_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int, int> pacman_coord) {
+void make_map(char world[SIZE_WORLD][SIZE_WORLD], int type){
     for (int i=0; i<SIZE_WORLD; i++) {
-      world[i][0] = 'X';
-      world[i][SIZE_WORLD-1] = 'X';
-      world[0][i] = 'X';
-      world[SIZE_WORLD-1][i] = 'X';
+        world[i][0] = 'X';
+        world[i][SIZE_WORLD-1] = 'X';
+        world[0][i] = 'X';
+        world[SIZE_WORLD-1][i] = 'X';
     }
 
     for (int i=1; i<SIZE_WORLD-1; i++) {
@@ -31,6 +31,36 @@ std::vector<std::pair<int, int>> init_world(char world[SIZE_WORLD][SIZE_WORLD], 
         world[i][j] = '0';
       }
     }
+
+    if (type == UFPR_MAP) {
+
+        const int MASK_ROWS = 8;
+        const int MASK_COLS = 34;
+        const char* ufpr_mask[MASK_ROWS] = {
+            "X000X000XXXXXX000XXXXXX000XXXX0000",
+            "X000X000X00000000X0000X000X000X000",
+            "X000X000X00000000X0000X000X0000X00",
+            "X000X000X00000000X0000X000X0000X00",
+            "X000X000XXXX00000XXXXXX000XXXXX000",
+            "X000X000X00000000X00000000X000X000",
+            "X000X000X00000000X00000000X0000X00",
+            "0XXX0000X00000000X00000000X0000X00"
+        };
+        int start_row = (SIZE_WORLD - MASK_ROWS) / 2;
+        int start_col = (SIZE_WORLD - MASK_COLS) / 2;
+
+        for (int i = 0; i < MASK_ROWS; i++) {
+            for (int j = 0; j < MASK_COLS; j++) {
+                world[start_row + i][start_col + j] = ufpr_mask[i][j];
+            }
+        }
+    }
+
+    return;
+}
+
+std::vector<std::pair<int, int>> init_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int, int> pacman_coord, int map_type) {
+    make_map(world, map_type);
 
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -45,7 +75,7 @@ std::vector<std::pair<int, int>> init_world(char world[SIZE_WORLD][SIZE_WORLD], 
         for (std::size_t j = 0; j < SIZE_WORLD; ++j) {
             bool is_center = (i == (SIZE_WORLD-1)/2 && j == (SIZE_WORLD-1)/2); // reserve center, PACMAN position [19][19]
             bool is_border = (i == 0 || i == SIZE_WORLD-1 || j == 0 || j == SIZE_WORLD-1); // reserve borders, the wall
-            if (!is_center && !is_border)
+            if (!is_center && !is_border && world[i][j] != 'X')
                 allowed.push_back(i * SIZE_WORLD + j);
         }
     }

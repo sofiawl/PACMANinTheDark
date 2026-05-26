@@ -81,21 +81,19 @@ int receive_key(int sock, int key){
             case KEY_RIGHT:
                 type = MSG_RIGHT;
                 break;
+            case 'q': case 'Q':
+                type = MSG_OVER;
+                break;
+            default:
+                return 0;  // unknown key : do nothing
         }
-        if(key == 'q' || key == 'Q'){
-            type = MSG_END;
-        }
-        //printf("key recv_frame (%d)\n",key);
 
         Frame f;
         if (build_frame(&f, 0, type, nullptr, 1) == 0)
             send(sock, &f, CLIENT, SERVER, INTERFACE1);
 
-        if(key == 'q' || key == 'Q'){
-            return -1;
-        } else {
-            return 0;
-        }
+        if (key == 'q' || key == 'Q') return -1;
+        return 1;  // valid movement sent
 }
 
 
@@ -153,6 +151,7 @@ void mostrar_premio(const char* nome_arquivo, int tipo) {
 }
 
 int main() {
+
     int sock = create_raw_socket(INTERFACE1);
 
     while(1){
@@ -169,14 +168,17 @@ int main() {
 
         int key = draw_client_view_and_get_key("mundo.csv");
         if(key != ERR){
-            if(receive_key(sock, key) == -1){
+            int result = receive_key(sock, key);
+            if(result == -1){
                 printf("Gameover!\n");
                 break;
             }
 
-            Frame frame;
-            recv_file(sock, &frame, "1");
-            mostrar_premio("1", frame.type);
+            if (result == 1) {
+                Frame frame;
+                recv_file(sock, &frame, "1");
+                mostrar_premio("1", frame.type);
+            }
 
             //when I build the other functions hopefully this will work better
             // if this is not here it will start building a world on top of the old one

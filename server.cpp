@@ -93,15 +93,19 @@ int main(){
 
     int sock = create_raw_socket(INTERFACE2);
 
+    int num, world_map;
+    printf("Type 1 to UFPR map and 2 to default map");
+    scanf("%d", &num);
+    if (num == UFPR_MAP) world_map = UFPR_MAP;
+    if (num == DEFAULT_MAP) world_map = DEFAULT_MAP;
+
     // 10ms recv timeout — server loop never blocks waiting for client input
     struct timeval tv = {0, 10000};
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 
-
     char world[SIZE_WORLD][SIZE_WORLD];
-
     std::pair<int, int> pacman_coord = {{(SIZE_WORLD-1)/2}, {(SIZE_WORLD-1)/2}};
-    std::vector<std::pair<int, int>> ghost_coords = init_world(world, pacman_coord);
+    std::vector<std::pair<int, int>> ghost_coords = init_world(world, pacman_coord, world_map);
     bool green_go_left  = false;
     bool red_going_right = true;
     bool blue_going_up   = true;
@@ -130,8 +134,6 @@ int main(){
 
             // trata o INIT
             if (f.type == MSG_INIT) {
-
-                //send_ack(sock, 0, SERVER, CLIENT, INTERFACE2);
                 start = true;
                 send_world(sock, world);
             }
