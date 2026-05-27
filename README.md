@@ -186,11 +186,6 @@ PS: we can make an especific make client/ make server to run
     - what happens when pacman hits the wall?
 - [ ] it must be printed for the presentation!
 
-## Action Plan implementation
-1. Read RAWsocks stuff
-2. Try to send anything to another machine with the network cable
-3. we will know what to do next
-
 ## Everything Explained, to us dummies
 
 ### Ethernet frame vs Protocole
@@ -306,15 +301,15 @@ Review this logic in the future, when we are sending archives that are really bi
 
 
 #### Thing sofia must add
-[ ] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
+[x] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
 
-[ ] EndGame page
+[ ] EndGame page, is really necessary?????
 
 [ ] Vision expansion grr
 
-[ ] Protection to other keyboard selection from client
+[x] Protection to other keyboard selection from client
 
-
+[ ] pills 
  
 #### Thing Helena must add
 [x] Ack / nack

@@ -5,6 +5,7 @@
 
 #include "protocol.h"
 #include "client_view.h"
+#include "world.h"
 
 
 // implement this on the main
@@ -163,6 +164,10 @@ int main() {
     else
         data_map_world[0] = DEFAULT_MAP;  // default if invalid input
 
+    int move_count = 0;
+    int radius     = 1;
+    std::pair<int,int> pacman_coord = {(SIZE_WORLD - 1) / 2, (SIZE_WORLD - 1) / 2};  // {19,19} — matches server.cpp
+
     while(1){
 
         if (send_init(sock, data_map_world) != 0) {
@@ -175,7 +180,7 @@ int main() {
 
         init_client_view();
 
-        int key = draw_client_view_and_get_key("mundo.csv");
+        int key = draw_client_view_and_get_key("mundo.csv", pacman_coord, radius);
         if(key != ERR){
             int result = receive_key(sock, key);
             if(result == -1){
@@ -184,6 +189,14 @@ int main() {
             }
 
             if (result == 1) {
+                move_count++;
+                radius = 1 + move_count / 5;  // 0-4: r=1, 5-9: r=2, 10-14: r=3 ...
+
+                if      (key == KEY_UP)    pacman_coord.first--;
+                else if (key == KEY_DOWN)  pacman_coord.first++;
+                else if (key == KEY_LEFT)  pacman_coord.second--;
+                else if (key == KEY_RIGHT) pacman_coord.second++;
+
                 Frame frame;
                 recv_file(sock, &frame, "1");
                 mostrar_premio("1", frame.type);
