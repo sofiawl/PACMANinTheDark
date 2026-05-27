@@ -57,6 +57,9 @@ uint8_t send_file(const char* arquivo, int sock){
 
 }
 
+void build_world(){
+
+}
 
 void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
     update_world_csv(world);
@@ -93,23 +96,17 @@ int main(){
 
     int sock = create_raw_socket(INTERFACE2);
 
-    int num, world_map;
-    printf("Type 1 to UFPR map and 2 to default map");
-    scanf("%d", &num);
-    if (num == UFPR_MAP) world_map = UFPR_MAP;
-    if (num == DEFAULT_MAP) world_map = DEFAULT_MAP;
-
     // 10ms recv timeout — server loop never blocks waiting for client input
     struct timeval tv = {0, 10000};
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 
     char world[SIZE_WORLD][SIZE_WORLD];
     std::pair<int, int> pacman_coord = {{(SIZE_WORLD-1)/2}, {(SIZE_WORLD-1)/2}};
-    std::vector<std::pair<int, int>> ghost_coords = init_world(world, pacman_coord, world_map);
     bool green_go_left  = false;
     bool red_going_right = true;
     bool blue_going_up   = true;
 
+    std::vector<std::pair<int, int>> ghost_coords;
     Frame f;
     auto last_tick = std::chrono::steady_clock::now();
     const auto ghost_interval = std::chrono::milliseconds(300);
@@ -134,8 +131,12 @@ int main(){
 
             // trata o INIT
             if (f.type == MSG_INIT) {
-                start = true;
-                send_world(sock, world);
+                if (!start) {
+                    uint8_t world_map = f.data[0];
+                    ghost_coords = init_world(world, pacman_coord, world_map);
+                    start = true;
+                }
+                send_world(sock, world);  // always send current state, never reinit
             }
 
             // não está entrando aqui

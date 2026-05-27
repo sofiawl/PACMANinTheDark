@@ -36,7 +36,7 @@ bool recv_file(int sock, Frame *f, const char* name){
     return true;
 }
 
-bool receive_world(int sock) {
+bool receive_world(int sock, uint8_t *map_data) {
     FILE* out = fopen("mundo.csv", "wb");
     if (!out) {
         fprintf(stderr, "Could not open mundo.csv for writing\n");
@@ -47,7 +47,7 @@ bool receive_world(int sock) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE1);
         // trata timeout
         if (rv < 0) {
-            send_init(sock);
+            send_init(sock, map_data);
             continue;
         }
 
@@ -119,7 +119,7 @@ void exibir_premio_txt(const char* nome_arquivo) {
     refresh();
 
     // is suposed to stop the game
-    int c = getch();
+    //int c = getch();
 
     clear();
 }
@@ -154,15 +154,24 @@ int main() {
 
     int sock = create_raw_socket(INTERFACE1);
 
+    int num;
+    printf("Type 1 to UFPR map and 2 to default map\n");
+    scanf("%d", &num);
+    uint8_t data_map_world[DATA_SIZE];
+    if (num == UFPR_MAP)
+        data_map_world[0] = UFPR_MAP;
+    else
+        data_map_world[0] = DEFAULT_MAP;  // default if invalid input
+
     while(1){
 
-        if (send_init(sock) != 0) {
+        if (send_init(sock, data_map_world) != 0) {
             printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
             return -1;
         }
 
 
-        if (!receive_world(sock)) return 1;
+        if (!receive_world(sock, data_map_world)) return 1;
 
         init_client_view();
 

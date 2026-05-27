@@ -189,20 +189,20 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     if (expected != f->CRC && src_mac != NULL) {
         send_nack(sock, f->sequence, src_mac, dest_mac, iface);
         return -1;
-    } 
+    }
     else if ((src_mac != NULL) && (f->type != MSG_ACK) && (f->type != MSG_NACK)){
         //printf("Debug [recv_frame] ack sent, type: %d\n", f->type);
         send_ack(sock, f->sequence, src_mac, dest_mac, iface);
     }
 
-    // timeout 
+    // timeout
     if (bytes < 0) {
-        // não chegou nada 
+        // não chegou nada
         if (errno == EAGAIN || errno == EWOULDBLOCK) {
-            return -1; 
+            return -1;
         }
 
-        // deu erro 
+        // deu erro
         perror("Erro no recv!\n");
         return -2;
     }
@@ -210,46 +210,46 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     return 0;
 }
 
-// Eu fiz outra função pq fiquei com medo do q ia acontecer na função recursiva 
+// Eu fiz outra função pq fiquei com medo do q ia acontecer na função recursiva
 int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
-    Frame f_recv; 
-    // ele vai receber um ack e mandar um ack por cima 
-    if(send_frame(sock, f, src_mac, dest_mac, iface) < 0) return -1; 
+    Frame f_recv;
+    // ele vai receber um ack e mandar um ack por cima
+    if(send_frame(sock, f, src_mac, dest_mac, iface) < 0) return -1;
     else{
         if(recv_frame(sock, &f_recv, NULL, NULL, NULL) >= 0 && f_recv.type == MSG_ACK){
-            return 0; 
+            return 0;
         }
 
         do {
             if (f_recv.type == MSG_NACK) {
                 send_frame(sock, f, src_mac, dest_mac, iface);
-            } 
+            }
         } while (f_recv.type == MSG_NACK);
-    } 
+    }
 
-    return 0; 
+    return 0;
 }
 
 
 
 int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
     //printf("Debug: [send_ack]\n");
-    Frame f; 
+    Frame f;
 
-    build_frame(&f, seq, MSG_ACK, nullptr, 0); 
-    return send_frame(sock, &f, src_mac, dest_mac, iface); 
-}   
-
-int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
-    Frame f; 
-
-    build_frame(&f, seq, MSG_NACK, nullptr, 0); 
-    return send_frame(sock, &f, src_mac, dest_mac, iface); 
+    build_frame(&f, seq, MSG_ACK, nullptr, 0);
+    return send_frame(sock, &f, src_mac, dest_mac, iface);
 }
 
-int send_init(int sock) {
+int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
+    Frame f;
+
+    build_frame(&f, seq, MSG_NACK, nullptr, 0);
+    return send_frame(sock, &f, src_mac, dest_mac, iface);
+}
+
+int send_init(int sock, uint8_t *map) {
     Frame f_send;
-    if(build_frame(&f_send, 0, MSG_INIT, nullptr, 1) == 0){
+    if(build_frame(&f_send, 0, MSG_INIT, map, 1) == 0){
         send(sock, &f_send, CLIENT, SERVER, INTERFACE1);
     }
     return 0;
