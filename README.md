@@ -388,7 +388,8 @@ sudo ip addr add 10.0.0.2/24 dev veth1
 One way I found is to ask the OS to do it, it doesn't look good and I am not sure if that's what they are asking for 
 
 ### How to run 
-It can doesn't work if you are using sudo so you have to give sudo more power: 
+It  doesn't work if you are using sudo so you have to give sudo more power: 
+
 In each of the terminals you do: 
 
 ```
@@ -407,7 +408,7 @@ sudo apt update
 sudo apt install vlc -y
 ``` 
 
-e definir o vlc como padrão 
+and define vlc as standard 
 
 ``` 
 xdg-mime default vlc.desktop video/mp4
