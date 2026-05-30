@@ -8,22 +8,19 @@
 #define DATA_SIZE 31
 #define TIMEOUT 1000
 
-//Helena 
+//Helena
 //#define INTERFACE1 "veth1"
 //#define INTERFACE2 "veth0"
 //#define SERVER (unsigned char[]){0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c}
 //#define CLIENT (unsigned char[]){0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7}
 
+
+//Sofia
 #define INTERFACE1 "enx00e04c034558"
-#define SERVER {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58}
+#define SERVER (unsigned char[]){0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58}
+#define INTERFACE2 "enp4s0"
+#define CLIENT (unsigned char[]){0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
 
-//Sofia 
-
-#define INTERFACE1 "enp4s0"
-//#define INTERFACE2 "enx00e04c034558"
-//#define SERVER {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
-#define CLIENT {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
-*/
 
 typedef enum {
     MSG_ACK = 0,
@@ -34,7 +31,7 @@ typedef enum {
     MSG_TXT = 5,
     MSG_JPG = 6,
     MSG_MP4 = 7,
-    MSG_OVER = 8, 
+    MSG_OVER = 8,
     MSG_RIGHT = 10,
     MSG_LEFT = 11,
     MSG_UP = 12,
