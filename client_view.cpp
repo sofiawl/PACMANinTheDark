@@ -104,7 +104,7 @@ void init_client_view() {
 
     box_win = newwin(win_h, win_w, origin_y, origin_x);
     keypad(box_win, TRUE);
-    wtimeout(box_win, 0);  // non-blocking: returns ERR immediately if no key buffered
+    wtimeout(box_win, -1);  // block until the player presses a key
 }
 
 // call once at shutdown

@@ -210,25 +210,23 @@ int main() {
     int radius = 1;
     std::pair<int, int> pacman_coord = {(SIZE_WORLD - 1) / 2, (SIZE_WORLD - 1) / 2};
 
+    if (send_init(sock, data_map_world) != 0) {
+        printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
+        return -1;
+    }
+
+    if (!receive_world(sock, data_map_world)) {
+        fprintf(stderr, "Failed to receive world from server (is ./server running?)\n");
+        return 1;
+    }
+
+    sync_pacman_from_csv("mundo.csv", pacman_coord);
+    init_client_view();
+
     while (1) {
-        if (send_init(sock, data_map_world) != 0) {
-            printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
-            return -1;
-        }
-
-        if (!receive_world(sock, data_map_world)) {
-            fprintf(stderr, "Failed to receive world from server (is ./server running?)\n");
-            return 1;
-        }
-
-        sync_pacman_from_csv("mundo.csv", pacman_coord);
-        init_client_view();
-
         int key = draw_client_view_and_get_key("mundo.csv", pacman_coord, radius);
-        if (key == ERR) {
-            close_client_view();
+        if (key == ERR)
             continue;
-        }
 
         int result = receive_key(sock, key);
         if (result == -1) {
@@ -244,6 +242,7 @@ int main() {
             if (!sync_after_move(sock, data_map_world, pacman_coord,
                     prize_path, sizeof(prize_path), &prize_type, &got_prize)) {
                 close_client_view();
+                fprintf(stderr, "Lost sync with server after move\n");
                 return 1;
             }
 
@@ -253,8 +252,6 @@ int main() {
             move_count++;
             radius = 1 + move_count / 5;
         }
-
-        close_client_view();
     }
 
     close_client_view();
