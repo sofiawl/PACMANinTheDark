@@ -64,6 +64,9 @@ static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pa
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
         if (rv < 0) continue;
 
+        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
+            continue;
+
         if (frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4) {
             if (!prize) {
                 *prize_type = frame.type;
@@ -100,12 +103,34 @@ static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pa
 }
 
 bool receive_world(int sock, uint8_t *map_data) {
-    char prize_path[128];
-    int prize_type = 0;
-    bool got_prize = false;
-    std::pair<int, int> dummy = {0, 0};
     (void)map_data;
-    return sync_after_move(sock, map_data, dummy, prize_path, sizeof(prize_path), &prize_type, &got_prize);
+    FILE* mundo = fopen("mundo.csv", "wb");
+    if (!mundo) {
+        fprintf(stderr, "Could not open mundo.csv for writing\n");
+        return false;
+    }
+
+    Frame frame;
+    bool got_world_data = false;
+    while (1) {
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+        if (rv < 0) continue;
+
+        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
+            continue;
+
+        if (frame.type == MSG_WORLD) {
+            fwrite(frame.data, 1, frame.size, mundo);
+            got_world_data = true;
+            continue;
+        }
+
+        if (frame.type == MSG_END) {
+            fflush(mundo);
+            fclose(mundo);
+            return got_world_data;
+        }
+    }
 }
 
 int receive_key(int sock, int key) {
@@ -191,7 +216,10 @@ int main() {
             return -1;
         }
 
-        if (!receive_world(sock, data_map_world)) return 1;
+        if (!receive_world(sock, data_map_world)) {
+            fprintf(stderr, "Failed to receive world from server (is ./server running?)\n");
+            return 1;
+        }
 
         sync_pacman_from_csv("mundo.csv", pacman_coord);
         init_client_view();

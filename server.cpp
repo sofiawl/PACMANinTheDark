@@ -66,13 +66,13 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
         if (bytes_read == 0) break;
         if (build_frame(&f_send, seq, MSG_WORLD, buffer, (uint8_t)bytes_read) != 0) break;
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER) < 0) break;
+        if (send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER) < 0) break;
         seq++;
     }
     fclose(mundo);
 
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
-        send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
+        send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
 }
 
 static void remove_pill(std::vector<PillInfo> &pills, char pill_id) {
@@ -117,7 +117,9 @@ int main() {
             if (transmitting)
                 continue;
 
-            if (f.type == MSG_END) break;
+            // MSG_END is sent by us after world/file transfer — do not treat it as game over.
+            if (f.type == MSG_END)
+                continue;
 
             if (f.type == MSG_INIT) {
                 if (!start) {
