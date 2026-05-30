@@ -107,7 +107,7 @@ void close_client_view() {
 }
 
 // draws the world and returns the key pressed
-int draw_client_view_and_get_key(const char* csv_path) {
+int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman_coord, int radius) {
     if (!box_win) return 'q';
 
     char world[SIZE_WORLD][SIZE_WORLD];
@@ -135,24 +135,51 @@ int draw_client_view_and_get_key(const char* csv_path) {
 
     werase(box_win);
 
+    // half_pair[ci]: fg=color_for(c), bg=-1 (terminal default) — for boundary cells
+    static short half_pair[8] = {};
+
     for (int i = 0; i < s_view_side; i += 2) {
         int term_row = i / 2;
         for (int j = 0; j < s_view_side; ++j) {
-            char top = world[i][j];
-            char bot = (i + 1 < s_view_side) ? world[i + 1][j] : '0';
-            if (top == '0') top = ' ';
-            if (bot == '0') bot = ' ';
+            bool top_vis = abs(i   - pacman_coord.first) <= radius && abs(j - pacman_coord.second) <= radius;
+            bool bot_vis = abs(i+1 - pacman_coord.first) <= radius && abs(j - pacman_coord.second) <= radius;
 
-            int ti = char_idx(top);
-            int bi = char_idx(bot);
-            if (!pair_id[ti][bi]) {
-                init_pair(next_pair, color_for(top), color_for(bot));
-                pair_id[ti][bi] = next_pair++;
+            // Case 1: both hidden: skip (werase already cleared to terminal background)
+            if (!top_vis && !bot_vis) continue;
+
+            // Case 2: only top visible: upper-half block, bot half = terminal background
+            if (top_vis && !bot_vis) {
+                char c = world[i][j]; if (c == '0') c = ' ';
+                int ci = char_idx(c);
+                if (!half_pair[ci]) { init_pair(next_pair, color_for(c), -1); half_pair[ci] = next_pair++; }
+                cchar_t wch; wchar_t ws[2] = {L'▀', L'\0'};
+                setcchar(&wch, ws, A_NORMAL, half_pair[ci], nullptr);
+                for (int dc = 0; dc < s_cell_w; ++dc)
+                    mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
+                continue;
             }
 
-            cchar_t wch;
-            wchar_t wstr[2] = {L'▀', L'\0'};
-            setcchar(&wch, wstr, A_NORMAL, pair_id[ti][bi], nullptr);
+            // Case 3: only bot visible: lower-half block, top half = terminal background
+            if (!top_vis && bot_vis) {
+                char c = (i+1 < s_view_side) ? world[i+1][j] : '0'; if (c == '0') c = ' ';
+                int ci = char_idx(c);
+                if (!half_pair[ci]) { init_pair(next_pair, color_for(c), -1); half_pair[ci] = next_pair++; }
+                cchar_t wch; wchar_t ws[2] = {L'▄', L'\0'};
+                setcchar(&wch, ws, A_NORMAL, half_pair[ci], nullptr);
+                for (int dc = 0; dc < s_cell_w; ++dc)
+                    mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
+                continue;
+            }
+
+            // Case 4: both visible: existing upper-half block fg/bg pair logic
+            char top = world[i][j];
+            char bot = (i+1 < s_view_side) ? world[i+1][j] : '0';
+            if (top == '0') top = ' ';
+            if (bot == '0') bot = ' ';
+            int ti = char_idx(top), bi = char_idx(bot);
+            if (!pair_id[ti][bi]) { init_pair(next_pair, color_for(top), color_for(bot)); pair_id[ti][bi] = next_pair++; }
+            cchar_t wch; wchar_t ws[2] = {L'▀', L'\0'};
+            setcchar(&wch, ws, A_NORMAL, pair_id[ti][bi], nullptr);
             for (int dc = 0; dc < s_cell_w; ++dc)
                 mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
         }

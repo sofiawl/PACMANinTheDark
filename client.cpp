@@ -8,9 +8,10 @@
 
 #include "protocol.h"
 #include "client_view.h"
+#include "world.h"
 
 
-// implement this on the main 
+// implement this on the main
 bool recv_file(int sock, Frame *f, const char* name){
     printf("Debug [recv_file] entrou\n");
     FILE* out = fopen(name, "wb");
@@ -21,7 +22,7 @@ bool recv_file(int sock, Frame *f, const char* name){
 
     Frame frame;
     while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE1);
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_SERVER);
         if (rv < 0) continue;  
         // printf("Debug [recv_file] type: %d\n", frame.type);
         // sleep(10);
@@ -40,7 +41,7 @@ bool recv_file(int sock, Frame *f, const char* name){
     return true;
 }
 
-bool receive_world(int sock) {
+bool receive_world(int sock, uint8_t *map_data) {
     FILE* out = fopen("mundo.csv", "wb");
     if (!out) {
         fprintf(stderr, "Could not open mundo.csv for writing\n");
@@ -48,11 +49,11 @@ bool receive_world(int sock) {
     }
     Frame frame;
     while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE1);
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_SERVER);
         // trata timeout
         if (rv < 0) {
-            send_init(sock); 
-            continue;     
+            send_init(sock, map_data);
+            continue;
         }
 
         if (frame.type == MSG_WORLD) {
@@ -70,33 +71,90 @@ int receive_key(int sock, int key){
     printf("Debug [receive_key] entrou aqui\n");
     //while (1) {
         // draw world and check for a key immediately (non-blocking, wtimeout=0)
-        
+
         // map arrow keys to single bytes the server understands
-        // why is it sending always MSG_RIGHT???
-        MessageType type; 
+        MessageType type;
         switch (key) {
-            case KEY_UP:     type = MSG_UP; break; 
-            case KEY_DOWN:   type = MSG_DOWN; break;
-            case KEY_LEFT:   type = MSG_LEFT; break;
-            case KEY_RIGHT:  type = MSG_RIGHT; break; 
+            case KEY_UP:
+                type = MSG_UP;
+                break;
+            case KEY_DOWN:
+                type = MSG_DOWN;
+                break;
+            case KEY_LEFT:
+                type = MSG_LEFT;
+                break;
+            case KEY_RIGHT:
+                type = MSG_RIGHT;
+                break;
+            case 'q': case 'Q':
+                type = MSG_OVER;
+                break;
+            default:
+                return 0;  // unknown key : do nothing
         }
-        if(key == 'q' || key == 'Q'){
-            type = MSG_END; 
-        }
-        //printf("Debug [receive_key] type: %d\n", type); 
-        //printf("key recv_frame (%d)\n",key);
 
         Frame f;
         if (build_frame(&f, 0, type, nullptr, 1) == 0)
-            send(sock, &f, CLIENT, SERVER, INTERFACE1);
+            send(sock, &f, CLIENT, SERVER, INTERFACE_SERVER);
 
-        if(key == 'q' || key == 'Q'){
-            return -1; 
-        } else {
-            return 0; 
-        }
+        if (key == 'q' || key == 'Q') return -1;
+        return 1;  // valid movement sent
 }
 
+
+void exibir_premio_txt(const char* nome_arquivo) {
+    FILE* arq = fopen(nome_arquivo, "r");
+    if (!arq) {
+        mvprintw(0, 0, "Erro ao abrir o arquivo de texto: %s", nome_arquivo);
+        refresh();
+        return;
+    }
+
+    clear();
+    move(0, 0);
+
+    char linha[256];
+    while (fgets(linha, sizeof(linha), arq)) {
+        printw("%s", linha);
+    }
+    fclose(arq);
+
+
+    mvprintw(LINES - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
+    refresh();
+
+    // is suposed to stop the game
+    //int c = getch();
+
+    clear();
+}
+
+void mostrar_premio(const char* nome_arquivo, int tipo) {
+    printf("Debug [mostrar premio] entrou aqui\n");
+    if (tipo == 5) {
+        exibir_premio_txt(nome_arquivo);
+    }
+    else if (tipo == 6 || tipo == 7) {
+        char comando[512];
+
+        char chmod_cmd[128];
+        sprintf(chmod_cmd, "chmod 777 %s", nome_arquivo);
+        system(chmod_cmd);
+
+        // faz com que mostre a pag de video
+        sprintf(comando, "su $SUDO_USER -c \"xdg-open %s\" &", nome_arquivo);
+        system(comando);
+
+        clear();
+        mvprintw(LINES / 2, (COLS / 2) - 15, "Prêmio aberto em uma janela externa!");
+        mvprintw((LINES / 2) + 2, (COLS / 2) - 20, "Aperte qualquer tecla no terminal para voltar ao jogo...");
+        refresh();
+
+        getch();
+        clear();
+    }
+}
 
 void show(const std::string& nomeArquivo) {
     std::string comando = "xdg-open ./" + nomeArquivo;
@@ -113,24 +171,39 @@ void show(const std::string& nomeArquivo) {
 }
 
 int main() {
-    int sock = create_raw_socket(INTERFACE1);
 
-    while(1){      
-        
-        if (send_init(sock) != 0) {
+    int sock = create_raw_socket(INTERFACE_SERVER);
+
+    int num;
+    printf("Type 1 to UFPR map and 2 to default map\n");
+    scanf("%d", &num);
+    uint8_t data_map_world[DATA_SIZE];
+    if (num == UFPR_MAP)
+        data_map_world[0] = UFPR_MAP;
+    else
+        data_map_world[0] = DEFAULT_MAP;  // default if invalid input
+
+    int move_count = 0;
+    int radius     = 1;
+    std::pair<int,int> pacman_coord = {(SIZE_WORLD - 1) / 2, (SIZE_WORLD - 1) / 2};  // {19,19} — matches server.cpp
+
+    while(1){
+
+        if (send_init(sock, data_map_world) != 0) {
             printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
             return -1;
         }
-        
 
-        if (!receive_world(sock)) return 1;
+
+        if (!receive_world(sock, data_map_world)) return 1;
 
         init_client_view();
 
-        int key = draw_client_view_and_get_key("mundo.csv");
+        int key = draw_client_view_and_get_key("mundo.csv", pacman_coord, radius);
         if(key != ERR){
-            if(receive_key(sock, key) == -1){
-                printf("Gameover!\n"); 
+            int result = receive_key(sock, key);
+            if(result == -1){
+                printf("Gameover!\n");
                 break;
             }
 
@@ -138,12 +211,26 @@ int main() {
             recv_file(sock, &frame, "teste-recv.mp4");
             show("teste-recv.mp4");
 
-            //when I build the other functions hopefully this will work better 
+            if (result == 1) {
+                move_count++;
+                radius = 1 + move_count / 5;  // 0-4: r=1, 5-9: r=2, 10-14: r=3 ...
+
+                if      (key == KEY_UP)    pacman_coord.first--;
+                else if (key == KEY_DOWN)  pacman_coord.first++;
+                else if (key == KEY_LEFT)  pacman_coord.second--;
+                else if (key == KEY_RIGHT) pacman_coord.second++;
+
+                Frame frame;
+                recv_file(sock, &frame, "1");
+                mostrar_premio("1", frame.type);
+            }
+
+            //when I build the other functions hopefully this will work better
             // if this is not here it will start building a world on top of the old one
             close_client_view();
-        }  
+        }
     }
-    
+
 
     close_client_view();
     printf("Game over\n");
@@ -157,17 +244,15 @@ int main() {
 
 /*
 Ordem dos eventos:
-1. receber mundo 
+1. receber mundo
 2. scanf movimento
-3. recv_file 
+3. recv_file
 
-First message goes to trash 
+First message goes to trash
 
 I am not sure how to implement the timeout
-It will send init and wait for response if it doesn't come then sends init again 
+It will send init and wait for response if it doesn't come then sends init again
 
-tá recebendo só ack 
+tá recebendo só ack
 
 */
-
-

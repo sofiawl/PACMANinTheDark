@@ -8,18 +8,23 @@
 #define DATA_SIZE 31
 #define TIMEOUT 1000
 
-//Helena
-//#define INTERFACE1 "veth1"
-//#define INTERFACE2 "veth0"
-//#define SERVER (unsigned char[]){0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c}
-//#define CLIENT (unsigned char[]){0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7}
+#define UFPR_MAP 1
+#define DEFAULT_MAP 2
 
+// Loopback
+/*
+#define INTERFACE_SERVER "veth1"
+#define INTERFACE_CLIENT "veth0"
+#define SERVER (unsigned char[]){0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c}
+#define CLIENT (unsigned char[]){0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7}
+*/
 
 //Sofia
-#define INTERFACE1 "enx00e04c034558"
-static unsigned char SERVER[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
-#define INTERFACE2 "enp4s0"
-static unsigned char CLIENT[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
+#define INTERFACE_SERVER "enp4s0"
+extern unsigned char SERVER[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
+#define INTERFACE_CLIENT "enx00e04c034558"
+extern unsigned char CLIENT[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
+
 
 typedef enum {
     MSG_ACK = 0,
@@ -37,7 +42,7 @@ typedef enum {
     MSG_DOWN = 13,
     MSG_WORLD = 14,
     MSG_ERROR = 15,
-    MSG_END = 16
+    MSG_END = 16,
 } MessageType;
 
 typedef struct {
@@ -65,6 +70,6 @@ int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const
 
 int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface);
 
-int send_init(int sock);
+int send_init(int sock, uint8_t *data);
 
 #endif
