@@ -21,4 +21,4 @@ client: $(CLIENT_OBJS)
 
 .PHONY: clean
 clean:
-	rm -f server client $(SERVER_OBJS) $(CLIENT_OBJS)
+	rm -f server client $(SERVER_OBJS) $(CLIENT_OBJS) *recv*
