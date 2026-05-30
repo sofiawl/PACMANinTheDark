@@ -2,6 +2,9 @@
 #include <sys/socket.h>
 #include <ncursesw/ncurses.h>
 #include <cstdlib>
+#include <unistd.h>
+#include <iostream>
+#include <string>
 
 #include "protocol.h"
 #include "client_view.h"
@@ -19,10 +22,11 @@ bool recv_file(int sock, Frame *f, const char* name){
 
     Frame frame;
     while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE1);
-        if (rv < 0) continue;
-        printf("Debug [recv_file] type: %d\n", frame.type);
-        if (frame.type == MSG_JPG) {
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_SERVER);
+        if (rv < 0) continue;  
+        // printf("Debug [recv_file] type: %d\n", frame.type);
+        // sleep(10);
+        if (frame.type == MSG_JPG || frame.type == MSG_TXT || frame.type == MSG_MP4) {
             fwrite(frame.data, 1, frame.size, out);
             continue;
         }
@@ -45,7 +49,7 @@ bool receive_world(int sock, uint8_t *map_data) {
     }
     Frame frame;
     while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE1);
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_SERVER);
         // trata timeout
         if (rv < 0) {
             send_init(sock, map_data);
@@ -64,6 +68,7 @@ bool receive_world(int sock, uint8_t *map_data) {
 }
 
 int receive_key(int sock, int key){
+    printf("Debug [receive_key] entrou aqui\n");
     //while (1) {
         // draw world and check for a key immediately (non-blocking, wtimeout=0)
 
@@ -91,7 +96,7 @@ int receive_key(int sock, int key){
 
         Frame f;
         if (build_frame(&f, 0, type, nullptr, 1) == 0)
-            send(sock, &f, CLIENT, SERVER, INTERFACE1);
+            send(sock, &f, CLIENT, SERVER, INTERFACE_SERVER);
 
         if (key == 'q' || key == 'Q') return -1;
         return 1;  // valid movement sent
@@ -151,9 +156,23 @@ void mostrar_premio(const char* nome_arquivo, int tipo) {
     }
 }
 
+void show(const std::string& nomeArquivo) {
+    std::string comando = "xdg-open ./" + nomeArquivo;
+
+    std::cout << "Tentando abrir: " << nomeArquivo << "..." << std::endl;
+    
+    int resultado = std::system(comando.c_str());
+
+    if (resultado != 0) {
+        std::cout << "Erro ao tentar abrir o arquivo. Verifique se o nome está correto." << std::endl;
+    }
+
+    sleep(10);
+}
+
 int main() {
 
-    int sock = create_raw_socket(INTERFACE1);
+    int sock = create_raw_socket(INTERFACE_SERVER);
 
     int num;
     printf("Type 1 to UFPR map and 2 to default map\n");
@@ -187,6 +206,10 @@ int main() {
                 printf("Gameover!\n");
                 break;
             }
+
+            Frame frame; 
+            recv_file(sock, &frame, "teste-recv.mp4");
+            show("teste-recv.mp4");
 
             if (result == 1) {
                 move_count++;

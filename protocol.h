@@ -11,19 +11,20 @@
 #define UFPR_MAP 1
 #define DEFAULT_MAP 2
 
-//Helena
-#define INTERFACE1 "veth1"
-#define INTERFACE2 "veth0"
+// Loopback
+/*
+#define INTERFACE_SERVER "veth1"
+#define INTERFACE_CLIENT "veth0"
 #define SERVER (unsigned char[]){0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c}
 #define CLIENT (unsigned char[]){0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7}
+*/
 
 //Sofia
-/*
-#define INTERFACE1 "enp4s0"
-#define INTERFACE2 "enx00e04c034558"
-#define SERVER {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
-#define CLIENT {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
-*/
+#define INTERFACE_SERVER "enp4s0"
+extern unsigned char SERVER[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
+#define INTERFACE_CLIENT "enx00e04c034558"
+extern unsigned char CLIENT[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
+
 
 typedef enum {
     MSG_ACK = 0,

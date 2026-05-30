@@ -42,16 +42,19 @@ uint8_t send_file(const char* arquivo, int sock){
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, file);
         if (bytes_read == 0) break;
         if (build_frame(&f_send, seq, type, buffer, (uint8_t)bytes_read) != 0) break;
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE2) < 0) break;
+        printf("[debug] Frame: %d\n",f_send.type);
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT) < 0) break;
 
-        //printf("Debug [send_world] ack recv\n");
-        seq++;
+        printf("Debug [send_world] ack recv\n");
+        if (++seq > 63) seq = 0;
     }
     fclose(file);
 
     // send END frame to signal world transmission is complete
-    if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
-        send(sock, &f_send, SERVER, CLIENT, INTERFACE2);
+    if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0){
+        send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT);
+        printf("Debug [send_file] file sent\n");
+    }
 
     return 0;
 
@@ -77,7 +80,7 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
         if (bytes_read == 0) break;
         if (build_frame(&f_send, seq, MSG_WORLD, buffer, (uint8_t)bytes_read) != 0) break;
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE2) < 0) break;
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT) < 0) break;
 
         //printf("Debug [send_world] ack recv\n");
         seq++;
@@ -87,14 +90,14 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
     // send END frame to signal world transmission is complete
     // should I change the end too?
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
-        send(sock, &f_send, SERVER, CLIENT, INTERFACE2);
+        send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT);
 }
 
 
 int main(){
     bool start = false;
 
-    int sock = create_raw_socket(INTERFACE2);
+    int sock = create_raw_socket(INTERFACE_CLIENT);
 
     // 10ms recv timeout — server loop never blocks waiting for client input
     struct timeval tv = {0, 10000};
@@ -114,7 +117,7 @@ int main(){
 
     while (1) {
         // non-blocking key check: returns after 10ms if client sent nothing
-        //int status = recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2);
+        //int status = recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_CLIENT);
 
         // trata timeout
         /*
@@ -124,8 +127,9 @@ int main(){
         }
             */
 
-        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE2) >= 0) {
+        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_CLIENT) >= 0) {
 
+            //printf("Debug [main] type: %d\n", f.type);
             // trata END
             if (f.type == MSG_END) break;
 
@@ -146,7 +150,7 @@ int main(){
                 if (move_pacman(world, pacman_coord, f.type) == -1) break;
 
                 printf("Debug: [main_server while] key pressed\n");
-                send_file("teste-jpg.txt", sock);
+                send_file("teste2.mp4", sock);
 
                 //send_world(sock, world);  // respond immediately so Pacman feels responsive
             }
