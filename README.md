@@ -101,8 +101,8 @@ PS: we can make an especific make client/ make server to run
     2. 2.txt
     3. 3.jpg
     4. 4.jpg
-    5. 5.jpg
-    6. 6.jpp
+    5. 5.mp4
+    6. 6.mp4
 - Please test with really big files, the professors will do that
 
 ### Visualization                                        
@@ -305,11 +305,17 @@ Review this logic in the future, when we are sending archives that are really bi
 
 [ ] EndGame page, is really necessary?????
 
-- [ ] Vision expansion grr
+[x] Vision expansion grr
 
 [x] Protection to other keyboard selection from client
 
 [ ] pills 
+
+[ ] check error handling
+ 
+[ ] test test and test again
+
+[ ] Handle the prohibited bytes that block the network thing 
  
 #### Thing Helena must add
 - [x] Ack / nack

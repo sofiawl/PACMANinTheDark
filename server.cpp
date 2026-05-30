@@ -9,59 +9,45 @@
 #include <string>
 #include <vector>
 #include <chrono>
+#include <algorithm>
 
 #include "protocol.h"
 #include "world.h"
 
 
-// It can also identified by the pills
-MessageType identify_type(std::string nomeArquivo) {
-    if (nomeArquivo.find(".txt") != std::string::npos) return MSG_TXT;
-    if (nomeArquivo.find(".jpg") != std::string::npos) return MSG_JPG;
-    if (nomeArquivo.find(".mp4") != std::string::npos) return MSG_MP4;
+MessageType identify_type(const char* nomeArquivo) {
+    std::string path(nomeArquivo);
+    if (path.find(".txt") != std::string::npos) return MSG_TXT;
+    if (path.find(".jpg") != std::string::npos) return MSG_JPG;
+    if (path.find(".mp4") != std::string::npos) return MSG_MP4;
     return MSG_ERROR;
 }
 
 
-uint8_t send_file(const char* arquivo, int sock){
-    printf("Debug [send_file] entrou\n");
+int send_file(const char* arquivo, int sock) {
     FILE* file = fopen(arquivo, "rb");
     if (!file) {
-        fprintf(stderr, "Could not open file for sending\n");
+        fprintf(stderr, "Could not open file for sending: %s\n", arquivo);
         return -1;
     }
 
-    printf("Debug [send_file] passou aqui\n");
     MessageType type = identify_type(arquivo);
-    printf("Debug [send_file] type: %d\n", type);
-
-    Frame f_send; //, f_recv;
+    Frame f_send;
     uint8_t seq = 0;
     while (1) {
         uint8_t buffer[DATA_SIZE];
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, file);
         if (bytes_read == 0) break;
         if (build_frame(&f_send, seq, type, buffer, (uint8_t)bytes_read) != 0) break;
-        printf("[debug] Frame: %d\n",f_send.type);
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT) < 0) break;
-
-        printf("Debug [send_world] ack recv\n");
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER) < 0) break;
         if (++seq > 63) seq = 0;
     }
     fclose(file);
 
-    // send END frame to signal world transmission is complete
-    if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0){
-        send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT);
-        printf("Debug [send_file] file sent\n");
-    }
+    if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
+        send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
 
     return 0;
-
-}
-
-void build_world(){
-
 }
 
 void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
@@ -73,115 +59,98 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
         return;
     }
 
-    Frame f_send; //, f_recv;
+    Frame f_send;
     uint8_t seq = 0;
     while (1) {
         uint8_t buffer[DATA_SIZE];
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
         if (bytes_read == 0) break;
         if (build_frame(&f_send, seq, MSG_WORLD, buffer, (uint8_t)bytes_read) != 0) break;
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT) < 0) break;
-
-        //printf("Debug [send_world] ack recv\n");
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER) < 0) break;
         seq++;
     }
     fclose(mundo);
 
-    // send END frame to signal world transmission is complete
-    // should I change the end too?
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
-        send(sock, &f_send, SERVER, CLIENT, INTERFACE_CLIENT);
+        send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
 }
 
+static void remove_pill(std::vector<PillInfo> &pills, char pill_id) {
+    pills.erase(
+        std::remove_if(pills.begin(), pills.end(),
+            [pill_id](const PillInfo &p) { return p.id == pill_id; }),
+        pills.end());
+}
 
-int main(){
+int main() {
     bool start = false;
+    bool transmitting = false;
 
-    int sock = create_raw_socket(INTERFACE_CLIENT);
+    int sock = create_raw_socket(INTERFACE_SERVER);
 
-    // 10ms recv timeout — server loop never blocks waiting for client input
     struct timeval tv = {0, 10000};
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 
     char world[SIZE_WORLD][SIZE_WORLD];
-    std::pair<int, int> pacman_coord = {{(SIZE_WORLD-1)/2}, {(SIZE_WORLD-1)/2}};
+    std::pair<int, int> pacman_coord = {{(SIZE_WORLD - 1) / 2}, {(SIZE_WORLD - 1) / 2}};
     bool green_go_left  = false;
     bool red_going_right = true;
     bool blue_going_up   = true;
 
     std::vector<std::pair<int, int>> ghost_coords;
+    std::vector<PillInfo> pills;
     Frame f;
     auto last_tick = std::chrono::steady_clock::now();
     const auto ghost_interval = std::chrono::milliseconds(300);
 
-
     while (1) {
-        // non-blocking key check: returns after 10ms if client sent nothing
-        //int status = recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_CLIENT);
-
-        // trata timeout
-        /*
-        if (status == -1) {
-            printf("Debug [main server] Timeout\n");
-            continue;
+        if (!transmitting && start) {
+            auto now = std::chrono::steady_clock::now();
+            if (now - last_tick >= ghost_interval) {
+                last_tick = now;
+                if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1)
+                    break;
+            }
         }
-            */
 
-        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_CLIENT) >= 0) {
+        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER) >= 0) {
+            if (transmitting)
+                continue;
 
-            //printf("Debug [main] type: %d\n", f.type);
-            // trata END
             if (f.type == MSG_END) break;
 
-            // trata o INIT
             if (f.type == MSG_INIT) {
                 if (!start) {
                     uint8_t world_map = f.data[0];
-                    ghost_coords = init_world(world, pacman_coord, world_map);
+                    ghost_coords = init_world(world, pacman_coord, world_map, pills);
                     start = true;
                 }
-                send_world(sock, world);  // always send current state, never reinit
+                send_world(sock, world);
             }
 
-            // não está entrando aqui
-            // trata movimento
             if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) {
-                printf("Debug [main server moviment] entrou\n");
-                if (move_pacman(world, pacman_coord, f.type) == -1) break;
+                int mv = move_pacman(world, pacman_coord, f.type);
+                if (mv == -1) break;
 
-                printf("Debug: [main_server while] key pressed\n");
-                send_file("teste2.mp4", sock);
-
-                //send_world(sock, world);  // respond immediately so Pacman feels responsive
+                if (mv >= '1' && mv <= '6') {
+                    const PillInfo *pill = find_pill_by_id(pills, (char)mv);
+                    if (pill) {
+                        transmitting = true;
+                        send_file(pill->file_path, sock);
+                        remove_pill(pills, pill->id);
+                    }
+                    send_world(sock, world);
+                    transmitting = false;
+                } else if (mv == 0) {
+                    send_world(sock, world);
+                }
             }
 
-            // trata final
-            if (f.type == MSG_OVER && start) {
+            if (f.type == MSG_OVER && start)
                 break;
-            }
-
-        }
-
-        //printf("Debug: [main_server] f.type (%d)\n",f.type);
-        // ghost tick: fires every 300ms regardless of client input
-        auto now = std::chrono::steady_clock::now();
-        if ((now - last_tick >= ghost_interval) && start){
-            last_tick = now;
-            if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1) break;
-            //send_world(sock, world);
         }
     }
 
     printf("Game over\n");
     return 0;
-
 }
-
-/*
-o mundo só vai ser mandado depois que tudo acontecer dentro do while(1)
-como que eu faço para:
-1. manda o mundo
-2. esperar o cliente andar para algum lugar
-3. checar se comeu pastilha, bateu na parede ou só atualizar a coordenada
-4. mandar a mensagem da pilula
-*/

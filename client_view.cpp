@@ -16,6 +16,10 @@ static int s_cell_h = 0;
 static int s_cell_w = 0;
 static int s_view_side = 0;
 
+static bool is_pill_char(char c) {
+    return c >= '1' && c <= '6';
+}
+
 static short color_for(char c) {
     switch (c) {
         case 'X': return COLOR_WHITE;
@@ -24,9 +28,15 @@ static short color_for(char c) {
         case 'R': return COLOR_RED;
         case 'P': return COLOR_YELLOW;
         case 'Y': return COLOR_MAGENTA;
+        case '1': case '2': case '3': case '4': case '5': case '6':
+            return COLOR_WHITE;
         case ' ': return COLOR_BLACK;
         default:  return COLOR_BLACK;
     }
+}
+
+static short attr_for(char c) {
+    return is_pill_char(c) ? (short)A_BOLD : A_NORMAL;
 }
 
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
@@ -117,7 +127,7 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
     }
 
     // build color pairs on demand
-    static short pair_id[8][8] = {};
+    static short pair_id[16][16] = {};
     static bool pairs_init = false;
     if (!pairs_init) {
         memset(pair_id, 0, sizeof(pair_id));
@@ -125,7 +135,7 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
     }
     static int next_pair = 1;
 
-    static const char CHARS[] = " XGBRPY0";
+    static const char CHARS[] = " XGBRPY0123456";
     constexpr int NC = sizeof(CHARS) - 1;
 
     auto char_idx = [&](char c) -> int {
@@ -136,7 +146,7 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
     werase(box_win);
 
     // half_pair[ci]: fg=color_for(c), bg=-1 (terminal default) — for boundary cells
-    static short half_pair[8] = {};
+    static short half_pair[16] = {};
 
     for (int i = 0; i < s_view_side; i += 2) {
         int term_row = i / 2;
@@ -153,7 +163,7 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
                 int ci = char_idx(c);
                 if (!half_pair[ci]) { init_pair(next_pair, color_for(c), -1); half_pair[ci] = next_pair++; }
                 cchar_t wch; wchar_t ws[2] = {L'▀', L'\0'};
-                setcchar(&wch, ws, A_NORMAL, half_pair[ci], nullptr);
+                setcchar(&wch, ws, attr_for(c), half_pair[ci], nullptr);
                 for (int dc = 0; dc < s_cell_w; ++dc)
                     mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
                 continue;
@@ -165,7 +175,7 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
                 int ci = char_idx(c);
                 if (!half_pair[ci]) { init_pair(next_pair, color_for(c), -1); half_pair[ci] = next_pair++; }
                 cchar_t wch; wchar_t ws[2] = {L'▄', L'\0'};
-                setcchar(&wch, ws, A_NORMAL, half_pair[ci], nullptr);
+                setcchar(&wch, ws, attr_for(c), half_pair[ci], nullptr);
                 for (int dc = 0; dc < s_cell_w; ++dc)
                     mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
                 continue;
@@ -179,7 +189,7 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
             int ti = char_idx(top), bi = char_idx(bot);
             if (!pair_id[ti][bi]) { init_pair(next_pair, color_for(top), color_for(bot)); pair_id[ti][bi] = next_pair++; }
             cchar_t wch; wchar_t ws[2] = {L'▀', L'\0'};
-            setcchar(&wch, ws, A_NORMAL, pair_id[ti][bi], nullptr);
+            setcchar(&wch, ws, attr_for(top) | attr_for(bot), pair_id[ti][bi], nullptr);
             for (int dc = 0; dc < s_cell_w; ++dc)
                 mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
         }

@@ -11,6 +11,9 @@
 #include <cerrno>
 #include "protocol.h"
 
+unsigned char SERVER[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
+unsigned char CLIENT[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
+
 // Why this value? Cause it is *01111110* in hex
 #define MARKER 0x7E
 
@@ -250,7 +253,7 @@ int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const
 int send_init(int sock, uint8_t *map) {
     Frame f_send;
     if(build_frame(&f_send, 0, MSG_INIT, map, 1) == 0){
-        send(sock, &f_send, CLIENT, SERVER, INTERFACE_SERVER);
+        send(sock, &f_send, CLIENT, SERVER, INTERFACE_CLIENT);
     }
     return 0;
 }

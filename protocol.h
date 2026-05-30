@@ -21,9 +21,9 @@
 
 //Sofia
 #define INTERFACE_SERVER "enp4s0"
-extern unsigned char SERVER[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
 #define INTERFACE_CLIENT "enx00e04c034558"
-extern unsigned char CLIENT[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
+extern unsigned char SERVER[6];
+extern unsigned char CLIENT[6];
 
 
 typedef enum {

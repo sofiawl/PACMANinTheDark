@@ -5,103 +5,127 @@
 #include <unistd.h>
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #include "protocol.h"
 #include "client_view.h"
 #include "world.h"
 
 
-// implement this on the main
-bool recv_file(int sock, Frame *f, const char* name){
-    printf("Debug [recv_file] entrou\n");
-    FILE* out = fopen(name, "wb");
-    if (!out) {
-        fprintf(stderr, "Could not open file for writing\n");
-        return false;
-    }
+static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
+    std::ifstream in(csv_path);
+    if (!in.is_open()) return false;
 
-    Frame frame;
-    while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_SERVER);
-        if (rv < 0) continue;  
-        // printf("Debug [recv_file] type: %d\n", frame.type);
-        // sleep(10);
-        if (frame.type == MSG_JPG || frame.type == MSG_TXT || frame.type == MSG_MP4) {
-            fwrite(frame.data, 1, frame.size, out);
-            continue;
-        }
-        if (frame.type == MSG_END) {
-            printf("Debug [recv_file] msg_end\n");
-            break;
-        }
+    std::string line;
+    for (int i = 0; i < SIZE_WORLD; ++i) {
+        if (!std::getline(in, line)) return false;
+        if (!line.empty() && line.back() == '\r') line.pop_back();
+        for (int j = 0; j < SIZE_WORLD; ++j)
+            world[i][j] = (j < (int)line.size()) ? line[j] : '0';
     }
-    fflush(out);
-    fclose(out);
-    printf("Debug [recv_file] saida\n");
     return true;
 }
 
-bool receive_world(int sock, uint8_t *map_data) {
-    FILE* out = fopen("mundo.csv", "wb");
-    if (!out) {
-        fprintf(stderr, "Could not open mundo.csv for writing\n");
-        return false;
+static void sync_pacman_from_csv(const char* csv_path, std::pair<int, int> &pacman_coord) {
+    char world[SIZE_WORLD][SIZE_WORLD];
+    if (!load_world_csv(csv_path, world)) return;
+    for (int i = 0; i < SIZE_WORLD; ++i) {
+        for (int j = 0; j < SIZE_WORLD; ++j) {
+            if (world[i][j] == 'P') {
+                pacman_coord = {i, j};
+                return;
+            }
+        }
     }
+}
+
+static const char* prize_extension(int type) {
+    if (type == MSG_TXT) return ".txt";
+    if (type == MSG_JPG) return ".jpg";
+    if (type == MSG_MP4) return ".mp4";
+    return ".bin";
+}
+
+// After a move: optional prize file (MSG_TXT/JPG/MP4 + MSG_END), then updated world.
+static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pacman_coord,
+    char *prize_path, size_t prize_path_sz, int *prize_type, bool *got_prize) {
+
+    *got_prize = false;
+    prize_path[0] = '\0';
+    *prize_type = 0;
+
+    FILE* mundo = fopen("mundo.csv", "wb");
+    if (!mundo) return false;
+
+    FILE* prize = nullptr;
     Frame frame;
+
     while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_SERVER);
-        // trata timeout
-        if (rv < 0) {
-            send_init(sock, map_data);
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+        if (rv < 0) continue;
+
+        if (frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4) {
+            if (!prize) {
+                *prize_type = frame.type;
+                snprintf(prize_path, prize_path_sz, "pills/recv%s", prize_extension(frame.type));
+                prize = fopen(prize_path, "wb");
+                if (!prize) {
+                    fclose(mundo);
+                    return false;
+                }
+                *got_prize = true;
+            }
+            fwrite(frame.data, 1, frame.size, prize);
+            continue;
+        }
+
+        if (prize && frame.type == MSG_END) {
+            fclose(prize);
+            prize = nullptr;
             continue;
         }
 
         if (frame.type == MSG_WORLD) {
-            fwrite(frame.data, 1, frame.size, out);
+            fwrite(frame.data, 1, frame.size, mundo);
             continue;
         }
-        if (frame.type == MSG_END) break;
-    }
-    fflush(out);
-    fclose(out);
-    return true;
-}
 
-int receive_key(int sock, int key){
-    printf("Debug [receive_key] entrou aqui\n");
-    //while (1) {
-        // draw world and check for a key immediately (non-blocking, wtimeout=0)
-
-        // map arrow keys to single bytes the server understands
-        MessageType type;
-        switch (key) {
-            case KEY_UP:
-                type = MSG_UP;
-                break;
-            case KEY_DOWN:
-                type = MSG_DOWN;
-                break;
-            case KEY_LEFT:
-                type = MSG_LEFT;
-                break;
-            case KEY_RIGHT:
-                type = MSG_RIGHT;
-                break;
-            case 'q': case 'Q':
-                type = MSG_OVER;
-                break;
-            default:
-                return 0;  // unknown key : do nothing
+        if (frame.type == MSG_END) {
+            fflush(mundo);
+            fclose(mundo);
+            sync_pacman_from_csv("mundo.csv", pacman_coord);
+            return true;
         }
-
-        Frame f;
-        if (build_frame(&f, 0, type, nullptr, 1) == 0)
-            send(sock, &f, CLIENT, SERVER, INTERFACE_SERVER);
-
-        if (key == 'q' || key == 'Q') return -1;
-        return 1;  // valid movement sent
+    }
 }
 
+bool receive_world(int sock, uint8_t *map_data) {
+    char prize_path[128];
+    int prize_type = 0;
+    bool got_prize = false;
+    std::pair<int, int> dummy = {0, 0};
+    (void)map_data;
+    return sync_after_move(sock, map_data, dummy, prize_path, sizeof(prize_path), &prize_type, &got_prize);
+}
+
+int receive_key(int sock, int key) {
+    MessageType type;
+    switch (key) {
+        case KEY_UP:    type = MSG_UP; break;
+        case KEY_DOWN:  type = MSG_DOWN; break;
+        case KEY_LEFT:  type = MSG_LEFT; break;
+        case KEY_RIGHT: type = MSG_RIGHT; break;
+        case 'q': case 'Q': type = MSG_OVER; break;
+        default: return 0;
+    }
+
+    Frame f;
+    if (build_frame(&f, 0, type, nullptr, 1) == 0)
+        send(sock, &f, CLIENT, SERVER, INTERFACE_CLIENT);
+
+    if (key == 'q' || key == 'Q') return -1;
+    return 1;
+}
 
 void exibir_premio_txt(const char* nome_arquivo) {
     FILE* arq = fopen(nome_arquivo, "r");
@@ -115,64 +139,38 @@ void exibir_premio_txt(const char* nome_arquivo) {
     move(0, 0);
 
     char linha[256];
-    while (fgets(linha, sizeof(linha), arq)) {
+    while (fgets(linha, sizeof(linha), arq))
         printw("%s", linha);
-    }
     fclose(arq);
-
 
     mvprintw(LINES - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
     refresh();
-
-    // is suposed to stop the game
-    //int c = getch();
-
     clear();
 }
 
 void mostrar_premio(const char* nome_arquivo, int tipo) {
-    printf("Debug [mostrar premio] entrou aqui\n");
-    if (tipo == 5) {
+    if (tipo == MSG_TXT) {
         exibir_premio_txt(nome_arquivo);
-    }
-    else if (tipo == 6 || tipo == 7) {
-        char comando[512];
-
+    } else if (tipo == MSG_JPG || tipo == MSG_MP4) {
         char chmod_cmd[128];
         sprintf(chmod_cmd, "chmod 777 %s", nome_arquivo);
         system(chmod_cmd);
 
-        // faz com que mostre a pag de video
+        char comando[512];
         sprintf(comando, "su $SUDO_USER -c \"xdg-open %s\" &", nome_arquivo);
         system(comando);
 
         clear();
-        mvprintw(LINES / 2, (COLS / 2) - 15, "Prêmio aberto em uma janela externa!");
+        mvprintw(LINES / 2, (COLS / 2) - 15, "Premio aberto em uma janela externa!");
         mvprintw((LINES / 2) + 2, (COLS / 2) - 20, "Aperte qualquer tecla no terminal para voltar ao jogo...");
         refresh();
-
         getch();
         clear();
     }
 }
 
-void show(const std::string& nomeArquivo) {
-    std::string comando = "xdg-open ./" + nomeArquivo;
-
-    std::cout << "Tentando abrir: " << nomeArquivo << "..." << std::endl;
-    
-    int resultado = std::system(comando.c_str());
-
-    if (resultado != 0) {
-        std::cout << "Erro ao tentar abrir o arquivo. Verifique se o nome está correto." << std::endl;
-    }
-
-    sleep(10);
-}
-
 int main() {
-
-    int sock = create_raw_socket(INTERFACE_SERVER);
+    int sock = create_raw_socket(INTERFACE_CLIENT);
 
     int num;
     printf("Type 1 to UFPR map and 2 to default map\n");
@@ -181,78 +179,57 @@ int main() {
     if (num == UFPR_MAP)
         data_map_world[0] = UFPR_MAP;
     else
-        data_map_world[0] = DEFAULT_MAP;  // default if invalid input
+        data_map_world[0] = DEFAULT_MAP;
 
     int move_count = 0;
-    int radius     = 1;
-    std::pair<int,int> pacman_coord = {(SIZE_WORLD - 1) / 2, (SIZE_WORLD - 1) / 2};  // {19,19} — matches server.cpp
+    int radius = 1;
+    std::pair<int, int> pacman_coord = {(SIZE_WORLD - 1) / 2, (SIZE_WORLD - 1) / 2};
 
-    while(1){
-
+    while (1) {
         if (send_init(sock, data_map_world) != 0) {
             printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
             return -1;
         }
 
-
         if (!receive_world(sock, data_map_world)) return 1;
 
+        sync_pacman_from_csv("mundo.csv", pacman_coord);
         init_client_view();
 
         int key = draw_client_view_and_get_key("mundo.csv", pacman_coord, radius);
-        if(key != ERR){
-            int result = receive_key(sock, key);
-            if(result == -1){
-                printf("Gameover!\n");
-                break;
-            }
-
-            Frame frame; 
-            recv_file(sock, &frame, "teste-recv.mp4");
-            show("teste-recv.mp4");
-
-            if (result == 1) {
-                move_count++;
-                radius = 1 + move_count / 5;  // 0-4: r=1, 5-9: r=2, 10-14: r=3 ...
-
-                if      (key == KEY_UP)    pacman_coord.first--;
-                else if (key == KEY_DOWN)  pacman_coord.first++;
-                else if (key == KEY_LEFT)  pacman_coord.second--;
-                else if (key == KEY_RIGHT) pacman_coord.second++;
-
-                Frame frame;
-                recv_file(sock, &frame, "1");
-                mostrar_premio("1", frame.type);
-            }
-
-            //when I build the other functions hopefully this will work better
-            // if this is not here it will start building a world on top of the old one
+        if (key == ERR) {
             close_client_view();
+            continue;
         }
-    }
 
+        int result = receive_key(sock, key);
+        if (result == -1) {
+            printf("Gameover!\n");
+            break;
+        }
+
+        if (result == 1) {
+            char prize_path[128];
+            int prize_type = 0;
+            bool got_prize = false;
+
+            if (!sync_after_move(sock, data_map_world, pacman_coord,
+                    prize_path, sizeof(prize_path), &prize_type, &got_prize)) {
+                close_client_view();
+                return 1;
+            }
+
+            if (got_prize)
+                mostrar_premio(prize_path, prize_type);
+
+            move_count++;
+            radius = 1 + move_count / 5;
+        }
+
+        close_client_view();
+    }
 
     close_client_view();
     printf("Game over\n");
     return 0;
 }
-
-
-
-
-
-
-/*
-Ordem dos eventos:
-1. receber mundo
-2. scanf movimento
-3. recv_file
-
-First message goes to trash
-
-I am not sure how to implement the timeout
-It will send init and wait for response if it doesn't come then sends init again
-
-tá recebendo só ack
-
-*/
