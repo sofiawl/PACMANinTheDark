@@ -252,10 +252,9 @@ int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const
 
 int send_init(int sock, uint8_t *map) {
     Frame f_send;
-    if(build_frame(&f_send, 0, MSG_INIT, map, 1) == 0){
-        send(sock, &f_send, CLIENT, SERVER, INTERFACE_CLIENT);
-    }
-    return 0;
+    if (build_frame(&f_send, 0, MSG_INIT, map, 1) != 0)
+        return -1;
+    return send_frame(sock, &f_send, CLIENT, SERVER, INTERFACE_CLIENT) < 0 ? -1 : 0;
 }
 
 

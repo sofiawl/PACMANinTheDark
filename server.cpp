@@ -103,6 +103,9 @@ int main() {
     auto last_tick = std::chrono::steady_clock::now();
     const auto ghost_interval = std::chrono::milliseconds(300);
 
+    printf("Server ready. Waiting for client... (run: sudo ./client)\n");
+    fflush(stdout);
+
     while (1) {
         if (!transmitting && start) {
             auto now = std::chrono::steady_clock::now();

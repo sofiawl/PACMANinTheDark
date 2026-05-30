@@ -6,8 +6,12 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <chrono>
 
 #include "protocol.h"
+
+#define WORLD_WAIT_MS 3000
+#define CONNECT_RETRY_MS 500
 #include "client_view.h"
 #include "world.h"
 
@@ -44,6 +48,63 @@ static const char* prize_extension(int type) {
     if (type == MSG_JPG) return ".jpg";
     if (type == MSG_MP4) return ".mp4";
     return ".bin";
+}
+
+// timeout_ms == 0 waits until the full world arrives.
+static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
+    (void)map_data;
+    FILE* mundo = fopen("mundo.csv", "wb");
+    if (!mundo) {
+        fprintf(stderr, "Could not open mundo.csv for writing\n");
+        return false;
+    }
+
+    Frame frame;
+    bool got_world_data = false;
+    bool use_timeout = timeout_ms > 0;
+    auto deadline = std::chrono::steady_clock::now() + std::chrono::milliseconds(timeout_ms);
+
+    while (1) {
+        if (use_timeout && !got_world_data && std::chrono::steady_clock::now() >= deadline) {
+            fclose(mundo);
+            return false;
+        }
+
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+        if (rv < 0) continue;
+
+        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
+            continue;
+
+        if (frame.type == MSG_WORLD) {
+            fwrite(frame.data, 1, frame.size, mundo);
+            got_world_data = true;
+            if (use_timeout)
+                deadline = std::chrono::steady_clock::now() + std::chrono::milliseconds(timeout_ms);
+            continue;
+        }
+
+        if (frame.type == MSG_END) {
+            fflush(mundo);
+            fclose(mundo);
+            return got_world_data;
+        }
+    }
+}
+
+static bool wait_for_server_and_world(int sock, uint8_t *map_data) {
+    printf("Waiting for server... (run: sudo ./server in another terminal)\n");
+    fflush(stdout);
+
+    while (1) {
+        if (send_init(sock, map_data) != 0) {
+            usleep(CONNECT_RETRY_MS * 1000);
+            continue;
+        }
+        if (receive_world(sock, map_data, WORLD_WAIT_MS))
+            return true;
+        usleep(CONNECT_RETRY_MS * 1000);
+    }
 }
 
 // After a move: optional prize file (MSG_TXT/JPG/MP4 + MSG_END), then updated world.
@@ -98,37 +159,6 @@ static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pa
             fclose(mundo);
             sync_pacman_from_csv("mundo.csv", pacman_coord);
             return true;
-        }
-    }
-}
-
-bool receive_world(int sock, uint8_t *map_data) {
-    (void)map_data;
-    FILE* mundo = fopen("mundo.csv", "wb");
-    if (!mundo) {
-        fprintf(stderr, "Could not open mundo.csv for writing\n");
-        return false;
-    }
-
-    Frame frame;
-    bool got_world_data = false;
-    while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
-        if (rv < 0) continue;
-
-        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
-            continue;
-
-        if (frame.type == MSG_WORLD) {
-            fwrite(frame.data, 1, frame.size, mundo);
-            got_world_data = true;
-            continue;
-        }
-
-        if (frame.type == MSG_END) {
-            fflush(mundo);
-            fclose(mundo);
-            return got_world_data;
         }
     }
 }
@@ -210,15 +240,10 @@ int main() {
     int radius = 1;
     std::pair<int, int> pacman_coord = {(SIZE_WORLD - 1) / 2, (SIZE_WORLD - 1) / 2};
 
-    if (send_init(sock, data_map_world) != 0) {
-        printf("Debug [main client]: Tempo expirado para receber o mapa inicial.\n");
-        return -1;
-    }
-
-    if (!receive_world(sock, data_map_world)) {
-        fprintf(stderr, "Failed to receive world from server (is ./server running?)\n");
+    if (!wait_for_server_and_world(sock, data_map_world))
         return 1;
-    }
+
+    printf("Connected to server.\n");
 
     sync_pacman_from_csv("mundo.csv", pacman_coord);
     init_client_view();
