@@ -50,6 +50,23 @@ int send_file(const char* arquivo, int sock) {
     return 0;
 }
 
+static void send_game_over(int sock) {
+    Frame f_send;
+    if (build_frame(&f_send, 0, MSG_OVER, nullptr, 0) == 0)
+        send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
+}
+
+static void send_ghost_positions(int sock, const std::vector<std::pair<int, int>> &ghost_coords) {
+    uint8_t data[8];
+    for (int i = 0; i < 4; ++i) {
+        data[i * 2]     = (uint8_t)ghost_coords[i].first;
+        data[i * 2 + 1] = (uint8_t)ghost_coords[i].second;
+    }
+    Frame f_send;
+    if (build_frame(&f_send, 0, MSG_GHOSTS, data, 8) == 0)
+        send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
+}
+
 void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
     update_world_csv(world);
 
@@ -107,15 +124,6 @@ int main() {
     fflush(stdout);
 
     while (1) {
-        if (!transmitting && start) {
-            auto now = std::chrono::steady_clock::now();
-            if (now - last_tick >= ghost_interval) {
-                last_tick = now;
-                if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1)
-                    break;
-            }
-        }
-
         if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER) >= 0) {
             if (transmitting)
                 continue;
@@ -131,11 +139,15 @@ int main() {
                     start = true;
                 }
                 send_world(sock, world);
+                continue;
             }
 
             if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) {
                 int mv = move_pacman(world, pacman_coord, f.type);
-                if (mv == -1) break;
+                if (mv == -1) {
+                    send_game_over(sock);
+                    break;
+                }
 
                 if (mv >= '1' && mv <= '6') {
                     const PillInfo *pill = find_pill_by_id(pills, (char)mv);
@@ -149,10 +161,24 @@ int main() {
                 } else if (mv == 0) {
                     send_world(sock, world);
                 }
+                continue;
             }
 
             if (f.type == MSG_OVER && start)
                 break;
+            continue;
+        }
+
+        if (!transmitting && start) {
+            auto now = std::chrono::steady_clock::now();
+            if (now - last_tick >= ghost_interval) {
+                last_tick = now;
+                if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1) {
+                    send_game_over(sock);
+                    break;
+                }
+                send_ghost_positions(sock, ghost_coords);
+            }
         }
     }
 

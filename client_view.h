@@ -5,6 +5,8 @@
 
 void init_client_view();
 void close_client_view();
+void draw_client_view(const char* csv_path, std::pair<int,int> pacman_coord, int radius);
+int  poll_client_key();
 int  draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman_coord, int radius);
 
 #endif

@@ -105,7 +105,7 @@ void init_client_view() {
 
     box_win = newwin(win_h, win_w, origin_y, origin_x);
     keypad(box_win, TRUE);
-    wtimeout(box_win, -1);  // block until the player presses a key
+    wtimeout(box_win, 50);
 }
 
 // call once at shutdown
@@ -117,14 +117,14 @@ void close_client_view() {
     endwin();
 }
 
-// draws the world and returns the key pressed
-int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman_coord, int radius) {
-    if (!box_win) return 'q';
+// draws the world
+void draw_client_view(const char* csv_path, std::pair<int,int> pacman_coord, int radius) {
+    if (!box_win) return;
 
     char world[SIZE_WORLD][SIZE_WORLD];
     if (!load_world_csv(csv_path, world)) {
         fprintf(stderr, "Could not load %s\n", csv_path);
-        return ERR;
+        return;
     }
 
     // build color pairs on demand
@@ -202,7 +202,18 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
     mvwprintw(box_win, s_view_side / 2, msg_col, "%s", msg);
 
     wrefresh(box_win);
+}
 
-    // wait for keypress
+int poll_client_key() {
+    if (!box_win) return 'q';
     return wgetch(box_win);
+}
+
+// draws the world and returns the key pressed
+int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman_coord, int radius) {
+    draw_client_view(csv_path, pacman_coord, radius);
+    int key = ERR;
+    while (key == ERR)
+        key = poll_client_key();
+    return key;
 }

@@ -30,9 +30,7 @@ static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WOR
     return true;
 }
 
-static void sync_pacman_from_csv(const char* csv_path, std::pair<int, int> &pacman_coord) {
-    char world[SIZE_WORLD][SIZE_WORLD];
-    if (!load_world_csv(csv_path, world)) return;
+static void sync_pacman_from_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int, int> &pacman_coord) {
     for (int i = 0; i < SIZE_WORLD; ++i) {
         for (int j = 0; j < SIZE_WORLD; ++j) {
             if (world[i][j] == 'P') {
@@ -41,6 +39,62 @@ static void sync_pacman_from_csv(const char* csv_path, std::pair<int, int> &pacm
             }
         }
     }
+}
+
+static const char GHOST_CHARS[] = "RBGY";
+
+static void apply_ghost_update(char world[SIZE_WORLD][SIZE_WORLD], const uint8_t *data, uint8_t size) {
+    if (size < 8) return;
+    for (int i = 0; i < SIZE_WORLD; ++i) {
+        for (int j = 0; j < SIZE_WORLD; ++j) {
+            char c = world[i][j];
+            if (c == 'R' || c == 'B' || c == 'G' || c == 'Y')
+                world[i][j] = '0';
+        }
+    }
+    for (int g = 0; g < 4; ++g) {
+        int r = data[g * 2];
+        int c = data[g * 2 + 1];
+        if (r >= 0 && r < SIZE_WORLD && c >= 0 && c < SIZE_WORLD)
+            world[r][c] = GHOST_CHARS[g];
+    }
+}
+
+// 0 = nothing, 1 = ghosts moved, -1 = game over
+static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
+    Frame frame;
+    int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+    if (rv < 0) return 0;
+
+    if (frame.type == MSG_ACK || frame.type == MSG_NACK)
+        return 0;
+
+    if (frame.type == MSG_GHOSTS) {
+        apply_ghost_update(client_world, frame.data, frame.size);
+        update_world_csv(client_world);
+        return 1;
+    }
+
+    if (frame.type == MSG_OVER)
+        return -1;
+
+    return 0;
+}
+
+static void drain_ghost_updates(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
+    Frame frame;
+    while (recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT) >= 0) {
+        if (frame.type == MSG_GHOSTS) {
+            apply_ghost_update(client_world, frame.data, frame.size);
+            update_world_csv(client_world);
+        }
+    }
+}
+
+static void sync_pacman_from_csv(const char* csv_path, std::pair<int, int> &pacman_coord) {
+    char world[SIZE_WORLD][SIZE_WORLD];
+    if (!load_world_csv(csv_path, world)) return;
+    sync_pacman_from_world(world, pacman_coord);
 }
 
 static const char* prize_extension(int type) {
@@ -107,16 +161,17 @@ static bool wait_for_server_and_world(int sock, uint8_t *map_data) {
     }
 }
 
-// After a move: optional prize file (MSG_TXT/JPG/MP4 + MSG_END), then updated world.
-static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pacman_coord,
-    char *prize_path, size_t prize_path_sz, int *prize_type, bool *got_prize) {
+// 1 = success, 0 = game over, -1 = error
+static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
+    std::pair<int, int> &pacman_coord, char *prize_path, size_t prize_path_sz,
+    int *prize_type, bool *got_prize) {
 
     *got_prize = false;
     prize_path[0] = '\0';
     *prize_type = 0;
 
     FILE* mundo = fopen("mundo.csv", "wb");
-    if (!mundo) return false;
+    if (!mundo) return -1;
 
     FILE* prize = nullptr;
     Frame frame;
@@ -128,6 +183,14 @@ static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pa
         if (frame.type == MSG_ACK || frame.type == MSG_NACK)
             continue;
 
+        if (frame.type == MSG_GHOSTS) {
+            apply_ghost_update(client_world, frame.data, frame.size);
+            continue;
+        }
+
+        if (frame.type == MSG_OVER)
+            return 0;
+
         if (frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4) {
             if (!prize) {
                 *prize_type = frame.type;
@@ -135,7 +198,7 @@ static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pa
                 prize = fopen(prize_path, "wb");
                 if (!prize) {
                     fclose(mundo);
-                    return false;
+                    return -1;
                 }
                 *got_prize = true;
             }
@@ -157,8 +220,9 @@ static bool sync_after_move(int sock, uint8_t *map_data, std::pair<int, int> &pa
         if (frame.type == MSG_END) {
             fflush(mundo);
             fclose(mundo);
-            sync_pacman_from_csv("mundo.csv", pacman_coord);
-            return true;
+            load_world_csv("mundo.csv", client_world);
+            sync_pacman_from_world(client_world, pacman_coord);
+            return 1;
         }
     }
 }
@@ -248,10 +312,29 @@ int main() {
     sync_pacman_from_csv("mundo.csv", pacman_coord);
     init_client_view();
 
+    char client_world[SIZE_WORLD][SIZE_WORLD];
+    if (!load_world_csv("mundo.csv", client_world)) {
+        close_client_view();
+        fprintf(stderr, "Could not load initial world\n");
+        return 1;
+    }
+
     while (1) {
-        int key = draw_client_view_and_get_key("mundo.csv", pacman_coord, radius);
-        if (key == ERR)
-            continue;
+        draw_client_view("mundo.csv", pacman_coord, radius);
+
+        int key = ERR;
+        while (key == ERR) {
+            int net = poll_network(sock, client_world);
+            if (net == -1) {
+                printf("Gameover!\n");
+                close_client_view();
+                return 0;
+            }
+            if (net == 1)
+                draw_client_view("mundo.csv", pacman_coord, radius);
+
+            key = poll_client_key();
+        }
 
         int result = receive_key(sock, key);
         if (result == -1) {
@@ -264,8 +347,13 @@ int main() {
             int prize_type = 0;
             bool got_prize = false;
 
-            if (!sync_after_move(sock, data_map_world, pacman_coord,
-                    prize_path, sizeof(prize_path), &prize_type, &got_prize)) {
+            int sync = sync_after_move(sock, client_world, pacman_coord,
+                    prize_path, sizeof(prize_path), &prize_type, &got_prize);
+            if (sync == 0) {
+                printf("Gameover!\n");
+                break;
+            }
+            if (sync < 0) {
                 close_client_view();
                 fprintf(stderr, "Lost sync with server after move\n");
                 return 1;
@@ -273,6 +361,8 @@ int main() {
 
             if (got_prize)
                 mostrar_premio(prize_path, prize_type);
+
+            drain_ghost_updates(sock, client_world);
 
             move_count++;
             radius = 1 + move_count / 5;

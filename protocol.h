@@ -36,6 +36,7 @@ typedef enum {
     MSG_JPG = 6,
     MSG_MP4 = 7,
     MSG_OVER = 8,
+    MSG_GHOSTS = 9,
     MSG_RIGHT = 10,
     MSG_LEFT = 11,
     MSG_UP = 12,
