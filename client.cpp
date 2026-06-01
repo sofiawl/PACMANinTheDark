@@ -423,6 +423,5 @@ int main() {
     }
 
     close_client_view();
-    printf("Game over\n");
     return 0;
 }

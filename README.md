@@ -303,13 +303,13 @@ Review this logic in the future, when we are sending archives that are really bi
 #### Thing sofia must add
 [x] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
 
-[ ] EndGame page, is really necessary?????
+[x] EndGame page
 
 [x] Vision expansion grr
 
 [x] Protection to other keyboard selection from client
 
-[ ] pills 
+[x] pills 
 
 [ ] check error handling
  

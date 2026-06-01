@@ -99,8 +99,28 @@ static void remove_pill(std::vector<PillInfo> &pills, char pill_id) {
         pills.end());
 }
 
+static void wait_for_client_and_init(int sock,
+    char world[SIZE_WORLD][SIZE_WORLD],
+    std::pair<int, int> &pacman_coord,
+    std::vector<std::pair<int, int>> &ghost_coords,
+    std::vector<PillInfo> &pills) {
+
+    printf("Server ready. Waiting for client... (run: sudo ./client)\n");
+    fflush(stdout);
+
+    Frame f;
+    while (1) {
+        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER) >= 0
+                && f.type == MSG_INIT) {
+            uint8_t world_map = f.data[0];
+            ghost_coords = init_world(world, pacman_coord, world_map, pills);
+            send_world(sock, world);
+            return;
+        }
+    }
+}
+
 int main() {
-    bool start = false;
     bool transmitting = false;
 
     int sock = create_raw_socket(INTERFACE_SERVER);
@@ -117,32 +137,26 @@ int main() {
     std::vector<std::pair<int, int>> ghost_coords;
     std::vector<PillInfo> pills;
     Frame f;
+
+    wait_for_client_and_init(sock, world, pacman_coord, ghost_coords, pills);
+
     auto last_tick = std::chrono::steady_clock::now();
     const auto ghost_interval = std::chrono::milliseconds(300);
-
-    printf("Server ready. Waiting for client... (run: sudo ./client)\n");
-    fflush(stdout);
 
     while (1) {
         if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER) >= 0) {
             if (transmitting)
                 continue;
 
-            // MSG_END is sent by us after world/file transfer — do not treat it as game over.
             if (f.type == MSG_END)
                 continue;
 
             if (f.type == MSG_INIT) {
-                if (!start) {
-                    uint8_t world_map = f.data[0];
-                    ghost_coords = init_world(world, pacman_coord, world_map, pills);
-                    start = true;
-                }
                 send_world(sock, world);
                 continue;
             }
 
-            if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) {
+            if (f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) {
                 int mv = move_pacman(world, pacman_coord, f.type);
                 if (mv == -1) {
                     send_file("pills/GameOver.mp4", sock);
@@ -171,12 +185,12 @@ int main() {
                 continue;
             }
 
-            if (f.type == MSG_OVER && start)
+            if (f.type == MSG_OVER)
                 break;
             continue;
         }
 
-        if (!transmitting && start) {
+        if (!transmitting) {
             auto now = std::chrono::steady_clock::now();
             if (now - last_tick >= ghost_interval) {
                 last_tick = now;
@@ -190,6 +204,5 @@ int main() {
         }
     }
 
-    printf("Game over\n");
     return 0;
 }

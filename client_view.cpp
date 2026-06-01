@@ -24,9 +24,9 @@ static short color_for(char c) {
         case 'R': return 196;  // vivid red
         case 'P': return 226;  // vivid yellow
         case 'Y': return 201;  // vivid magenta
-        case '1': case '2': return 216;  // .txt -> soft peach
-        case '3': case '4': return 183;  // .jpg -> soft lavender
-        case '5': case '6': return 250;  // .mp4 -> soft cream
+        case '1': case '2': return 216;  // .txt é soft peach
+        case '3': case '4': return 183;  // .jpg é soft lavender
+        case '5': case '6': return 218;  // .mp4 é soft pink
         case ' ': return COLOR_BLACK;
         default:  return COLOR_BLACK;
     }
