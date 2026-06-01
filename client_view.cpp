@@ -117,15 +117,8 @@ void close_client_view() {
     endwin();
 }
 
-// draws the world
-void draw_client_view(const char* csv_path, std::pair<int,int> pacman_coord, int radius) {
+void draw_client_view_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,int> pacman_coord, int radius) {
     if (!box_win) return;
-
-    char world[SIZE_WORLD][SIZE_WORLD];
-    if (!load_world_csv(csv_path, world)) {
-        fprintf(stderr, "Could not load %s\n", csv_path);
-        return;
-    }
 
     // build color pairs on demand
     static short pair_id[16][16] = {};
@@ -202,6 +195,15 @@ void draw_client_view(const char* csv_path, std::pair<int,int> pacman_coord, int
     mvwprintw(box_win, s_view_side / 2, msg_col, "%s", msg);
 
     wrefresh(box_win);
+}
+
+void draw_client_view(const char* csv_path, std::pair<int,int> pacman_coord, int radius) {
+    char world[SIZE_WORLD][SIZE_WORLD];
+    if (!load_world_csv(csv_path, world)) {
+        fprintf(stderr, "Could not load %s\n", csv_path);
+        return;
+    }
+    draw_client_view_world(world, pacman_coord, radius);
 }
 
 int poll_client_key() {

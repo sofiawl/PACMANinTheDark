@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <chrono>
+#include <sys/time.h>
 
 #include "protocol.h"
 
@@ -15,6 +16,11 @@
 #include "client_view.h"
 #include "world.h"
 
+
+static void set_recv_timeout_ms(int sock, int ms) {
+    struct timeval tv = { ms / 1000, (ms % 1000) * 1000 };
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+}
 
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
     std::ifstream in(csv_path);
@@ -62,32 +68,34 @@ static void apply_ghost_update(char world[SIZE_WORLD][SIZE_WORLD], const uint8_t
 
 // 0 = nothing, 1 = ghosts moved, -1 = game over
 static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
+    int changed = 0;
     Frame frame;
-    int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
-    if (rv < 0) return 0;
 
-    if (frame.type == MSG_ACK || frame.type == MSG_NACK)
-        return 0;
+    while (1) {
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+        if (rv < 0) break;
 
-    if (frame.type == MSG_GHOSTS) {
-        apply_ghost_update(client_world, frame.data, frame.size);
-        update_world_csv(client_world);
-        return 1;
+        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
+            continue;
+
+        if (frame.type == MSG_GHOSTS) {
+            apply_ghost_update(client_world, frame.data, frame.size);
+            changed = 1;
+            continue;
+        }
+
+        if (frame.type == MSG_OVER)
+            return -1;
     }
 
-    if (frame.type == MSG_OVER)
-        return -1;
-
-    return 0;
+    return changed;
 }
 
 static void drain_ghost_updates(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
     Frame frame;
     while (recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT) >= 0) {
-        if (frame.type == MSG_GHOSTS) {
+        if (frame.type == MSG_GHOSTS)
             apply_ghost_update(client_world, frame.data, frame.size);
-            update_world_csv(client_world);
-        }
     }
 }
 
@@ -319,11 +327,16 @@ int main() {
         return 1;
     }
 
+    set_recv_timeout_ms(sock, 10);
+
     while (1) {
-        draw_client_view("mundo.csv", pacman_coord, radius);
+        draw_client_view_world(client_world, pacman_coord, radius);
 
         int key = ERR;
         while (key == ERR) {
+            key = poll_client_key();
+            if (key != ERR) break;
+
             int net = poll_network(sock, client_world);
             if (net == -1) {
                 printf("Gameover!\n");
@@ -331,9 +344,7 @@ int main() {
                 return 0;
             }
             if (net == 1)
-                draw_client_view("mundo.csv", pacman_coord, radius);
-
-            key = poll_client_key();
+                draw_client_view_world(client_world, pacman_coord, radius);
         }
 
         int result = receive_key(sock, key);
