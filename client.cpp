@@ -254,6 +254,12 @@ int receive_key(int sock, int key) {
     return 1;
 }
 
+static void wait_any_key_dismiss() {
+    keypad(stdscr, TRUE);
+    flushinp();
+    wgetch(stdscr);
+}
+
 void exibir_premio_txt(const char* nome_arquivo) {
     const int h = LINES;
 
@@ -263,27 +269,19 @@ void exibir_premio_txt(const char* nome_arquivo) {
     if (!arq) {
         mvprintw(0, 0, "Erro ao abrir o arquivo de texto: %s", nome_arquivo);
         refresh();
-        getch();
+        wait_any_key_dismiss();
         return;
     }
 
     char linha[256];
     int row = 0;
-    while (fgets(linha, sizeof(linha), arq)) {
-        if (row >= h - 2) {
-            mvprintw(h - 1, 0, "--- Pressione qualquer tecla para continuar ---");
-            refresh();
-            getch();
-            clear();
-            row = 0;
-        }
+    while (fgets(linha, sizeof(linha), arq) && row < h - 2)
         mvprintw(row++, 0, "%s", linha);
-    }
     fclose(arq);
 
     mvprintw(h - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
     refresh();
-    getch();
+    wait_any_key_dismiss();
 }
 
 void mostrar_premio(const char* nome_arquivo, int tipo) {
@@ -297,13 +295,6 @@ void mostrar_premio(const char* nome_arquivo, int tipo) {
         char comando[512];
         sprintf(comando, "su $SUDO_USER -c \"xdg-open %s\" &", nome_arquivo);
         system(comando);
-
-        clear();
-        mvprintw(LINES / 2, (COLS / 2) - 15, "Premio aberto em uma janela externa!");
-        mvprintw((LINES / 2) + 2, (COLS / 2) - 20,
-            "Aperte qualquer tecla no terminal para voltar ao jogo...");
-        refresh();
-        getch();
     }
 
     restore_client_view_after_overlay();
