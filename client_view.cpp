@@ -7,7 +7,6 @@
 #include <cstring>
 #include <fstream>
 #include <string>
-#include <vector>
 #include <ncursesw/ncurses.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -39,35 +38,6 @@ static short color_for(char c) {
 
 static short attr_for(char c) {
     return is_pill_char(c) ? (short)A_BOLD : A_NORMAL;
-}
-
-// Pills render on the left terminal column only (half the width of Pac-Man/ghosts).
-static short color_for_half(char c, int dc) {
-    if (c == ' ') return -1;
-    if (is_pill_char(c)) return dc == 0 ? color_for(c) : -1;
-    return color_for(c);
-}
-
-static short get_color_pair(short fg, short bg, int& next_pair) {
-    static std::vector<std::pair<std::pair<short, short>, short>> cache;
-    for (const auto& entry : cache) {
-        if (entry.first.first == fg && entry.first.second == bg) return entry.second;
-    }
-    init_pair(next_pair, fg, bg);
-    cache.push_back({{fg, bg}, (short)next_pair});
-    return next_pair++;
-}
-
-static void draw_half_block(WINDOW* win, int term_row, int col, wchar_t glyph,
-    char top, char bot, int dc, int& next_pair) {
-    const short fg = color_for_half(top, dc);
-    const short bg = color_for_half(bot, dc);
-    if (fg == -1 && bg == -1) return;
-    const short pair = get_color_pair(fg, bg, next_pair);
-    cchar_t wch;
-    wchar_t ws[2] = {glyph, L'\0'};
-    setcchar(&wch, ws, attr_for(top) | attr_for(bot), pair, nullptr);
-    mvwadd_wch(win, term_row, col, &wch);
 }
 
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
@@ -157,9 +127,27 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
         return ERR;
     }
 
+    // build color pairs on demand
+    static short pair_id[16][16] = {};
+    static bool pairs_init = false;
+    if (!pairs_init) {
+        memset(pair_id, 0, sizeof(pair_id));
+        pairs_init = true;
+    }
     static int next_pair = 1;
 
+    static const char CHARS[] = " XGBRPY0123456";
+    constexpr int NC = sizeof(CHARS) - 1;
+
+    auto char_idx = [&](char c) -> int {
+        for (int k = 0; k < NC; ++k) if (CHARS[k] == c) return k;
+        return 0;
+    };
+
     werase(box_win);
+
+    // half_pair[ci]: fg=color_for(c), bg=-1 (terminal default) — for boundary cells
+    static short half_pair[16] = {};
 
     for (int i = 0; i < s_view_side; i += 2) {
         int term_row = i / 2;
@@ -173,28 +161,38 @@ int draw_client_view_and_get_key(const char* csv_path, std::pair<int,int> pacman
             // Case 2: only top visible: upper-half block, bot half = terminal background
             if (top_vis && !bot_vis) {
                 char c = world[i][j]; if (c == '0') c = ' ';
-                const int cols = is_pill_char(c) ? 1 : s_cell_w;
-                for (int dc = 0; dc < cols; ++dc)
-                    draw_half_block(box_win, term_row, j * s_cell_w + dc, L'▀', c, ' ', dc, next_pair);
+                int ci = char_idx(c);
+                if (!half_pair[ci]) { init_pair(next_pair, color_for(c), -1); half_pair[ci] = next_pair++; }
+                cchar_t wch; wchar_t ws[2] = {L'▀', L'\0'};
+                setcchar(&wch, ws, attr_for(c), half_pair[ci], nullptr);
+                for (int dc = 0; dc < s_cell_w; ++dc)
+                    mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
                 continue;
             }
 
             // Case 3: only bot visible: lower-half block, top half = terminal background
             if (!top_vis && bot_vis) {
                 char c = (i+1 < s_view_side) ? world[i+1][j] : '0'; if (c == '0') c = ' ';
-                const int cols = is_pill_char(c) ? 1 : s_cell_w;
-                for (int dc = 0; dc < cols; ++dc)
-                    draw_half_block(box_win, term_row, j * s_cell_w + dc, L'▄', ' ', c, dc, next_pair);
+                int ci = char_idx(c);
+                if (!half_pair[ci]) { init_pair(next_pair, color_for(c), -1); half_pair[ci] = next_pair++; }
+                cchar_t wch; wchar_t ws[2] = {L'▄', L'\0'};
+                setcchar(&wch, ws, attr_for(c), half_pair[ci], nullptr);
+                for (int dc = 0; dc < s_cell_w; ++dc)
+                    mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
                 continue;
             }
 
-            // Case 4: both visible: upper-half block fg/bg pair logic
+            // Case 4: both visible: existing upper-half block fg/bg pair logic
             char top = world[i][j];
             char bot = (i+1 < s_view_side) ? world[i+1][j] : '0';
             if (top == '0') top = ' ';
             if (bot == '0') bot = ' ';
+            int ti = char_idx(top), bi = char_idx(bot);
+            if (!pair_id[ti][bi]) { init_pair(next_pair, color_for(top), color_for(bot)); pair_id[ti][bi] = next_pair++; }
+            cchar_t wch; wchar_t ws[2] = {L'▀', L'\0'};
+            setcchar(&wch, ws, attr_for(top) | attr_for(bot), pair_id[ti][bi], nullptr);
             for (int dc = 0; dc < s_cell_w; ++dc)
-                draw_half_block(box_win, term_row, j * s_cell_w + dc, L'▀', top, bot, dc, next_pair);
+                mvwadd_wch(box_win, term_row, j * s_cell_w + dc, &wch);
         }
     }
 
