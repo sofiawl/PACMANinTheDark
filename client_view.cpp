@@ -16,28 +16,28 @@ static int s_cell_h = 0;
 static int s_cell_w = 0;
 static int s_view_side = 0;
 
-static bool is_pill_char(char c) {
-    return c >= '1' && c <= '6';
-}
-
 static short color_for(char c) {
     switch (c) {
         case 'X': return COLOR_WHITE;
-        case 'G': return COLOR_GREEN;
-        case 'B': return COLOR_BLUE;
-        case 'R': return COLOR_RED;
-        case 'P': return COLOR_YELLOW;
-        case 'Y': return COLOR_MAGENTA;
-        case '1': case '2': return 208;  // .txt -> orange
-        case '3': case '4': return 129;  // .jpg -> purple
-        case '5': case '6': return COLOR_CYAN;  // .mp4 -> light brown
+        case 'G': return 46;   // vivid green
+        case 'B': return 21;   // vivid blue
+        case 'R': return 196;  // vivid red
+        case 'P': return 226;  // vivid yellow
+        case 'Y': return 201;  // vivid magenta
+        case '1': case '2': return 216;  // .txt -> soft peach
+        case '3': case '4': return 183;  // .jpg -> soft lavender
+        case '5': case '6': return 250;  // .mp4 -> soft cream
         case ' ': return COLOR_BLACK;
         default:  return COLOR_BLACK;
     }
 }
 
+static bool is_bold_char(char c) {
+    return c == 'P' || c == 'R' || c == 'B' || c == 'G' || c == 'Y';
+}
+
 static short attr_for(char c) {
-    return is_pill_char(c) ? (short)A_BOLD : A_NORMAL;
+    return is_bold_char(c) ? (short)A_BOLD : A_NORMAL;
 }
 
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
