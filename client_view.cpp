@@ -28,8 +28,9 @@ static short color_for(char c) {
         case 'R': return COLOR_RED;
         case 'P': return COLOR_YELLOW;
         case 'Y': return COLOR_MAGENTA;
-        case '1': case '2': case '3': case '4': case '5': case '6':
-            return COLOR_WHITE;
+        case '1': case '2': return 208;  // .txt -> orange
+        case '3': case '4': return 129;  // .jpg -> purple
+        case '5': case '6': return 180;  // .mp4 -> light brown
         case ' ': return COLOR_BLACK;
         default:  return COLOR_BLACK;
     }
