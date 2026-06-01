@@ -117,8 +117,16 @@ void close_client_view() {
     endwin();
 }
 
+void clear_client_view_background() {
+    if (!box_win) return;
+    clear();
+    touchwin(box_win);
+}
+
 void draw_client_view_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,int> pacman_coord, int radius) {
     if (!box_win) return;
+
+    clear_client_view_background();
 
     // build color pairs on demand
     static short pair_id[16][16] = {};
@@ -195,6 +203,7 @@ void draw_client_view_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,in
     mvwprintw(box_win, s_view_side / 2, msg_col, "%s", msg);
 
     wrefresh(box_win);
+    refresh();
 }
 
 void draw_client_view(const char* csv_path, std::pair<int,int> pacman_coord, int radius) {
