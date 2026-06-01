@@ -254,50 +254,16 @@ int receive_key(int sock, int key) {
     return 1;
 }
 
-static void wait_any_key_dismiss() {
-    keypad(stdscr, TRUE);
-    flushinp();
-    wgetch(stdscr);
-}
+static void mostrar_premio(const char* nome_arquivo) {
+    char chmod_cmd[128];
+    snprintf(chmod_cmd, sizeof(chmod_cmd), "chmod 777 %s", nome_arquivo);
+    system(chmod_cmd);
 
-void exibir_premio_txt(const char* nome_arquivo) {
-    const int h = LINES;
-
-    clear();
-
-    FILE* arq = fopen(nome_arquivo, "r");
-    if (!arq) {
-        mvprintw(0, 0, "Erro ao abrir o arquivo de texto: %s", nome_arquivo);
-        refresh();
-        wait_any_key_dismiss();
-        return;
-    }
-
-    char linha[256];
-    int row = 0;
-    while (fgets(linha, sizeof(linha), arq) && row < h - 2)
-        mvprintw(row++, 0, "%s", linha);
-    fclose(arq);
-
-    mvprintw(h - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
-    refresh();
-    wait_any_key_dismiss();
-}
-
-void mostrar_premio(const char* nome_arquivo, int tipo) {
-    if (tipo == MSG_TXT) {
-        exibir_premio_txt(nome_arquivo);
-    } else if (tipo == MSG_JPG || tipo == MSG_MP4) {
-        char chmod_cmd[128];
-        sprintf(chmod_cmd, "chmod 777 %s", nome_arquivo);
-        system(chmod_cmd);
-
-        char comando[512];
-        sprintf(comando, "su $SUDO_USER -c \"xdg-open %s\" &", nome_arquivo);
-        system(comando);
-    }
-
-    restore_client_view_after_overlay();
+    char comando[512];
+    snprintf(comando, sizeof(comando),
+        "su $SUDO_USER -c \"xdg-open '%s' >/dev/null 2>&1 </dev/null &\"",
+        nome_arquivo);
+    system(comando);
 }
 
 int main() {
@@ -375,9 +341,9 @@ int main() {
             }
 
             if (got_prize)
-                mostrar_premio(prize_path, prize_type);
+                mostrar_premio(prize_path);
 
-            draw_client_view_world(client_world, pacman_coord, radius);
+            redraw_client_view_full(client_world, pacman_coord, radius);
 
             drain_ghost_updates(sock, client_world);
 

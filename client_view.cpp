@@ -117,10 +117,12 @@ void close_client_view() {
     endwin();
 }
 
-void restore_client_view_after_overlay() {
+void redraw_client_view_full(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,int> pacman_coord, int radius) {
     if (!box_win) return;
+    clearok(curscr, TRUE);
     clear();
     touchwin(box_win);
+    draw_client_view_world(world, pacman_coord, radius);
 }
 
 void draw_client_view_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,int> pacman_coord, int radius) {

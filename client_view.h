@@ -7,7 +7,7 @@
 
 void init_client_view();
 void close_client_view();
-void restore_client_view_after_overlay();
+void redraw_client_view_full(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,int> pacman_coord, int radius);
 void draw_client_view_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,int> pacman_coord, int radius);
 void draw_client_view(const char* csv_path, std::pair<int,int> pacman_coord, int radius);
 int  poll_client_key();
