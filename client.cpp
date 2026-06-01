@@ -259,19 +259,30 @@ void exibir_premio_txt(const char* nome_arquivo) {
     if (!arq) {
         mvprintw(0, 0, "Erro ao abrir o arquivo de texto: %s", nome_arquivo);
         refresh();
+        getch();
+        clear();
         return;
     }
 
     clear();
-    move(0, 0);
 
     char linha[256];
-    while (fgets(linha, sizeof(linha), arq))
-        printw("%s", linha);
+    int row = 0;
+    while (fgets(linha, sizeof(linha), arq)) {
+        if (row >= LINES - 2) {
+            mvprintw(LINES - 1, 0, "--- Pressione qualquer tecla para continuar ---");
+            refresh();
+            getch();
+            clear();
+            row = 0;
+        }
+        mvprintw(row++, 0, "%s", linha);
+    }
     fclose(arq);
 
     mvprintw(LINES - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
     refresh();
+    getch();
     clear();
 }
 
@@ -372,6 +383,8 @@ int main() {
 
             if (got_prize)
                 mostrar_premio(prize_path, prize_type);
+
+            draw_client_view_world(client_world, pacman_coord, radius);
 
             drain_ghost_updates(sock, client_world);
 
