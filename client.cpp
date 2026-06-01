@@ -210,7 +210,10 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
 
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
-        if (rv < 0) continue;
+        if (rv < 0) {
+            if (world_done) return 1;
+            continue;
+        }
 
         if (frame.type == MSG_ACK || frame.type == MSG_NACK)
             continue;
