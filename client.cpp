@@ -67,9 +67,11 @@ static void apply_ghost_update(char world[SIZE_WORLD][SIZE_WORLD], const uint8_t
 }
 
 // 0 = nothing, 1 = ghosts moved, -1 = game over
-static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
+static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
+                        char *gameover_path, size_t gameover_path_sz) {
     int changed = 0;
     Frame frame;
+    FILE *go_file = nullptr;
 
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
@@ -84,10 +86,29 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
             continue;
         }
 
-        if (frame.type == MSG_OVER)
+        if (frame.type == MSG_MP4) {
+            if (!go_file) {
+                snprintf(gameover_path, gameover_path_sz, "pills/recv_gameover.mp4");
+                go_file = fopen(gameover_path, "wb");
+            }
+            if (go_file)
+                fwrite(frame.data, 1, frame.size, go_file);
+            continue;
+        }
+
+        if (go_file && frame.type == MSG_END) {
+            fclose(go_file);
+            go_file = nullptr;
+            continue;
+        }
+
+        if (frame.type == MSG_OVER) {
+            if (go_file) { fclose(go_file); go_file = nullptr; }
             return -1;
+        }
     }
 
+    if (go_file) { fclose(go_file); go_file = nullptr; gameover_path[0] = '\0'; }
     return changed;
 }
 
@@ -169,19 +190,22 @@ static bool wait_for_server_and_world(int sock, uint8_t *map_data) {
     }
 }
 
-// 1 = success, 0 = game over, -1 = error
+// 1 = success, 0 = game over, 2 = you win, -1 = error
 static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     std::pair<int, int> &pacman_coord, char *prize_path, size_t prize_path_sz,
-    int *prize_type, bool *got_prize) {
+    int *prize_type, bool *got_prize, char *win_path, size_t win_path_sz) {
 
     *got_prize = false;
     prize_path[0] = '\0';
     *prize_type = 0;
+    win_path[0] = '\0';
 
     FILE* mundo = fopen("mundo.csv", "wb");
     if (!mundo) return -1;
 
     FILE* prize = nullptr;
+    FILE* win_file = nullptr;
+    bool world_done = false;
     Frame frame;
 
     while (1) {
@@ -196,40 +220,68 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             continue;
         }
 
-        if (frame.type == MSG_OVER)
-            return 0;
+        // after the world is done, MSG_OVER means game over (ghost hit)
+        // but if we also received a win file before MSG_OVER, it's a win
+        if (frame.type == MSG_OVER) {
+            if (win_file) { fclose(win_file); win_file = nullptr; }
+            if (prize)    { fclose(prize);    prize    = nullptr; }
+            if (mundo)    { fclose(mundo);    mundo    = nullptr; }
+            return win_path[0] ? 2 : 0;
+        }
 
-        if (frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4) {
-            if (!prize) {
-                *prize_type = frame.type;
-                snprintf(prize_path, prize_path_sz, "pills/recv%s", prize_extension(frame.type));
-                prize = fopen(prize_path, "wb");
+        if (!world_done) {
+            // before world is complete: pill prize or world frames
+            if (frame.type == MSG_TXT || frame.type == MSG_JPG || frame.type == MSG_MP4) {
                 if (!prize) {
-                    fclose(mundo);
-                    return -1;
+                    *prize_type = frame.type;
+                    snprintf(prize_path, prize_path_sz, "pills/recv%s", prize_extension(frame.type));
+                    prize = fopen(prize_path, "wb");
+                    if (!prize) { fclose(mundo); return -1; }
+                    *got_prize = true;
                 }
-                *got_prize = true;
+                fwrite(frame.data, 1, frame.size, prize);
+                continue;
             }
-            fwrite(frame.data, 1, frame.size, prize);
-            continue;
-        }
 
-        if (prize && frame.type == MSG_END) {
-            fclose(prize);
-            prize = nullptr;
-            continue;
-        }
+            if (prize && frame.type == MSG_END) {
+                fclose(prize);
+                prize = nullptr;
+                continue;
+            }
 
-        if (frame.type == MSG_WORLD) {
-            fwrite(frame.data, 1, frame.size, mundo);
-            continue;
-        }
+            if (frame.type == MSG_WORLD) {
+                fwrite(frame.data, 1, frame.size, mundo);
+                continue;
+            }
 
-        if (frame.type == MSG_END) {
-            fflush(mundo);
-            fclose(mundo);
-            load_world_csv("mundo.csv", client_world);
-            sync_pacman_from_world(client_world, pacman_coord);
+            if (frame.type == MSG_END) {
+                fflush(mundo);
+                fclose(mundo);
+                mundo = nullptr;
+                load_world_csv("mundo.csv", client_world);
+                sync_pacman_from_world(client_world, pacman_coord);
+                world_done = true;
+                continue;
+            }
+        } else {
+            // after world: optional win file (YouWin.mp4)
+            if (frame.type == MSG_MP4) {
+                if (!win_file) {
+                    snprintf(win_path, win_path_sz, "pills/recv_youwin.mp4");
+                    win_file = fopen(win_path, "wb");
+                    if (!win_file) return 1;
+                }
+                fwrite(frame.data, 1, frame.size, win_file);
+                continue;
+            }
+
+            if (win_file && frame.type == MSG_END) {
+                fclose(win_file);
+                win_file = nullptr;
+                continue;
+            }
+
+            // no win file: regular move with no further data
             return 1;
         }
     }
@@ -303,12 +355,15 @@ int main() {
         draw_client_view_world(client_world, pacman_coord, radius);
 
         int key = ERR;
+        char go_path[128] = {};
         while (key == ERR) {
             key = poll_client_key();
             if (key != ERR) break;
 
-            int net = poll_network(sock, client_world);
+            int net = poll_network(sock, client_world, go_path, sizeof(go_path));
             if (net == -1) {
+                if (go_path[0])
+                    mostrar_premio(go_path);
                 printf("Gameover!\n");
                 close_client_view();
                 return 0;
@@ -325,13 +380,25 @@ int main() {
 
         if (result == 1) {
             char prize_path[128];
+            char win_path[128];
             int prize_type = 0;
             bool got_prize = false;
 
             int sync = sync_after_move(sock, client_world, pacman_coord,
-                    prize_path, sizeof(prize_path), &prize_type, &got_prize);
+                    prize_path, sizeof(prize_path), &prize_type, &got_prize,
+                    win_path, sizeof(win_path));
             if (sync == 0) {
+                if (got_prize)
+                    mostrar_premio(prize_path);
                 printf("Gameover!\n");
+                break;
+            }
+            if (sync == 2) {
+                if (got_prize)
+                    mostrar_premio(prize_path);
+                redraw_client_view_full(client_world, pacman_coord, radius);
+                mostrar_premio(win_path);
+                printf("You win!\n");
                 break;
             }
             if (sync < 0) {

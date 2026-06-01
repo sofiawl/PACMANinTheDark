@@ -145,6 +145,7 @@ int main() {
             if ((f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) && start) {
                 int mv = move_pacman(world, pacman_coord, f.type);
                 if (mv == -1) {
+                    send_file("pills/GameOver.mp4", sock);
                     send_game_over(sock);
                     break;
                 }
@@ -157,6 +158,12 @@ int main() {
                         remove_pill(pills, pill->id);
                     }
                     send_world(sock, world);
+                    if (pills.empty()) {
+                        send_file("pills/YouWin.mp4", sock);
+                        send_game_over(sock);
+                        transmitting = false;
+                        break;
+                    }
                     transmitting = false;
                 } else if (mv == 0) {
                     send_world(sock, world);
@@ -174,6 +181,7 @@ int main() {
             if (now - last_tick >= ghost_interval) {
                 last_tick = now;
                 if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1) {
+                    send_file("pills/GameOver.mp4", sock);
                     send_game_over(sock);
                     break;
                 }
