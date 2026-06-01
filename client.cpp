@@ -256,44 +256,34 @@ int receive_key(int sock, int key) {
 
 void exibir_premio_txt(const char* nome_arquivo) {
     const int h = LINES;
-    const int w = COLS;
-    WINDOW* prize = newwin(h, w, 0, 0);
-    if (!prize) return;
 
-    keypad(prize, TRUE);
-    wbkgd(prize, A_NORMAL);
+    clear();
 
     FILE* arq = fopen(nome_arquivo, "r");
     if (!arq) {
-        mvwprintw(prize, 0, 0, "Erro ao abrir o arquivo de texto: %s", nome_arquivo);
-        wrefresh(prize);
-        wgetch(prize);
-        delwin(prize);
-        touchwin(stdscr);
+        mvprintw(0, 0, "Erro ao abrir o arquivo de texto: %s", nome_arquivo);
+        refresh();
+        getch();
         return;
     }
-
-    werase(prize);
 
     char linha[256];
     int row = 0;
     while (fgets(linha, sizeof(linha), arq)) {
         if (row >= h - 2) {
-            mvwprintw(prize, h - 1, 0, "--- Pressione qualquer tecla para continuar ---");
-            wrefresh(prize);
-            wgetch(prize);
-            werase(prize);
+            mvprintw(h - 1, 0, "--- Pressione qualquer tecla para continuar ---");
+            refresh();
+            getch();
+            clear();
             row = 0;
         }
-        mvwprintw(prize, row++, 0, "%s", linha);
+        mvprintw(row++, 0, "%s", linha);
     }
     fclose(arq);
 
-    mvwprintw(prize, h - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
-    wrefresh(prize);
-    wgetch(prize);
-    delwin(prize);
-    touchwin(stdscr);
+    mvprintw(h - 1, 0, "--- Pressione qualquer tecla para voltar ao jogo ---");
+    refresh();
+    getch();
 }
 
 void mostrar_premio(const char* nome_arquivo, int tipo) {
@@ -308,20 +298,15 @@ void mostrar_premio(const char* nome_arquivo, int tipo) {
         sprintf(comando, "su $SUDO_USER -c \"xdg-open %s\" &", nome_arquivo);
         system(comando);
 
-        const int h = LINES;
-        const int w = COLS;
-        WINDOW* msg = newwin(h, w, 0, 0);
-        if (msg) {
-            werase(msg);
-            mvwprintw(msg, h / 2, (w / 2) - 15, "Premio aberto em uma janela externa!");
-            mvwprintw(msg, (h / 2) + 2, (w / 2) - 20,
-                "Aperte qualquer tecla no terminal para voltar ao jogo...");
-            wrefresh(msg);
-            wgetch(msg);
-            delwin(msg);
-            touchwin(stdscr);
-        }
+        clear();
+        mvprintw(LINES / 2, (COLS / 2) - 15, "Premio aberto em uma janela externa!");
+        mvprintw((LINES / 2) + 2, (COLS / 2) - 20,
+            "Aperte qualquer tecla no terminal para voltar ao jogo...");
+        refresh();
+        getch();
     }
+
+    restore_client_view_after_overlay();
 }
 
 int main() {
