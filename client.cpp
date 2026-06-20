@@ -73,8 +73,9 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     Frame frame;
     FILE *go_file = nullptr;
 
+    uint8_t exp_seq = 0; 
     while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) break;
 
         if (frame.type == MSG_ACK || frame.type == MSG_NACK)
@@ -106,6 +107,8 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             if (go_file) { fclose(go_file); go_file = nullptr; }
             return -1;
         }
+
+        if (++exp_seq > 63) exp_seq = 0;
     }
 
     if (go_file) { fclose(go_file); go_file = nullptr; gameover_path[0] = '\0'; }
@@ -114,9 +117,11 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
 
 static void drain_ghost_updates(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
     Frame frame;
-    while (recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT) >= 0) {
+    uint8_t exp_seq = 0; 
+    while (recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq) >= 0) {
         if (frame.type == MSG_GHOSTS)
             apply_ghost_update(client_world, frame.data, frame.size);
+        if (++exp_seq > 63) exp_seq = 0;
     }
 }
 
@@ -147,13 +152,14 @@ static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
     bool use_timeout = timeout_ms > 0;
     auto deadline = std::chrono::steady_clock::now() + std::chrono::milliseconds(timeout_ms);
 
+    uint8_t exp_seq = 0; 
     while (1) {
         if (use_timeout && !got_world_data && std::chrono::steady_clock::now() >= deadline) {
             fclose(mundo);
             return false;
         }
 
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) continue;
 
         if (frame.type == MSG_ACK || frame.type == MSG_NACK)
@@ -172,6 +178,8 @@ static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
             fclose(mundo);
             return got_world_data;
         }
+
+        if (++exp_seq > 63) exp_seq = 0;
     }
 }
 
@@ -208,12 +216,15 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     bool world_done = false;
     Frame frame;
 
+    uint8_t exp_seq = 0; 
     while (1) {
-        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT);
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) {
             if (world_done) return 1;
             continue;
         }
+
+        if (++exp_seq > 63) exp_seq = 0;
 
         if (frame.type == MSG_ACK || frame.type == MSG_NACK)
             continue;

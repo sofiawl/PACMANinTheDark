@@ -109,12 +109,14 @@ static void wait_for_client_and_init(int sock,
     fflush(stdout);
 
     Frame f;
+    uint8_t exp_seq = 0; 
     while (1) {
-        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER) >= 0
+        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER, exp_seq) >= 0
                 && f.type == MSG_INIT) {
             uint8_t world_map = f.data[0];
             ghost_coords = init_world(world, pacman_coord, world_map, pills);
             send_world(sock, world);
+            if (++exp_seq > 63) exp_seq = 0;
             return;
         }
     }
@@ -143,8 +145,9 @@ int main() {
     auto last_tick = std::chrono::steady_clock::now();
     const auto ghost_interval = std::chrono::milliseconds(300);
 
+    uint8_t exp_seq = 0; 
     while (1) {
-        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER) >= 0) {
+        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER, exp_seq) >= 0) {
             if (transmitting)
                 continue;
 
@@ -155,6 +158,8 @@ int main() {
                 send_world(sock, world);
                 continue;
             }
+
+            if (++exp_seq > 63) exp_seq = 0;
 
             if (f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) {
                 int mv = move_pacman(world, pacman_coord, f.type);

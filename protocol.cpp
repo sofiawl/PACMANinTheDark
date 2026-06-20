@@ -175,7 +175,7 @@ int send_frame(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_
     return sendto(sock, eth_frame, sizeof(eth_frame), 0, (struct sockaddr*)&addr, sizeof(addr));
 }
 
-int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
+int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface, uint8_t exp_seq){
     unsigned char eth_frame[14 + sizeof(Frame)];
     int bytes = recv(sock, eth_frame, sizeof(eth_frame), 0);
 
@@ -189,8 +189,8 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     // printf("Marker - Type: %d - %d\n",f->marker, f->type);
 
     uint8_t expected = calc_CRC(f);
-    if (expected != f->CRC && src_mac != NULL) {
-        send_nack(sock, f->sequence, src_mac, dest_mac, iface);
+    if (expected != f->CRC && src_mac != NULL && exp_seq != f->sequence) {
+        send_nack(sock, exp_seq, src_mac, dest_mac, iface);
         return -1;
     }
     else if ((src_mac != NULL) && (f->type != MSG_ACK) && (f->type != MSG_NACK)){
@@ -216,10 +216,11 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
 // Eu fiz outra função pq fiquei com medo do q ia acontecer na função recursiva
 int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
     Frame f_recv;
+
     // ele vai receber um ack e mandar um ack por cima
     if(send_frame(sock, f, src_mac, dest_mac, iface) < 0) return -1;
     else{
-        if(recv_frame(sock, &f_recv, NULL, NULL, NULL) >= 0 && f_recv.type == MSG_ACK){
+        if(recv_frame(sock, &f_recv, NULL, NULL, NULL, 0) >= 0 && f_recv.type == MSG_ACK){
             return 0;
         }
 

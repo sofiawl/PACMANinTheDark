@@ -330,7 +330,7 @@ Review this logic in the future, when we are sending archives that are really bi
 
 - [x] Send big files
 
-- [ ] Implement pills 
+- [x] Implement pills 
 
 - [x] Show the files for the client  
 
