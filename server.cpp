@@ -10,9 +10,11 @@
 #include <vector>
 #include <chrono>
 #include <algorithm>
+#include <format>
 
 #include "protocol.h"
 #include "world.h"
+#include "log.h"
 
 
 MessageType identify_type(const char* nomeArquivo) {
@@ -35,17 +37,22 @@ int send_file(const char* arquivo, int sock) {
     Frame f_send;
     uint8_t seq = 0;
     while (1) {
+        log ("SERVER", "CLIENT", (std::format("Enviando arquivo, sequencia: {}", seq)));
         uint8_t buffer[DATA_SIZE];
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, file);
         if (bytes_read == 0) break;
-        if (build_frame(&f_send, seq, type, buffer, (uint8_t)bytes_read) != 0) break;
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER) < 0) break;
+        //if (seq != 3) {  // debug
+            if (build_frame(&f_send, seq, type, buffer, (uint8_t)bytes_read) != 0) return -1;
+            if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) return -1;
+        //}
         if (++seq > 63) seq = 0;
     }
     fclose(file);
 
+    log("SERVER", "INFO", "Mandou arquivo"); 
+
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
-        send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) <0 ) return -1;
 
     return 0;
 }
@@ -54,6 +61,7 @@ static void send_game_over(int sock) {
     Frame f_send;
     if (build_frame(&f_send, 0, MSG_OVER, nullptr, 0) == 0)
         send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
+    log ("SERVER", "INFO", "Mandou game over"); 
 }
 
 static void send_ghost_positions(int sock, const std::vector<std::pair<int, int>> &ghost_coords) {
@@ -83,8 +91,12 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
         if (bytes_read == 0) break;
         if (build_frame(&f_send, seq, MSG_WORLD, buffer, (uint8_t)bytes_read) != 0) break;
-        if (send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER) < 0) break;
-        seq++;
+        
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) break;
+
+        // nao ta chegando aqui ent ele nao volta do send ou sempre break
+        // if (send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER) < 0) break;
+        if (++seq > 63) seq = 0;
     }
     fclose(mundo);
 
@@ -123,6 +135,7 @@ static void wait_for_client_and_init(int sock,
 }
 
 int main() {
+    log("SERVER", "INICIANDO NOVA TRANSMISSÃO", ""); 
     bool transmitting = false;
 
     int sock = create_raw_socket(INTERFACE_SERVER);
@@ -151,10 +164,13 @@ int main() {
             if (transmitting)
                 continue;
 
-            if (f.type == MSG_END)
+            if (f.type == MSG_END){
+                log ("SERVER", "INFO", "Recebeu mensagem end"); 
                 continue;
+            }
 
             if (f.type == MSG_INIT) {
+                log ("SERVER", "INFO", "Recebeu mensagem init"); 
                 send_world(sock, world);
                 continue;
             }
@@ -162,9 +178,13 @@ int main() {
             if (++exp_seq > 63) exp_seq = 0;
 
             if (f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) {
+                log ("SERVER", "INFO", "Recebeu mensagem flecha");
                 int mv = move_pacman(world, pacman_coord, f.type);
                 if (mv == -1) {
-                    send_file("pills/GameOver.mp4", sock);
+                    if (send_file("pills/GameOver.mp4", sock) < 0) {
+                        printf("Erro na transmissao\n");
+                        break;
+                    };
                     send_game_over(sock);
                     break;
                 }

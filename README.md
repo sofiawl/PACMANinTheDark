@@ -420,7 +420,8 @@ xdg-mime default vlc.desktop video/mp4
 ``` 
 
 ## Log 
-syslog, there are also other options we could talk with the professor about this
+tail -f log_redes.txt
+
 
 ### How to deal with error 
 Send the error to the log and then go back to the part that is error free, the program doesn't have to stop or show the error in the screen 

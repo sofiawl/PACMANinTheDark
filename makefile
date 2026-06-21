@@ -1,9 +1,9 @@
 CC = g++
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -std=c++20
 CLIENT_LDLIBS = -lncursesw
 
-SERVER_SRCS = server.cpp world.cpp protocol.cpp
-CLIENT_SRCS = client.cpp client_view.cpp world.cpp protocol.cpp
+SERVER_SRCS = server.cpp world.cpp protocol.cpp log.cpp
+CLIENT_SRCS = client.cpp client_view.cpp world.cpp protocol.cpp log.cpp
 
 SERVER_OBJS = $(SERVER_SRCS:.cpp=.o)
 CLIENT_OBJS = $(CLIENT_SRCS:.cpp=.o)

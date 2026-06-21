@@ -8,8 +8,10 @@
 #include <fstream>
 #include <chrono>
 #include <sys/time.h>
+#include <format>
 
 #include "protocol.h"
+#include "log.h"
 
 #define WORLD_WAIT_MS 3000
 #define CONNECT_RETRY_MS 500
@@ -161,9 +163,15 @@ static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
 
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) continue;
+        //printf("seq esperada: %d \n", exp_seq);
+        
 
-        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
+
+        if (frame.type == MSG_ACK || frame.type == MSG_NACK) {
             continue;
+        } else {
+            if (++exp_seq > 63) exp_seq = 0;
+        }
 
         if (frame.type == MSG_WORLD) {
             fwrite(frame.data, 1, frame.size, mundo);
@@ -179,7 +187,6 @@ static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
             return got_world_data;
         }
 
-        if (++exp_seq > 63) exp_seq = 0;
     }
 }
 
@@ -188,6 +195,7 @@ static bool wait_for_server_and_world(int sock, uint8_t *map_data) {
     fflush(stdout);
 
     while (1) {
+        log("CLIENT", "INFO", "Mandou init");
         if (send_init(sock, map_data) != 0) {
             usleep(CONNECT_RETRY_MS * 1000);
             continue;
@@ -224,12 +232,20 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             continue;
         }
 
+        
+        if (frame.type == MSG_ACK){
+            log("CLIENT", "INFO", "Recebeu ack");
+            continue;
+        }
+
+        if (frame.type == MSG_NACK){
+            log("CLIENT", "INFO", "Recebeu nack"); 
+        }
+
         if (++exp_seq > 63) exp_seq = 0;
 
-        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
-            continue;
-
         if (frame.type == MSG_GHOSTS) {
+            log ("CLIENT", "INFO", "Recebeu fantasmas"); 
             apply_ghost_update(client_world, frame.data, frame.size);
             continue;
         }
@@ -237,6 +253,7 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
         // after the world is done, MSG_OVER means game over (ghost hit)
         // but if we also received a win file before MSG_OVER, it's a win
         if (frame.type == MSG_OVER) {
+            log ("CLIENT", "INFO", "Recebeu mensagem over"); 
             if (win_file) { fclose(win_file); win_file = nullptr; }
             if (prize)    { fclose(prize);    prize    = nullptr; }
             if (mundo)    { fclose(mundo);    mundo    = nullptr; }
@@ -311,10 +328,13 @@ int receive_key(int sock, int key) {
         case 'q': case 'Q': type = MSG_OVER; break;
         default: return 0;
     }
+    log ("CLIENT", "INFO", "Apertou em uma tecla"); 
 
     Frame f;
     if (build_frame(&f, 0, type, nullptr, 1) == 0)
-        send(sock, &f, CLIENT, SERVER, INTERFACE_CLIENT);
+        send(sock, &f, CLIENT, SERVER, INTERFACE_CLIENT, 0);
+
+    log ("CLIENT", "INFO", "Mandou tecla apertada"); 
 
     if (key == 'q' || key == 'Q') return -1;
     return 1;
@@ -333,6 +353,7 @@ static void mostrar_premio(const char* nome_arquivo) {
 }
 
 int main() {
+    log("CLIENT", "INICIANDO NOVA TRANSMISSÃO", ""); 
     int sock = create_raw_socket(INTERFACE_CLIENT);
 
     int num;

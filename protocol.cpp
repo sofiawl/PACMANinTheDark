@@ -9,7 +9,9 @@
 #include <string>
 #include <vector>
 #include <cerrno>
+#include <format>
 #include "protocol.h"
+#include "log.h"
 
 unsigned char SERVER[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
 unsigned char CLIENT[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
@@ -25,6 +27,7 @@ int create_raw_socket(const char* network_interface_name) {
     int sk = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
     if (sk == -1) {
         fprintf(stderr, "Error creating the socket, are you really root?\n");
+        log("PROTOCOLO", "ERRO", "Error creating the socket, are you really root?");
         exit(-1);
     }
 
@@ -37,6 +40,7 @@ int create_raw_socket(const char* network_interface_name) {
     // Inicialize socket
     if (bind(sk, (struct sockaddr*) &addr, sizeof(addr)) == -1) {
         fprintf(stderr, "Error making bind in socket\n");
+        log("PROTOCOLO", "ERRO", "Error making bind in socket");
         exit(-1);
     }
 
@@ -47,6 +51,7 @@ int create_raw_socket(const char* network_interface_name) {
     if (setsockopt(sk, SOL_PACKET, PACKET_ADD_MEMBERSHIP, &mr, sizeof(mr)) == -1) {
         fprintf(stderr, "Error making setsockopt: "
             "Verify if the interface network is allright.\n");
+            log("PROTOCOLO", "ERRO", "Verify if the interface network is allright.");
         exit(-1);
     }
 
@@ -129,14 +134,17 @@ uint8_t calc_CRC(Frame* f) {
 int build_frame(Frame *f, uint8_t seq, MessageType msgtype, uint8_t *data, uint8_t data_size){
     if (seq > 63) {
         fprintf(stderr, "build_frame: sequence %d out of range(0-63)\n", seq);
+        log("PROTOCOLO", "ERRO", "build_frame: sequence out of range(0-63)");
         return -1;
     }
     if ((int)msgtype > 31) {
         fprintf(stderr, "build_frame: type %d out of range (0-31)\n",msgtype);
+        log("PROTOCOLO", "ERRO", "build_frame: sequence out of range(0-31)");
         return -1;
     }
     if (data_size > DATA_SIZE) {
         fprintf(stderr, "build_frame: data_size %d exceeds max %d\n",data_size, DATA_SIZE);
+        log("PROTOCOLO", "ERRO", "build_frame: data_size exceeds max");
         return -1;
     }
 
@@ -155,6 +163,8 @@ int build_frame(Frame *f, uint8_t seq, MessageType msgtype, uint8_t *data, uint8
 }
 
 int send_frame(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
+
+    //printf("Estou mandando seq: %d, type: %d\n", f->sequence, f->type); 
 
     /* This is necessary even for two PCs connected to the same network cable
      * because RAWsocket operates at layer 2, enlace, it sends and receives full ethernet frames.
@@ -179,33 +189,53 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     unsigned char eth_frame[14 + sizeof(Frame)];
     int bytes = recv(sock, eth_frame, sizeof(eth_frame), 0);
 
-    if (bytes < (int)(14 + sizeof(Frame))) return -1;
+    if (bytes < (int)(14 + sizeof(Frame))){
+        return -1;
+    }
 
-    if (eth_frame[12] != 0x08 || eth_frame[13] != 0x88) return -1;
+    if (eth_frame[12] != 0x08 || eth_frame[13] != 0x88){
+        log("PROTOCOLO", "ERRO", "frame errada");
+        return -1;
+    }
 
     memcpy(f, eth_frame + 14, sizeof(Frame));
 
-    if (f->marker != MARKER) return -1;
-    // printf("Marker - Type: %d - %d\n",f->marker, f->type);
-
-    uint8_t expected = calc_CRC(f);
-    if (expected != f->CRC && src_mac != NULL && exp_seq != f->sequence) {
-        send_nack(sock, exp_seq, src_mac, dest_mac, iface);
+    if (f->marker != MARKER){
+        log("PROTOCOLO", "ERRO", "marker errada");
         return -1;
     }
-    else if ((src_mac != NULL) && (f->type != MSG_ACK) && (f->type != MSG_NACK)){
-        //printf("Debug [recv_frame] ack sent, type: %d\n", f->type);
-        send_ack(sock, f->sequence, src_mac, dest_mac, iface);
-    }
+    // printf("Marker - Type: %d - %d\n",f->marker, f->type);
 
+    //if(f->type == MSG_TXT || f->type == MSG_JPG || f->type == MSG_MP4)
+       // printf("Debug [recv_frame] seq: %d, exp: %d\n", f->sequence, exp_seq);
+
+
+    //printf("Sequencia recebida, seq exp, msg_type -> %d, %d, %d\n", f->sequence, exp_seq, f->type);
+    
+    uint8_t expected = calc_CRC(f);
+
+    if ((f->type != MSG_ACK) && (f->type != MSG_NACK) && (src_mac != NULL)) {
+        // eu acho que ele tá recebendo uma sequencia e dai outra coisa acontece como receber uma tecla e ele não zera a sequencia 
+        // oq ele pode receber no meio de uma transmissão alem de direcao? 
+        //printf("seq, exp_seq: %d, %d\n", f->sequence, exp_seq);
+        if (((expected != f->CRC) || (exp_seq != f->sequence)) && (f->type != MSG_DOWN) && (f->type != MSG_UP) && (f->type != MSG_LEFT) && (f->type != MSG_RIGHT) && (f->type != MSG_END)) {
+            send_nack(sock, exp_seq, src_mac, dest_mac, iface);
+        }
+        else {
+            send_ack(sock, f->sequence, src_mac, dest_mac, iface);
+        }
+    }
+        
     // timeout
     if (bytes < 0) {
         // não chegou nada
         if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            log("PROTOCOLO", "ERRO", "EAGAIN ou EWOULDBL");
             return -1;
         }
 
         // deu erro
+        log("PROTOCOLO", "ERRO", "Erro no recv");
         perror("Erro no recv!\n");
         return -2;
     }
@@ -214,24 +244,28 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
 }
 
 // Eu fiz outra função pq fiquei com medo do q ia acontecer na função recursiva
-int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
+int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface, uint8_t exp_seq){
     Frame f_recv;
+    int retrans = 5;
 
     // ele vai receber um ack e mandar um ack por cima
-    if(send_frame(sock, f, src_mac, dest_mac, iface) < 0) return -1;
-    else{
-        if(recv_frame(sock, &f_recv, NULL, NULL, NULL, 0) >= 0 && f_recv.type == MSG_ACK){
-            return 0;
-        }
+    while (retrans > 0) {
 
-        do {
-            if (f_recv.type == MSG_NACK) {
-                send_frame(sock, f, src_mac, dest_mac, iface);
+        if (send_frame(sock, f, src_mac, dest_mac, iface) > 0) {
+            //printf("conseguiu enviar\n");
+            // espera o ACK
+            int recv = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
+            //printf("recv_frame tá devolvendo: %d\n", recv); 
+            if (recv == 0 && f_recv.type == MSG_ACK) {
+               return 0;
             }
-        } while (f_recv.type == MSG_NACK);
+            
+        }
+        //printf("recebi type: %d\n", f_recv.type);
+        retrans--;
     }
-
-    return 0;
+    
+    return -1;
 }
 
 
@@ -240,6 +274,8 @@ int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const 
     //printf("Debug: [send_ack]\n");
     Frame f;
 
+    //log("PROTOCOLO", "INFO", "Enviando ack");
+
     build_frame(&f, seq, MSG_ACK, nullptr, 0);
     return send_frame(sock, &f, src_mac, dest_mac, iface);
 }
@@ -247,14 +283,20 @@ int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const 
 int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
     Frame f;
 
+    //log("PROTOCOLO", "INFO", "Enviando nack");
+
     build_frame(&f, seq, MSG_NACK, nullptr, 0);
     return send_frame(sock, &f, src_mac, dest_mac, iface);
 }
 
 int send_init(int sock, uint8_t *map) {
     Frame f_send;
-    if (build_frame(&f_send, 0, MSG_INIT, map, 1) != 0)
+    if (build_frame(&f_send, 0, MSG_INIT, map, 1) != 0){
+        log("PROTOCOLO", "INFO", "Erro ao montar frame");
         return -1;
+    }
+
+    log("PROTOCOLO", "ERRO", "Enviando init");
     return send_frame(sock, &f_send, CLIENT, SERVER, INTERFACE_CLIENT) < 0 ? -1 : 0;
 }
 
