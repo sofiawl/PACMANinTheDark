@@ -220,13 +220,13 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
         if (frame.type == MSG_NACK)
             log("CLIENT", "INFO", "Recebeu nack");
 
-        if (++exp_seq > 63) exp_seq = 0;
-
         if (frame.type == MSG_GHOSTS) {
-            log("CLIENT", "INFO", "Recebeu fantasmas");
+            log("CLIENT", "INFO", "Recebeu fantasmas (buffered)");
             apply_ghost_update(client_world, frame.data, frame.size);
-            continue;
+            continue; // don't advance exp_seq: server retries the file frame on the NACK already sent
         }
+
+        if (++exp_seq > 63) exp_seq = 0;
 
         if (frame.type == MSG_OVER) {
             log("CLIENT", "INFO", "Recebeu mensagem over");
