@@ -133,7 +133,7 @@ static void wait_for_client_and_init(int sock,
 
 int main() {
     log("SERVER", "INICIANDO NOVA TRANSMISSÃO", "");
-    bool transmitting = false;
+    bool ghosts_frozen = false;
 
     int sock = create_raw_socket(INTERFACE_SERVER);
 
@@ -158,9 +158,6 @@ int main() {
     uint8_t exp_seq = 0;
     while (1) {
         if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER, exp_seq) >= 0) {
-            if (transmitting)
-                continue;
-
             if (f.type == MSG_END){
                 log ("SERVER", "INFO", "Recebeu mensagem end");
                 continue;
@@ -176,6 +173,7 @@ int main() {
 
             if (f.type == MSG_UP || f.type == MSG_DOWN || f.type == MSG_LEFT || f.type == MSG_RIGHT) {
                 log ("SERVER", "INFO", "Recebeu mensagem flecha");
+                ghosts_frozen = false;
                 int mv = move_pacman(world, pacman_coord, f.type);
                 if (mv == -1) {
                     send_game_over(sock, false);
@@ -185,17 +183,15 @@ int main() {
                 if (mv >= '1' && mv <= '6') {
                     const PillInfo *pill = find_pill_by_id(pills, (char)mv);
                     if (pill) {
-                        transmitting = true;
+                        ghosts_frozen = true;
                         send_file(pill->file_path, sock);
                         remove_pill(pills, pill->id);
                     }
                     send_world(sock, world);
                     if (pills.empty()) {
                         send_game_over(sock, true);
-                        transmitting = false;
                         break;
                     }
-                    transmitting = false;
                 } else if (mv == 0) {
                     send_world(sock, world);
                 }
@@ -207,7 +203,7 @@ int main() {
             continue;
         }
 
-        if (!transmitting) {
+        if (!ghosts_frozen) {
             auto now = std::chrono::steady_clock::now();
             if (now - last_tick >= ghost_interval) {
                 last_tick = now;
