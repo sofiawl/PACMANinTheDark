@@ -1417,3 +1417,88 @@
 [2026-06-22 14:30:57.972] [CLIENT] [INFO] Recebeu fantasmas
 [2026-06-22 14:30:58.282] [CLIENT] [INFO] Recebeu fantasmas
 [2026-06-22 14:30:58.605] [CLIENT] [INFO] Recebeu mensagem over
+[2026-06-22 14:48:31.801] [CLIENT] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-22 14:48:33.550] [CLIENT] [INFO] Mandou init
+[2026-06-22 14:48:33.551] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-22 14:48:33.551] [PROTOCOLO] [ERRO] frame errada
+[2026-06-22 14:48:33.551] [PROTOCOLO] [ERRO] frame errada
+[2026-06-22 14:48:34.220] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:34.223] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:34.542] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:34.545] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:34.769] [PROTOCOLO] [ERRO] frame errada
+[2026-06-22 14:48:34.840] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:34.843] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:35.37] [PROTOCOLO] [ERRO] frame errada
+[2026-06-22 14:48:35.147] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:35.148] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:35.435] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:35.438] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:35.697] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:35.700] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:35.970] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:35.973] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:36.228] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:36.231] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:36.499] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:36.502] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:36.752] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:36.755] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:36.870] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:36.965] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:36.967] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:37.243] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:37.246] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:37.465] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:37.468] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:37.695] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:37.698] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:37.939] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:37.941] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:38.170] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:38.174] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:38.398] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:38.401] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:38.638] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:38.641] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:38.933] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:38.936] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:39.185] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:39.188] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:39.416] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:39.420] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:39.598] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:39.600] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:39.815] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:39.816] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:39.988] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:39.990] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:40.178] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:40.180] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:40.754] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:40.757] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:41.161] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:41.164] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:42.198] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:42.201] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:42.398] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:42.399] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:42.640] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:42.643] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:42.822] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:42.824] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:43.28] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:43.31] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:43.250] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-22 14:48:43.253] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-22 14:48:43.547] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:43.857] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:44.169] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:44.469] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:44.780] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:44.801] [PROTOCOLO] [ERRO] frame errada
+[2026-06-22 14:48:45.90] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:45.390] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:45.466] [PROTOCOLO] [ERRO] frame errada
+[2026-06-22 14:48:45.701] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-22 14:48:46.3] [CLIENT] [INFO] Recebeu mensagem over

@@ -197,6 +197,7 @@ int main() {
                         break;
                     }
                     transmitting = false;
+                    last_tick = std::chrono::steady_clock::now();
                 } else if (mv == 0) {
                     send_world(sock, world);
                 }
