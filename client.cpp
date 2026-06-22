@@ -71,10 +71,16 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     Frame frame;
     FILE *go_file = nullptr;
 
-    uint8_t exp_seq = 0; 
+    uint8_t exp_seq = 0;
+    auto file_deadline = std::chrono::steady_clock::now()
+                       + std::chrono::milliseconds(TRANSFER_TIMEOUT_MS);
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
-        if (rv < 0) break;
+        if (rv < 0) {
+            if (!go_file) break;
+            if (std::chrono::steady_clock::now() >= file_deadline) break;
+            continue;
+        }
 
         if (frame.type == MSG_ACK || frame.type == MSG_NACK)
             continue;
@@ -82,6 +88,7 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
         if (frame.type == MSG_GHOSTS) {
             apply_ghost_update(client_world, frame.data, frame.size);
             changed = 1;
+            if (++exp_seq > 63) exp_seq = 0;
             continue;
         }
 
@@ -92,12 +99,16 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             }
             if (go_file)
                 fwrite(frame.data, 1, frame.size, go_file);
+            if (go_file) file_deadline = std::chrono::steady_clock::now()
+                                       + std::chrono::milliseconds(TRANSFER_TIMEOUT_MS);
+            if (++exp_seq > 63) exp_seq = 0;
             continue;
         }
 
         if (go_file && frame.type == MSG_END) {
             fclose(go_file);
             go_file = nullptr;
+            if (++exp_seq > 63) exp_seq = 0;
             continue;
         }
 
@@ -279,6 +290,7 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             if (prize && frame.type == MSG_END) {
                 fclose(prize);
                 prize = nullptr;
+                exp_seq = 0; // server resets seq=0 for the next transmission (world)
                 continue;
             }
 
@@ -294,6 +306,7 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
                 load_world_csv("mundo.csv", client_world);
                 sync_pacman_from_world(client_world, pacman_coord);
                 world_done = true;
+                exp_seq = 0; // server resets seq=0 for the next transmission (YouWin.mp4)
                 continue;
             }
         } else {
