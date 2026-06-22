@@ -191,11 +191,9 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
 
     if (bytes < 0) {
         if (errno == EAGAIN || errno == EWOULDBLOCK) {
-            log("PROTOCOLO", "INFO", "Timeout no recv");
             return -1; // timeout
         }
         log("PROTOCOLO", "ERRO", "Erro no recv");
-        perror("Erro no recv!\n");
         return -2; // recv error
     }
 

@@ -8,6 +8,10 @@
 #define DATA_SIZE 31
 #define TIMEOUT 1000
 
+#define RECV_TIMEOUT        -1
+#define RECV_ERROR          -2
+#define NETWORK_GIVEUP_TRIES 300
+
 #define UFPR_MAP 1
 #define DEFAULT_MAP 2
 
@@ -74,5 +78,7 @@ int send_nack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const
 int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface, uint8_t exp_seq);
 
 int send_init(int sock, uint8_t *data);
+
+bool network_recv_failed(int rv, int *fail_count, const char *origem);
 
 #endif

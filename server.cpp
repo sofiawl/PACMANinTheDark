@@ -42,15 +42,22 @@ int send_file(const char* arquivo, int sock) {
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, file);
         if (bytes_read == 0) break;
         if (build_frame(&f_send, seq, type, buffer, (uint8_t)bytes_read) != 0) return -1;
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) return -1;
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) {
+            log("SERVER", "ERRO", std::format("Falha ao enviar frame do pill, seq {}", seq));
+            return -1;
+        }
         if (++seq > 63) seq = 0;
     }
     fclose(file);
 
     log("SERVER", "INFO", "Mandou arquivo");
 
-    if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) <0 ) return -1;
+    if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0) {
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) {
+            log("SERVER", "ERRO", std::format("Falha ao enviar MSG_END do pill, seq {}", seq));
+            return -1;
+        }
+    }
 
     return 0;
 }
