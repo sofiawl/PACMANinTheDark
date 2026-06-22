@@ -68,14 +68,12 @@ static void apply_ghost_update(char world[SIZE_WORLD][SIZE_WORLD], const uint8_t
     }
 }
 
-// 0 = nothing, 1 = ghosts moved, -1 = game over
-static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
-                        char *gameover_path, size_t gameover_path_sz) {
+// 0 = nothing, 1 = ghosts moved, -1 = lose, -2 = win
+static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
     int changed = 0;
     Frame frame;
-    FILE *go_file = nullptr;
 
-    uint8_t exp_seq = 0; 
+    uint8_t exp_seq = 0;
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) break;
@@ -89,31 +87,15 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             continue;
         }
 
-        if (frame.type == MSG_MP4) {
-            if (!go_file) {
-                snprintf(gameover_path, gameover_path_sz, "pills/recv_gameover.mp4");
-                go_file = fopen(gameover_path, "wb");
-            }
-            if (go_file)
-                fwrite(frame.data, 1, frame.size, go_file);
-            continue;
-        }
-
-        if (go_file && frame.type == MSG_END) {
-            fclose(go_file);
-            go_file = nullptr;
-            continue;
-        }
-
         if (frame.type == MSG_OVER) {
-            if (go_file) { fclose(go_file); go_file = nullptr; }
-            return -1;
+            log("CLIENT", "INFO", "Recebeu mensagem over");
+            bool won = (frame.size > 0 && frame.data[0] != 0);
+            return won ? -2 : -1;
         }
 
         if (++exp_seq > 63) exp_seq = 0;
     }
 
-    if (go_file) { fclose(go_file); go_file = nullptr; gameover_path[0] = '\0'; }
     return changed;
 }
 
@@ -206,25 +188,23 @@ static bool wait_for_server_and_world(int sock, uint8_t *map_data) {
     }
 }
 
-// 1 = success, 0 = game over, 2 = you win, -1 = error
+// 1 = success, 0 = lose, 2 = win, -1 = error
 static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     std::pair<int, int> &pacman_coord, char *prize_path, size_t prize_path_sz,
-    int *prize_type, bool *got_prize, char *win_path, size_t win_path_sz) {
+    int *prize_type, bool *got_prize) {
 
     *got_prize = false;
     prize_path[0] = '\0';
     *prize_type = 0;
-    win_path[0] = '\0';
 
     FILE* mundo = fopen("mundo.csv", "wb");
     if (!mundo) return -1;
 
     FILE* prize = nullptr;
-    FILE* win_file = nullptr;
     bool world_done = false;
     Frame frame;
 
-    uint8_t exp_seq = 0; 
+    uint8_t exp_seq = 0;
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) {
@@ -232,32 +212,29 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             continue;
         }
 
-        
         if (frame.type == MSG_ACK){
             log("CLIENT", "INFO", "Recebeu ack");
             continue;
         }
 
         if (frame.type == MSG_NACK){
-            log("CLIENT", "INFO", "Recebeu nack"); 
+            log("CLIENT", "INFO", "Recebeu nack");
         }
 
         if (++exp_seq > 63) exp_seq = 0;
 
         if (frame.type == MSG_GHOSTS) {
-            log ("CLIENT", "INFO", "Recebeu fantasmas"); 
+            log ("CLIENT", "INFO", "Recebeu fantasmas");
             apply_ghost_update(client_world, frame.data, frame.size);
             continue;
         }
 
-        // after the world is done, MSG_OVER means game over (ghost hit)
-        // but if we also received a win file before MSG_OVER, it's a win
         if (frame.type == MSG_OVER) {
-            log ("CLIENT", "INFO", "Recebeu mensagem over"); 
-            if (win_file) { fclose(win_file); win_file = nullptr; }
-            if (prize)    { fclose(prize);    prize    = nullptr; }
-            if (mundo)    { fclose(mundo);    mundo    = nullptr; }
-            return win_path[0] ? 2 : 0;
+            log ("CLIENT", "INFO", "Recebeu mensagem over");
+            if (prize) { fclose(prize); prize = nullptr; }
+            if (mundo) { fclose(mundo); mundo = nullptr; }
+            bool won = (frame.size > 0 && frame.data[0] != 0);
+            return won ? 2 : 0;
         }
 
         if (!world_done) {
@@ -295,24 +272,6 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
                 continue;
             }
         } else {
-            // after world: optional win file (YouWin.mp4)
-            if (frame.type == MSG_MP4) {
-                if (!win_file) {
-                    snprintf(win_path, win_path_sz, "pills/recv_youwin.mp4");
-                    win_file = fopen(win_path, "wb");
-                    if (!win_file) return 1;
-                }
-                fwrite(frame.data, 1, frame.size, win_file);
-                continue;
-            }
-
-            if (win_file && frame.type == MSG_END) {
-                fclose(win_file);
-                win_file = nullptr;
-                continue;
-            }
-
-            // no win file: regular move with no further data
             return 1;
         }
     }
@@ -386,54 +345,56 @@ int main() {
 
     set_recv_timeout_ms(sock, 10);
 
+    int game_result = 0; // 0 = none, 1 = lose, 2 = win
+
     while (1) {
         draw_client_view_world(client_world, pacman_coord, radius);
 
         int key = ERR;
-        char go_path[128] = {};
         while (key == ERR) {
             key = poll_client_key();
             if (key != ERR) break;
 
-            int net = poll_network(sock, client_world, go_path, sizeof(go_path));
+            int net = poll_network(sock, client_world);
             if (net == -1) {
-                if (go_path[0])
-                    mostrar_premio(go_path);
-                printf("Gameover!\n");
-                close_client_view();
-                return 0;
+                game_result = 1;
+                break;
+            }
+            if (net == -2) {
+                game_result = 2;
+                break;
             }
             if (net == 1)
                 draw_client_view_world(client_world, pacman_coord, radius);
         }
 
+        if (game_result)
+            break;
+
         int result = receive_key(sock, key);
         if (result == -1) {
-            printf("Gameover!\n");
+            game_result = 1;
             break;
         }
 
         if (result == 1) {
             char prize_path[128];
-            char win_path[128];
             int prize_type = 0;
             bool got_prize = false;
 
             int sync = sync_after_move(sock, client_world, pacman_coord,
-                    prize_path, sizeof(prize_path), &prize_type, &got_prize,
-                    win_path, sizeof(win_path));
+                    prize_path, sizeof(prize_path), &prize_type, &got_prize);
             if (sync == 0) {
                 if (got_prize)
                     mostrar_premio(prize_path);
-                printf("Gameover!\n");
+                game_result = 1;
                 break;
             }
             if (sync == 2) {
                 if (got_prize)
                     mostrar_premio(prize_path);
                 redraw_client_view_full(client_world, pacman_coord, radius);
-                mostrar_premio(win_path);
-                printf("You win!\n");
+                game_result = 2;
                 break;
             }
             if (sync < 0) {
@@ -455,5 +416,9 @@ int main() {
     }
 
     close_client_view();
+    if (game_result == 1)
+        printf("Você perdeu\n");
+    else if (game_result == 2)
+        printf("Você venceu\n");
     return 0;
 }

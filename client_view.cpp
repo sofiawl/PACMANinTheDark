@@ -147,7 +147,6 @@ void draw_client_view_world(char world[SIZE_WORLD][SIZE_WORLD], std::pair<int,in
 
     werase(box_win);
 
-    // half_pair[ci]: fg=color_for(c), bg=-1 (terminal default) — for boundary cells
     static short half_pair[16] = {};
 
     for (int i = 0; i < s_view_side; i += 2) {
