@@ -57,12 +57,11 @@ int send_file(const char* arquivo, int sock) {
     return 0;
 }
 
-static void send_game_over(int sock, bool win) {
+static void send_game_over(int sock) {
     Frame f_send;
-    uint8_t result = win ? 1 : 0;
-    if (build_frame(&f_send, 0, MSG_OVER, &result, 1) == 0)
+    if (build_frame(&f_send, 0, MSG_OVER, nullptr, 0) == 0)
         send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
-    log("SERVER", "INFO", win ? "Mandou you win" : "Mandou game over");
+    log ("SERVER", "INFO", "Mandou game over"); 
 }
 
 static void send_ghost_positions(int sock, const std::vector<std::pair<int, int>> &ghost_coords) {
@@ -141,6 +140,9 @@ int main() {
 
     int sock = create_raw_socket(INTERFACE_SERVER);
 
+    struct timeval tv = {0, 10000};
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+
     char world[SIZE_WORLD][SIZE_WORLD];
     std::pair<int, int> pacman_coord = {{(SIZE_WORLD - 1) / 2}, {(SIZE_WORLD - 1) / 2}};
     bool green_go_left  = false;
@@ -179,7 +181,11 @@ int main() {
                 log ("SERVER", "INFO", "Recebeu mensagem flecha");
                 int mv = move_pacman(world, pacman_coord, f.type);
                 if (mv == -1) {
-                    send_game_over(sock, false);
+                    if (send_file("pills/GameOver.mp4", sock) < 0) {
+                        printf("Erro na transmissao\n");
+                        break;
+                    };
+                    send_game_over(sock);
                     break;
                 }
 
@@ -192,12 +198,12 @@ int main() {
                     }
                     send_world(sock, world);
                     if (pills.empty()) {
-                        send_game_over(sock, true);
+                        send_file("pills/YouWin.mp4", sock);
+                        send_game_over(sock);
                         transmitting = false;
                         break;
                     }
                     transmitting = false;
-                    last_tick = std::chrono::steady_clock::now();
                 } else if (mv == 0) {
                     send_world(sock, world);
                 }
@@ -214,7 +220,8 @@ int main() {
             if (now - last_tick >= ghost_interval) {
                 last_tick = now;
                 if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1) {
-                    send_game_over(sock, false);
+                    send_file("pills/GameOver.mp4", sock);
+                    send_game_over(sock);
                     break;
                 }
                 send_ghost_positions(sock, ghost_coords);

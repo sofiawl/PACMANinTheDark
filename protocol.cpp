@@ -55,7 +55,7 @@ int create_raw_socket(const char* network_interface_name) {
         exit(-1);
     }
 
-    const int timeoutMillis = SOCKET_TIMEOUT_MS;
+    const int timeoutMillis = 300; // 300 milisegundos de timeout por exemplo
     struct timeval timeout = { .tv_sec = timeoutMillis / 1000, .tv_usec = (timeoutMillis % 1000) * 1000 };
     setsockopt(sk, SOL_SOCKET, SO_RCVTIMEO, (char*) &timeout, sizeof(timeout));
 
@@ -194,7 +194,7 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     }
 
     if (eth_frame[12] != 0x08 || eth_frame[13] != 0x88){
-        log("PROTOCOLO", "ERRO", "ether não é nossa, frame errada");
+        log("PROTOCOLO", "ERRO", "frame errada");
         return -1;
     }
 
@@ -226,6 +226,20 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
         }
     }
         
+    // timeout
+    if (bytes < 0) {
+        // não chegou nada
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            log("PROTOCOLO", "ERRO", "EAGAIN ou EWOULDBL");
+            return -1;
+        }
+
+        // deu erro
+        log("PROTOCOLO", "ERRO", "Erro no recv");
+        perror("Erro no recv!\n");
+        return -2;
+    }
+
     return 0;
 }
 
