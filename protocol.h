@@ -12,20 +12,19 @@
 #define DEFAULT_MAP 2
 
 // Loopback
-
+/*
 #define INTERFACE_SERVER "veth1"
 #define INTERFACE_CLIENT "veth0"
 extern unsigned char SERVER[6]; // = {0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c}
 extern unsigned char CLIENT[6]; // = {0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7}
-
+*/
 
 //Sofia
-/*
 #define INTERFACE_SERVER "enp4s0"
 #define INTERFACE_CLIENT "enx00e04c034558"
 extern unsigned char SERVER[6];
 extern unsigned char CLIENT[6];
-*/
+
 
 typedef enum {
     MSG_ACK = 0,
@@ -53,7 +52,7 @@ typedef struct {
     uint16_t size     : 5;
     uint16_t sequence : 6;
     uint16_t type     : 5;
-   
+
     uint8_t data[DATA_SIZE];
     uint8_t CRC;
 } Frame;
