@@ -57,11 +57,12 @@ int send_file(const char* arquivo, int sock) {
     return 0;
 }
 
-static void send_game_over(int sock) {
+static void send_game_over(int sock, bool win) {
     Frame f_send;
-    if (build_frame(&f_send, 0, MSG_OVER, nullptr, 0) == 0)
+    uint8_t result = win ? 1 : 0;
+    if (build_frame(&f_send, 0, MSG_OVER, &result, 1) == 0)
         send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
-    log ("SERVER", "INFO", "Mandou game over"); 
+    log("SERVER", "INFO", win ? "Mandou you win" : "Mandou game over");
 }
 
 static void send_ghost_positions(int sock, const std::vector<std::pair<int, int>> &ghost_coords) {
@@ -178,11 +179,7 @@ int main() {
                 log ("SERVER", "INFO", "Recebeu mensagem flecha");
                 int mv = move_pacman(world, pacman_coord, f.type);
                 if (mv == -1) {
-                    if (send_file("pills/GameOver.mp4", sock) < 0) {
-                        printf("Erro na transmissao\n");
-                        break;
-                    };
-                    send_game_over(sock);
+                    send_game_over(sock, false);
                     break;
                 }
 
@@ -195,8 +192,7 @@ int main() {
                     }
                     send_world(sock, world);
                     if (pills.empty()) {
-                        send_file("pills/YouWin.mp4", sock);
-                        send_game_over(sock);
+                        send_game_over(sock, true);
                         transmitting = false;
                         break;
                     }
@@ -217,8 +213,7 @@ int main() {
             if (now - last_tick >= ghost_interval) {
                 last_tick = now;
                 if (move_ghosts(world, ghost_coords, pacman_coord, green_go_left, red_going_right, blue_going_up) == -1) {
-                    send_file("pills/GameOver.mp4", sock);
-                    send_game_over(sock);
+                    send_game_over(sock, false);
                     break;
                 }
                 send_ghost_positions(sock, ghost_coords);
