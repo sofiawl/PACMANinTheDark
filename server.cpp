@@ -140,9 +140,6 @@ int main() {
 
     int sock = create_raw_socket(INTERFACE_SERVER);
 
-    struct timeval tv = {0, 10000};
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-
     char world[SIZE_WORLD][SIZE_WORLD];
     std::pair<int, int> pacman_coord = {{(SIZE_WORLD - 1) / 2}, {(SIZE_WORLD - 1) / 2}};
     bool green_go_left  = false;

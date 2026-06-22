@@ -13,16 +13,12 @@
 #include "protocol.h"
 #include "log.h"
 
-#define WORLD_WAIT_MS 3000
+#define WORLD_WAIT_MS TRANSFER_TIMEOUT_MS
 #define CONNECT_RETRY_MS 500
 #include "client_view.h"
 #include "world.h"
 
 
-static void set_recv_timeout_ms(int sock, int ms) {
-    struct timeval tv = { ms / 1000, (ms % 1000) * 1000 };
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-}
 
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
     std::ifstream in(csv_path);
@@ -156,7 +152,7 @@ static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
 
     uint8_t exp_seq = 0; 
     while (1) {
-        if (use_timeout && !got_world_data && std::chrono::steady_clock::now() >= deadline) {
+        if (use_timeout && std::chrono::steady_clock::now() >= deadline) {
             fclose(mundo);
             return false;
         }
@@ -224,13 +220,19 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     bool world_done = false;
     Frame frame;
 
-    uint8_t exp_seq = 0; 
+    auto deadline = std::chrono::steady_clock::now()
+                  + std::chrono::milliseconds(TRANSFER_TIMEOUT_MS);
+
+    uint8_t exp_seq = 0;
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) {
             if (world_done) return 1;
+            if (std::chrono::steady_clock::now() >= deadline) return -1;
             continue;
         }
+        deadline = std::chrono::steady_clock::now()
+                 + std::chrono::milliseconds(TRANSFER_TIMEOUT_MS);
 
         
         if (frame.type == MSG_ACK){
@@ -383,8 +385,6 @@ int main() {
         fprintf(stderr, "Could not load initial world\n");
         return 1;
     }
-
-    set_recv_timeout_ms(sock, 10);
 
     while (1) {
         draw_client_view_world(client_world, pacman_coord, radius);

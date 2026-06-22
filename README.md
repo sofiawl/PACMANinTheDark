@@ -425,3 +425,29 @@ tail -f log_redes.txt
 
 ### How to deal with error 
 Send the error to the log and then go back to the part that is error free, the program doesn't have to stop or show the error in the screen 
+
+## Timeout
+
+Two constants in `protocol.h` control all timeouts:
+
+| Constant | Value | Purpose |
+|---|---|---|
+| `SOCKET_TIMEOUT_MS` | 10 ms | `SO_RCVTIMEO` — how long a single `recv()` blocks before returning |
+| `TRANSFER_TIMEOUT_MS` | 3000 ms | Wall-clock deadline for multi-frame transfers (world, files) |
+
+### How it works
+
+**Socket level (`SOCKET_TIMEOUT_MS = 10 ms`)**  
+Set once in `create_raw_socket()` via `setsockopt(SO_RCVTIMEO)`. Every `recv()` call returns after at most 10 ms if nothing arrives. This keeps the game loop responsive — the client polls the network and the keyboard in a tight loop without blocking.
+
+RTT on a direct ethernet cable is <1 ms, so 10 ms gives 10× margin for the kernel to deliver the frame. The `send()` function retries up to 5 times, so the total reliability window per frame is 50 ms.
+
+**Application level (`TRANSFER_TIMEOUT_MS = 3000 ms`)**  
+Used as a `std::chrono::steady_clock` wall-clock deadline in two places:
+
+- `receive_world()` — if no `MSG_END` arrives within 3 s of the last received frame, the client gives up and retries the connection. This prevents hanging if the server crashes mid-world.
+- `sync_after_move()` — same deadline after a key press. If the server goes silent before finishing its response, the client exits with "Lost sync" instead of hanging forever. The deadline resets on every successfully received frame, so large file transfers (big pills) are not cut off prematurely.
+
+### Why these values?
+- **10 ms**: tight enough to not feel laggy (ghosts move every 300 ms, keyboard checked every loop iteration), loose enough to never spuriously timeout on a healthy link.
+- **3000 ms**: long enough to stream the largest pill files even at 31 bytes/frame, short enough to detect a dead server within 3 seconds.

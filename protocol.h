@@ -6,7 +6,8 @@
 #include <stdint.h>
 
 #define DATA_SIZE 31
-#define TIMEOUT 1000
+#define SOCKET_TIMEOUT_MS   10    // SO_RCVTIMEO per recv() call
+#define TRANSFER_TIMEOUT_MS 3000  // wall-clock deadline for multi-frame transfers
 
 #define UFPR_MAP 1
 #define DEFAULT_MAP 2
