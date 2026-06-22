@@ -189,55 +189,40 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     unsigned char eth_frame[14 + sizeof(Frame)];
     int bytes = recv(sock, eth_frame, sizeof(eth_frame), 0);
 
+    if (bytes < 0) {
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            return -1; // timeout
+        }
+        log("PROTOCOLO", "ERRO", "Erro no recv");
+        perror("Erro no recv!\n");
+        return -2; // recv error
+    }
+
     if (bytes < (int)(14 + sizeof(Frame))){
-        return -1;
+        return -3; // too short
     }
 
     if (eth_frame[12] != 0x08 || eth_frame[13] != 0x88){
         log("PROTOCOLO", "ERRO", "frame errada");
-        return -1;
+        return -3; // wrong ethertype
     }
 
     memcpy(f, eth_frame + 14, sizeof(Frame));
 
     if (f->marker != MARKER){
         log("PROTOCOLO", "ERRO", "marker errada");
-        return -1;
+        return -3; // bad marker
     }
-    // printf("Marker - Type: %d - %d\n",f->marker, f->type);
 
-    //if(f->type == MSG_TXT || f->type == MSG_JPG || f->type == MSG_MP4)
-       // printf("Debug [recv_frame] seq: %d, exp: %d\n", f->sequence, exp_seq);
-
-
-    //printf("Sequencia recebida, seq exp, msg_type -> %d, %d, %d\n", f->sequence, exp_seq, f->type);
-    
     uint8_t expected = calc_CRC(f);
 
     if ((f->type != MSG_ACK) && (f->type != MSG_NACK) && (src_mac != NULL)) {
-        // eu acho que ele tá recebendo uma sequencia e dai outra coisa acontece como receber uma tecla e ele não zera a sequencia 
-        // oq ele pode receber no meio de uma transmissão alem de direcao? 
-        //printf("seq, exp_seq: %d, %d\n", f->sequence, exp_seq);
         if (((expected != f->CRC) || (exp_seq != f->sequence)) && (f->type != MSG_DOWN) && (f->type != MSG_UP) && (f->type != MSG_LEFT) && (f->type != MSG_RIGHT) && (f->type != MSG_END)) {
             send_nack(sock, exp_seq, src_mac, dest_mac, iface);
         }
         else {
             send_ack(sock, f->sequence, src_mac, dest_mac, iface);
         }
-    }
-        
-    // timeout
-    if (bytes < 0) {
-        // não chegou nada
-        if (errno == EAGAIN || errno == EWOULDBLOCK) {
-            log("PROTOCOLO", "ERRO", "EAGAIN ou EWOULDBL");
-            return -1;
-        }
-
-        // deu erro
-        log("PROTOCOLO", "ERRO", "Erro no recv");
-        perror("Erro no recv!\n");
-        return -2;
     }
 
     return 0;
@@ -248,23 +233,20 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
     Frame f_recv;
     int retrans = 5;
 
-    // ele vai receber um ack e mandar um ack por cima
     while (retrans > 0) {
-
         if (send_frame(sock, f, src_mac, dest_mac, iface) > 0) {
-            //printf("conseguiu enviar\n");
-            // espera o ACK
-            int recv = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
-            //printf("recv_frame tá devolvendo: %d\n", recv); 
-            if (recv == 0 && f_recv.type == MSG_ACK) {
-               return 0;
+            // Keep receiving until we get ACK, NACK, or real timeout.
+            // -3 means irrelevant ethernet traffic (wrong ethertype/marker) — ignore it.
+            while (true) {
+                int r = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
+                if (r == 0 && f_recv.type == MSG_ACK) return 0;
+                if (r == -3) continue; // background frame, keep waiting
+                break; // timeout (-1), recv error (-2), or NACK: retransmit
             }
-            
         }
-        //printf("recebi type: %d\n", f_recv.type);
         retrans--;
     }
-    
+
     return -1;
 }
 
