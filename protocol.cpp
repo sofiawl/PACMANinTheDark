@@ -202,7 +202,7 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     }
 
     if (eth_frame[12] != 0x08 || eth_frame[13] != 0x88){
-        log("PROTOCOLO", "ERRO", "frame errada");
+        log("PROTOCOLO", "ERRO", "noise");
         return -3; // wrong ethertype
     }
 

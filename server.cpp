@@ -193,10 +193,11 @@ int main() {
                         if (result == -2) {
                             Frame resync;
                             build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
+                            log("SERVER", "INFO", "Aguardando ack do RESYNC do client");
                             int attempts = 100;
                             while (attempts-- > 0) {
                                 if (send(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER, 0) == 0) {
-                                    // got ACK: client is back, retry the file
+                                    log("SERVER", "INFO", "Recebido ack RESYNC do client");
                                     result = send_file(pill->file_path, sock);
                                     break;
                                 }
