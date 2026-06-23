@@ -16,7 +16,7 @@
 unsigned char SERVER[6] = {0x00, 0xe0, 0x4c, 0x03, 0x45, 0x58};
 unsigned char CLIENT[6] = {0x04, 0x7c, 0x16, 0xa9, 0xb2, 0x5b};
 
-// Why this value? Cause it is *01111110* in hex
+// Cause it is *01111110* in hex
 #define MARKER 0x7E
 
 // CRC-8 polynomial: x^8 + x^2 + x + 1 = 100000111 in binary
