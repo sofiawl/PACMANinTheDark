@@ -184,7 +184,7 @@ static bool wait_for_server_and_world(int sock, uint8_t *map_data) {
 }
 
 // 1 = success, 0 = lose, 2 = win, -1 = error
-static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
+static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     std::pair<int, int> &pacman_coord, char *prize_path, size_t prize_path_sz,
     int *prize_type, bool *got_prize) {
 
@@ -203,6 +203,11 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) {
+            if (rv == -2) {
+                log("CLIENT", "INFO", "Interface perdida, recriando socket");
+                close(sock);
+                sock = create_raw_socket(INTERFACE_CLIENT);
+            }
             if (world_done) return 1;
             continue;
         }
