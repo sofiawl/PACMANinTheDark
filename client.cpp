@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <sys/socket.h>
+#include <net/if.h>
 #include <ncursesw/ncurses.h>
 #include <cstdlib>
 #include <unistd.h>
@@ -204,8 +205,13 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) {
             if (rv == -2) {
-                log("CLIENT", "INFO", "Interface perdida, recriando socket");
+                log("CLIENT", "INFO", "Interface perdida, aguardando reconexao");
                 close(sock);
+                sock = -1;
+                while (if_nametoindex(INTERFACE_CLIENT) == 0)
+                    usleep(500000);
+                usleep(500000);
+                log("CLIENT", "INFO", "Interface voltou, recriando socket");
                 sock = create_raw_socket(INTERFACE_CLIENT);
             }
             if (world_done) return 1;
