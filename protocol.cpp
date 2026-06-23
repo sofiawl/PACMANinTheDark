@@ -217,7 +217,7 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     uint8_t expected = calc_CRC(f);
 
     if ((f->type != MSG_ACK) && (f->type != MSG_NACK) && (src_mac != NULL)) {
-        if (((expected != f->CRC) || (exp_seq != f->sequence)) && (f->type != MSG_DOWN) && (f->type != MSG_UP) && (f->type != MSG_LEFT) && (f->type != MSG_RIGHT) && (f->type != MSG_END)) {
+        if (((expected != f->CRC) || (exp_seq != f->sequence)) && (f->type != MSG_DOWN) && (f->type != MSG_UP) && (f->type != MSG_LEFT) && (f->type != MSG_RIGHT) && (f->type != MSG_END) && (f->type != MSG_RESYNC)) {
             send_nack(sock, exp_seq, src_mac, dest_mac, iface);
         }
         else {
@@ -237,7 +237,7 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
         if (send_frame(sock, f, src_mac, dest_mac, iface) > 0) {
             for (int i = 0; i < 30; i++) {
                 int r = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
-                if (r == 0 && f_recv.type == MSG_ACK) return 0;
+                if (r == 0 && f_recv.type == MSG_ACK && f_recv.sequence == exp_seq) return 0;
                 if (r == 0 && f_recv.type == MSG_RESYNC) return -2; // client wants file restart
                 if (r == -1 || r == -3) continue; //  timeout or noise
                 if (r == -2) {

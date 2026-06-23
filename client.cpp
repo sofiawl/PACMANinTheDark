@@ -118,6 +118,29 @@ static const char* prize_extension(int type) {
     return ".bin";
 }
 
+static void reset_prize_transfer(FILE*& prize, bool* got_prize, int* prize_type,
+    char* prize_path, size_t prize_path_sz) {
+    if (prize) {
+        fclose(prize);
+        prize = nullptr;
+    }
+    if (prize_path[0] != '\0')
+        remove(prize_path);
+    *got_prize = false;
+    *prize_type = 0;
+    prize_path[0] = '\0';
+}
+
+static void send_resync_burst(int sock) {
+    Frame resync;
+    build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
+    for (int i = 0; i < 100; i++) {
+        send_frame(sock, &resync, CLIENT, SERVER, INTERFACE_CLIENT);
+        usleep(500000);
+    }
+    log("CLIENT", "INFO", "Enviou RESYNC ao servidor");
+}
+
 // timeout_ms == 0 waits until the full world arrives.
 static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
     (void)map_data;
@@ -201,13 +224,23 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
     Frame frame;
 
     uint8_t exp_seq = 0;
+    int recv_fail_count = 0;
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) {
+            if (prize || *got_prize) {
+                recv_fail_count++;
+                if (recv_fail_count >= 30) {
+                    log("CLIENT", "INFO", "Transferencia do pill interrompida, pedindo RESYNC");
+                    reset_prize_transfer(prize, got_prize, prize_type, prize_path, prize_path_sz);
+                    exp_seq = 0;
+                    recv_fail_count = 0;
+                    send_resync_burst(sock);
+                }
+            }
             if (rv == -2) {
                 log("CLIENT", "INFO", "Interface perdida, aguardando reconexao");
-                if (prize) { fclose(prize); prize = nullptr; }
-                *got_prize = false;
+                reset_prize_transfer(prize, got_prize, prize_type, prize_path, prize_path_sz);
                 exp_seq = 0;
                 close(sock);
                 sock = -1;
@@ -216,14 +249,13 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
                 usleep(500000);
                 log("CLIENT", "INFO", "Interface voltou, recriando socket");
                 sock = create_raw_socket(INTERFACE_CLIENT);
-                Frame resync;
-                build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
-                send_frame(sock, &resync, CLIENT, SERVER, INTERFACE_CLIENT);
-                log("CLIENT", "INFO", "Enviou RESYNC ao servidor");
+                send_resync_burst(sock);
             }
             if (world_done) return 1;
             continue;
         }
+
+        recv_fail_count = 0;
 
         if (frame.type == MSG_ACK){
             log("CLIENT", "INFO", "Recebeu ack");
@@ -234,19 +266,19 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             log("CLIENT", "INFO", "Recebeu nack");
         }
 
+        if (frame.type == MSG_RESYNC) {
+            log("CLIENT", "INFO", "Recebeu RESYNC do servidor");
+            reset_prize_transfer(prize, got_prize, prize_type, prize_path, prize_path_sz);
+            exp_seq = 0;
+            continue;
+        }
+
         if (++exp_seq > 63) exp_seq = 0;
 
         if (frame.type == MSG_GHOSTS) {
             log ("CLIENT", "INFO", "Recebeu fantasmas");
             apply_ghost_update(client_world, frame.data, frame.size);
             continue;
-        }
-
-        if (frame.type == MSG_RESYNC) {
-            if (prize) { fclose(prize); prize = nullptr; }
-            *got_prize = false;
-            exp_seq = 0;
-            continue; // go back to waiting for file frames
         }
 
         if (frame.type == MSG_OVER) {

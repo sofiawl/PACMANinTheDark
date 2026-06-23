@@ -207,23 +207,12 @@ int main() {
                     if (pill) {
                         ghosts_frozen = true;
                         int result = send_file(pill->file_path, sock);
-                        if (result == -2) {
+                        while (result == -2) {
                             Frame resync;
                             build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
-                            log("SERVER", "INFO", "Aguardando ack do RESYNC do client");
-                            int attempts = 100;
-                            while (attempts-- > 0) {
-                                send_frame(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER);
-                                Frame ack;
-
-                                int r = recv_frame(sock, &ack, NULL, NULL, NULL, 0);
-                                if (r == 0 && ack.type == MSG_ACK) {
-                                    log("SERVER", "INFO", "Recebido ack RESYNC do client, reenviando arquivo");
-                                    result = send_file(pill->file_path, sock);
-                                    break;
-                                }
-                                usleep(500000);
-                            }
+                            send_frame(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER);
+                            log("SERVER", "INFO", "Reenviando arquivo do zero");
+                            result = send_file(pill->file_path, sock);
                         }
 
                         if (result == 0)
