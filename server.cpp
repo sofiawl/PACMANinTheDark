@@ -121,7 +121,7 @@ static void wait_for_client_and_init(int sock,
     std::vector<std::pair<int, int>> &ghost_coords,
     std::vector<PillInfo> &pills) {
 
-    printf("Server ready. Waiting for client... (run: sudo ./client)\n");
+    printf("Server pronto. Esperando client (run: sudo ./client)\n");
     fflush(stdout);
 
     Frame f;
