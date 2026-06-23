@@ -343,8 +343,6 @@ int main() {
         return 1;
     }
 
-    set_recv_timeout_ms(sock, 10);
-
     int game_result = 0; // 0 = none, 1 = lose, 2 = win
 
     while (1) {

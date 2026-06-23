@@ -144,7 +144,6 @@ int main() {
 
     int sock = create_raw_socket(INTERFACE_SERVER);
 
-    struct timeval tv = {0, 10000};
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 
     char world[SIZE_WORLD][SIZE_WORLD];
