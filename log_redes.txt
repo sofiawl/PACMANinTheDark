@@ -53788,3 +53788,159 @@
 [2026-06-22 21:23:46.423] [SERVER] [INFO] Recebeu mensagem flecha
 [2026-06-22 21:23:47.156] [CLIENT] [INFO] Apertou em uma tecla
 [2026-06-22 21:23:47.203] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:55:48.597] [SERVER] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 06:55:58.343] [CLIENT] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 06:56:01.380] [CLIENT] [INFO] Mandou init
+[2026-06-23 06:56:01.382] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 06:56:02.797] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:02.801] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:02.803] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:03.69] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:03.72] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:03.74] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:03.477] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:03.481] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:03.482] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:03.604] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 06:56:03.687] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:03.690] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:03.691] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:03.703] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:03.711] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:03.713] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:03.716] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:03.718] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:03.719] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:03.894] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:03.897] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:03.898] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:04.100] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:04.103] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:04.104] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:04.116] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:04.126] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:04.128] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:04.130] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:04.132] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:04.135] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:04.479] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:04.481] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:04.482] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:04.695] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:04.699] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:04.700] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:04.884] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:04.887] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:04.888] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:05.75] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:05.78] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:05.80] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:05.287] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:05.290] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:05.291] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:05.303] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.310] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.312] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.314] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.316] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.318] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.488] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:05.491] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:05.493] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:05.650] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 06:56:05.702] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:05.704] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:05.705] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:05.716] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.723] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.724] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.726] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.728] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.729] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:05.913] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:05.916] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:05.917] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:06.106] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:06.109] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:06.110] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:06.353] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:06.356] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:06.357] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:06.635] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:06.637] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:06.638] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:06.641] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:06.641] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:06.647] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:06.649] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:06.651] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:06.654] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:06.656] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:07.744] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:07.748] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:07.749] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:07.987] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:07.991] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:07.992] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:08.355] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:08.359] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:08.360] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:08.371] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.382] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.394] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.407] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.409] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.411] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.413] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.415] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.757] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:08.760] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.761] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:08.762] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:08.763] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.768] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.773] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.774] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.777] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:08.779] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:09.493] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:09.496] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:09.497] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:10.456] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:10.459] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:10.460] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:10.841] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 06:56:10.844] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 06:56:10.844] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
+[2026-06-23 06:56:10.845] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 06:56:10.849] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
+[2026-06-23 06:56:10.854] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
+[2026-06-23 06:56:10.858] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
+[2026-06-23 06:56:10.861] [PROTOCOLO] [INFO] Não mandou ack
+[2026-06-23 06:56:10.870] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.873] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.876] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.878] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.882] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.882] [SERVER] [ERRO] Falha ao enviar frame do pill, seq 3
+[2026-06-23 06:56:10.887] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.890] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.892] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.894] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:10.896] [PROTOCOLO] [INFO] Retransmitindo
+[2026-06-23 06:56:20.707] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:20.708] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:20.708] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:20.708] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:21.709] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:21.709] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:21.709] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:21.709] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:22.710] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:22.710] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:22.710] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:22.710] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:23.711] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:23.711] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:23.711] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 06:56:23.711] [PROTOCOLO] [ERRO] frame errada

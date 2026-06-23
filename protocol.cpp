@@ -227,25 +227,30 @@ int recv_frame(int sock, Frame* f, unsigned char src_mac[6], unsigned char dest_
     return 0;
 }
 
-// Eu fiz outra função pq fiquei com medo do q ia acontecer na função recursiva
+
 int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface, uint8_t exp_seq){
     Frame f_recv;
-    int retrans = 5;
+    int retrans = MAX_RETRANS; 
 
     while (retrans > 0) {
         if (send_frame(sock, f, src_mac, dest_mac, iface) > 0) {
             // Keep receiving until we get ACK, NACK, or real timeout.
+            // It can't keep waiting for an ACK, after some time if it didn't receive an ack it has to send again -- I think this fixes the cable trick  
             // -3 means irrelevant ethernet traffic (wrong ethertype/marker) — ignore it.
-            while (true) {
-                int r = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
-                if (r == 0 && f_recv.type == MSG_ACK) return 0;
-                if (r == -3) continue; // background frame, keep waiting
-                break; // timeout (-1), recv error (-2), or NACK: retransmit
-            }
+            int r = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
+            if (r == 0 && f_recv.type == MSG_ACK) return 0;
+                //if (r == -3) continue; // background frame, keep waiting
+                //break; // timeout (-1), recv error (-2), or NACK: retransmit
         }
+        //if it didn't receive anything or if ir received an nack sends again
+        // maybe there is a way to put a timer here or just increase the number of times it's willing to retransmit (MAX_RETRANS)
+        log("PROTOCOLO", "INFO", "Retransmitindo"); 
         retrans--;
     }
 
+    log("PROTOCOLO", "INFO", "Timeout"); 
+    // How do we deal with timeout? it prints a message saying it wasn't possible to send the file? 
+    // When send returns -1 we know is timeout  
     return -1;
 }
 

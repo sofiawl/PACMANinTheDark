@@ -6,14 +6,18 @@
 #include <stdint.h>
 
 #define DATA_SIZE 31
-#define TIMEOUT 1000
+#define TIMEOUT   1000
 
 #define RECV_TIMEOUT        -1
 #define RECV_ERROR          -2
 #define NETWORK_GIVEUP_TRIES 300
 
-#define UFPR_MAP 1
+#define UFPR_MAP    1
 #define DEFAULT_MAP 2
+
+// quantas vezes ele quer retransmitir antes de dar timeout?
+#define MAX_RETRANS 1000
+
 
 // Loopback
 
