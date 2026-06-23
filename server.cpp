@@ -45,7 +45,7 @@ int send_file(const char* arquivo, int sock) {
         if (build_frame(&f_send, seq, type, buffer, (uint8_t)bytes_read) != 0) return -1;
         if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) {
             log("SERVER", "ERRO", std::format("Falha ao enviar frame do pill, seq {}", seq));
-            return -1;
+            return -2;
         }
         if (++seq > 63) seq = 0;
     }
@@ -56,7 +56,7 @@ int send_file(const char* arquivo, int sock) {
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0) {
         if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) {
             log("SERVER", "ERRO", std::format("Falha ao enviar MSG_END do pill, seq {}", seq));
-            return -1;
+            return -2;
         }
     }
 
@@ -196,11 +196,16 @@ int main() {
                             log("SERVER", "INFO", "Aguardando ack do RESYNC do client");
                             int attempts = 100;
                             while (attempts-- > 0) {
-                                if (send(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER, 0) == 0) {
-                                    log("SERVER", "INFO", "Recebido ack RESYNC do client");
+                                send_frame(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER);
+                                Frame ack;
+
+                                int r = recv_frame(sock, &ack, NULL, NULL, NULL, 0);
+                                if (r == 0 && ack.type == MSG_ACK) {
+                                    log("SERVER", "INFO", "Recebido ack RESYNC do client, reenviando arquivo");
                                     result = send_file(pill->file_path, sock);
                                     break;
                                 }
+                                usleep(500000);
                             }
                         }
 

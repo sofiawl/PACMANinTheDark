@@ -55053,3 +55053,742 @@
 [2026-06-23 18:46:10.471] [PROTOCOLO] [ERRO] frame errada
 [2026-06-23 18:46:11.316] [PROTOCOLO] [ERRO] frame errada
 [2026-06-23 18:46:11.722] [PROTOCOLO] [ERRO] Erro no recv
+[2026-06-23 18:53:00.711] [CLIENT] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 18:53:01.728] [CLIENT] [INFO] Mandou init
+[2026-06-23 18:53:01.729] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 18:53:03.439] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:03.444] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:03.545] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:04.46] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:04.104] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:04.360] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:05.235] [CLIENT] [INFO] Mandou init
+[2026-06-23 18:53:05.235] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 18:53:05.236] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:05.384] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:05.439] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:05.447] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:05.455] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:05.684] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:06.542] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:07.733] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:07.929] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:07.969] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:08.737] [CLIENT] [INFO] Mandou init
+[2026-06-23 18:53:08.738] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 18:53:09.122] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:09.344] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:09.348] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:09.465] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:53:09.663] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:09.696] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:09.700] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:09.793] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:53:09.869] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:10.86] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:10.88] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:10.398] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:10.403] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:10.558] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:10.743] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:10.745] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:11.24] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:11.27] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:11.521] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:11.523] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:11.848] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:11.852] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:12.69] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:12.204] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:12.205] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:12.205] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:12.492] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:12.495] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:12.721] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:12.726] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:13.538] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:13.542] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:14.108] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:14.111] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:14.466] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:14.471] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:14.794] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:14.796] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:15.314] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:15.317] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:15.671] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:15.673] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:16.1] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:16.5] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:16.167] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:16.534] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:16.536] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:16.828] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:16.830] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:17.45] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:17.48] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:17.599] [PROTOCOLO] [ERRO] Erro no recv
+[2026-06-23 18:53:22.329] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:57.946] [CLIENT] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 18:53:58.851] [CLIENT] [INFO] Mandou init
+[2026-06-23 18:53:58.851] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 18:53:58.852] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:53:59.346] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:59.349] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:59.611] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:59.614] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:53:59.841] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:53:59.843] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:00.38] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:00.40] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:00.248] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:00.249] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:00.473] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:00.474] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:00.716] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:00.718] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:00.954] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:00.956] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:01.159] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:01.161] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:01.337] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:01.339] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:01.512] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:01.514] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:01.691] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:01.692] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:01.774] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:01.931] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:01.933] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:02.361] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:02.364] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:02.670] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:02.673] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:02.896] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:02.899] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:03.134] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:03.136] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:03.847] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:04.137] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:04.138] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:04.659] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:04.664] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:05.2] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:05.6] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:05.335] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:05.339] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:05.461] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:05.586] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:05.589] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:05.875] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:05.878] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:06.142] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:06.145] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:06.439] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:06.443] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:06.873] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:06.875] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:07.166] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:07.168] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:07.393] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:07.397] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:07.666] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:07.669] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:07.930] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:07.932] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:08.709] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:08.709] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:08.714] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:08.717] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:08.977] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:09.3] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:09.5] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:09.8] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:09.109] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:09.110] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:09.413] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:09.464] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:09.526] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:09.527] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:09.956] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.229] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:10.232] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:10.339] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:10.411] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.462] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.512] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.562] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.612] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:10.614] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:10.620] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.735] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.786] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.836] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:10.995] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:10.998] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:11.3] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.93] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.176] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.186] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.457] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.519] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.644] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.816] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:11.892] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:12.106] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:12.580] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:12.583] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:12.692] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:12.887] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:13.181] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:13.184] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:13.412] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:13.524] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:13.574] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:13.649] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:13.652] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:14.45] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:14.47] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:14.397] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:14.402] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:14.807] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:14.808] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:14.810] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:14.817] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:15.210] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:15.213] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:15.609] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:15.610] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:15.829] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:15.951] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:15.952] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:16.140] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:16.341] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:16.343] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:16.785] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:16.787] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:16.912] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:17.86] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:17.184] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:17.186] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:17.434] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:17.503] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:17.504] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:17.506] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:17.845] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:17.848] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:17.889] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:18.185] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:18.187] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:18.478] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:18.539] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:18.541] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:18.939] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:18.942] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:19.263] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:19.267] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:19.671] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:19.673] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:20.74] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:20.76] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:20.416] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:20.419] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:20.949] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:20.951] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:21.294] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:21.298] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:21.628] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:21.631] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:21.724] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:21.941] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:21.946] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:22.290] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:22.292] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:22.585] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:22.589] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:22.695] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:22.931] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:22.934] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:23.86] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:23.217] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:23.218] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:23.457] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:23.716] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:23.719] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:23.826] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:24.127] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:24.127] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:24.129] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:24.515] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:24.518] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:24.914] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:24.916] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:25.30] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:25.217] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:25.220] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:25.529] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:25.532] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:25.887] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:25.889] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:25.901] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:26.194] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:26.198] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:26.309] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:26.535] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:26.538] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:26.627] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:26.895] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:26.898] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:27.296] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:27.519] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:27.522] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:27.972] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:27.974] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:28.321] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:28.323] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:28.663] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:28.665] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:29.84] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:29.86] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:29.640] [PROTOCOLO] [ERRO] Erro no recv
+[2026-06-23 18:54:34.82] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:50.559] [CLIENT] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 18:54:54.165] [CLIENT] [INFO] Mandou init
+[2026-06-23 18:54:54.165] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 18:54:54.165] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:54.165] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:54:54.656] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:54.658] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:54.893] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:54.896] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:55.65] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:55.67] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:55.272] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:55.273] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:55.485] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:55.486] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:55.671] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:55.673] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:55.873] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:55.875] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:56.70] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:56.72] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:56.247] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:56.248] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:56.429] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:56.431] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:56.625] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:56.627] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:56.817] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:56.818] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:57.852] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:54:57.874] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:57.876] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:57.966] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:57.968] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:58.47] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:58.48] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:58.444] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:58.445] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:58.977] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:58.981] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:59.314] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:59.316] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:54:59.684] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:54:59.687] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:00.33] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:00.35] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:00.976] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:00.978] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:01.291] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:01.294] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:01.648] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:01.651] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:02.26] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:02.29] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:02.313] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:02.316] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:02.603] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:02.606] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:02.725] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:55:02.864] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:02.866] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:03.125] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:03.127] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:03.353] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:03.355] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:04.383] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:04.385] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:04.483] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:04.487] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:04.752] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:04.755] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:05.54] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:05.57] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:05.392] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:05.396] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:05.415] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:55:05.726] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:05.730] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:06.114] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:06.115] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:06.549] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:06.552] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:06.962] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:06.964] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:07.254] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:07.257] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:07.502] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:07.502] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:55:07.505] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:07.819] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:07.822] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:08.208] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:08.210] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:08.622] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:08.624] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:08.909] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:08.913] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:09.86] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:55:09.191] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:55:09.192] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:55:10.56] [PROTOCOLO] [ERRO] Erro no recv
+[2026-06-23 18:59:41.470] [CLIENT] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 18:59:42.518] [CLIENT] [INFO] Mandou init
+[2026-06-23 18:59:42.518] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 18:59:43.30] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:43.33] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:43.400] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:43.402] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:43.703] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:43.706] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:44.9] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:44.11] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:44.318] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:44.322] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:44.609] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:44.612] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:44.957] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:44.960] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:45.210] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:45.213] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:45.528] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:45.532] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:45.807] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:45.810] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:46.154] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:46.157] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:46.467] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:46.469] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:46.835] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:46.838] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:47.182] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:47.185] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:47.284] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:59:47.450] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:47.452] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:47.759] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:47.762] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:48.78] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:48.81] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:48.502] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:48.505] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:48.864] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:48.868] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:49.115] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:49.117] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:49.536] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:49.539] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:49.841] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:49.844] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:50.156] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:50.158] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:50.436] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:50.439] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:50.697] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:50.698] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:50.993] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:50.996] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:51.354] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:51.357] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:51.682] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:51.685] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:52.1] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:52.31] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:52.31] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:52.31] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:52.32] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:52.105] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:59:52.372] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:52.375] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:52.386] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:52.524] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:52.697] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:52.700] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:52.999] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:53.2] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:53.326] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:53.329] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:53.568] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:53.618] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:53.669] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:53.675] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:53.677] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:53.803] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:53.853] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:53.951] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:53.953] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:54.11] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:54.208] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:54.246] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:54.246] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:54.249] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:54.322] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:54.515] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:54.577] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:54.580] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:54.726] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:54.848] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:59:54.851] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:59:55.113] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:56.391] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:56.804] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:57.919] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:59.114] [PROTOCOLO] [ERRO] noise
+[2026-06-23 18:59:59.909] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:00.55] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:00.346] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:00.848] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:01.753] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:05.913] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:07.117] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:10.491] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:15.857] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:22.389] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:23.125] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:27.369] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:37.4] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:37.54] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:37.105] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:37.155] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:37.271] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:38.295] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:38.345] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:38.395] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:38.746] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:39.41] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:39.160] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:39.210] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:39.323] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:39.556] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:40.26] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:40.137] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:40.553] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:41.386] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:41.682] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:42.211] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:44.141] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:44.916] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:45.151] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:45.297] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:45.299] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:45.557] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:45.730] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:45.731] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:46.47] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:46.125] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:46.127] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:46.458] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:46.460] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:46.508] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:46.831] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:46.834] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:46.903] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:00:47.204] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:47.207] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:47.299] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:00:47.598] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:47.600] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:47.942] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:47.944] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:48.265] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:48.270] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:50.200] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:50.495] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:52.124] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:53.338] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:55.36] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:00:57.295] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:57.296] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:57.551] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:57.553] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:57.742] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:57.744] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:57.935] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:57.936] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:58.104] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:58.105] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:58.286] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:58.287] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:58.464] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:58.466] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:59.496] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:59.498] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:00:59.981] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:00:59.982] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:00.100] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:00.337] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:00.338] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:03.116] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:03.119] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:04.458] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:04.460] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:04.722] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:04.724] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:04.908] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:04.909] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:05.195] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:05.197] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:05.462] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:05.463] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:05.640] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:05.714] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:05.716] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:06.58] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:06.61] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:06.436] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:06.440] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:06.509] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:06.745] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:06.748] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:07.53] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:07.56] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:07.366] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:07.369] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:07.701] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:07.704] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:07.962] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:07.965] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:08.175] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:08.184] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:08.185] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:08.451] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:08.453] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:09.645] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:09.646] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:10.313] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:10.316] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:10.666] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:10.668] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:11.368] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:11.371] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:11.456] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:11.814] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:11.817] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:12.250] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:12.254] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:12.634] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:12.635] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:12.983] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:12.986] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:13.351] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:13.353] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:13.720] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:13.721] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:14.118] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:14.122] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:16.46] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:16.48] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:16.672] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:16.675] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:17.8] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:17.11] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:17.398] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:17.400] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:17.756] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:17.757] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:17.809] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:18.158] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:18.160] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:18.867] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:18.868] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:19.304] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:19.306] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:19.688] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:19.692] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:20.94] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:20.96] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:20.430] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:20.434] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:20.860] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:20.861] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:21.235] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:21.237] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:21.327] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:21.621] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:21.625] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:22.11] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:22.62] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:22.68] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:22.68] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:22.70] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:22.379] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:22.544] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:22.546] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:22.884] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:22.885] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:22.939] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:23.73] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:23.231] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:23.232] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:23.417] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:23.467] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:23.579] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:23.624] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:23.625] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:23.626] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:23.817] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:24.13] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:24.305] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:25.115] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:25.374] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:25.376] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:25.883] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:25.916] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:25.918] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:26.405] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:26.451] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:26.451] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:26.453] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:26.550] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:26.870] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:26.871] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:26.873] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:27.285] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:27.288] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:27.328] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:27.607] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:27.718] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:27.719] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:28.717] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:29.4] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:29.5] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:29.62] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:29.136] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:29.609] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:29.611] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:29.729] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 19:01:29.975] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:30.26] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:30.138] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:30.261] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:30.262] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:30.384] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:30.560] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:01:30.563] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:30.565] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:30.953] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:30.955] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:31.307] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 19:01:31.310] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 19:01:33.396] [PROTOCOLO] [ERRO] Erro no recv
