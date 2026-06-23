@@ -54606,3 +54606,240 @@
 [2026-06-23 18:04:39.482] [CLIENT] [INFO] Mandou tecla apertada
 [2026-06-23 18:04:40.146] [CLIENT] [INFO] Apertou em uma tecla
 [2026-06-23 18:04:40.148] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:43.698] [CLIENT] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 18:17:45.242] [CLIENT] [INFO] Mandou init
+[2026-06-23 18:17:45.242] [PROTOCOLO] [ERRO] Enviando init
+[2026-06-23 18:17:45.243] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:17:45.243] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:17:45.473] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:17:45.744] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:45.746] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:46.56] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:46.59] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:46.378] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:46.381] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:46.671] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:17:46.778] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:46.780] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:46.852] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:17:47.153] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:47.156] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:47.610] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:47.613] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:48.51] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:17:48.151] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:48.153] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:48.212] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:17:48.479] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:48.483] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:48.843] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:48.845] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:49.80] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:49.82] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:49.442] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:49.446] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:49.784] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:49.788] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:50.100] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:50.103] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:50.397] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:50.399] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:50.722] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:50.725] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:51.179] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:51.181] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:51.463] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:51.465] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:52.461] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:52.462] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:52.947] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:52.950] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:53.344] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:53.347] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:53.462] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:17:53.637] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:53.639] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:53.950] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:53.952] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:54.324] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:54.327] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:54.713] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:54.715] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:55.71] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:55.74] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:55.464] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:55.468] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:55.553] [CLIENT] [INFO] Recebeu fantasmas
+[2026-06-23 18:17:55.792] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:55.797] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:56.379] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:56.382] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:56.615] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:56.618] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:57.20] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:57.23] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:57.446] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:57.449] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:58.14] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:58.17] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:58.386] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:58.388] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:58.483] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:17:58.679] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:58.683] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:58.974] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:58.977] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:59.261] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:59.263] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:59.533] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:59.536] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:17:59.841] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:17:59.844] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:00.138] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:00.143] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:00.473] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:00.476] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:00.915] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:00.918] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:01.162] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:01.244] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:01.247] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:01.504] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:01.707] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:01.708] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:01.710] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:03.595] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:03.598] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:03.599] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:04.448] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:06.472] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:06.474] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:07.152] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:07.155] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:07.565] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:07.568] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:07.961] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:07.964] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:08.309] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:08.314] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:08.742] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:08.745] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:09.232] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:09.235] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:09.731] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:09.734] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:10.163] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:10.165] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:10.629] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:10.632] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:11.22] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:11.23] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:11.432] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:11.434] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:11.924] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:11.926] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:12.331] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:12.334] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:14.328] [CLIENT] [INFO] Apertou em uma tecla
+[2026-06-23 18:18:14.331] [CLIENT] [INFO] Mandou tecla apertada
+[2026-06-23 18:18:14.997] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:15.25] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:15.28] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:15.429] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:15.704] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:15.716] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:15.718] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:15.720] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:16.218] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:16.487] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:16.490] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:16.491] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:16.695] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:16.768] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:16.861] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.29] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.77] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.490] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.518] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.537] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.552] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.626] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.646] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.675] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.720] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:17.920] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:18.134] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:18.825] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:19.227] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:19.643] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:19.704] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:20.116] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:20.707] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:21.282] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:22.138] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:22.828] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:22.939] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:23.62] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:23.310] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:23.803] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:24.120] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:24.906] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:28.571] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:28.692] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:30.145] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:30.831] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:32.522] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:33.598] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:43.639] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:43.789] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:46.161] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:46.835] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:49.83] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:18:49.882] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:00.13] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:00.63] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:00.114] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:00.164] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:00.338] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:00.756] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:00.806] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:01.112] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:01.223] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:01.396] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:01.446] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:01.497] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:01.547] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.25] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.76] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.126] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.309] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.359] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.717] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.768] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:02.818] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:03.173] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:03.835] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:04.129] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:04.180] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:04.352] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:04.471] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:04.711] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:04.822] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:04.943] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:05.176] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:05.227] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:06.317] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:07.164] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:07.826] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:07.938] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:08.175] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:08.655] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:09.10] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:09.183] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:09.416] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:12.827] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:14.346] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:15.138] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:15.862] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:17.438] [PROTOCOLO] [ERRO] frame errada
+[2026-06-23 18:19:18.39] [PROTOCOLO] [ERRO] frame errada
