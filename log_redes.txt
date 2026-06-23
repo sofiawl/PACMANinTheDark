@@ -1,1088 +1,377 @@
-[2026-06-23 19:13:40.739] [SERVER] [INICIANDO NOVA TRANSMISSÃO] 
-[2026-06-23 19:13:40.947] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:41.732] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:42.249] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:43.294] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:43.507] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:43.909] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:44.81] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:44.422] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:44.681] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:44.923] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:44.950] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:45.282] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:45.291] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:45.366] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:45.666] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:46.41] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:46.459] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:47.571] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:48.40] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:48.477] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:48.886] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:49.316] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:49.741] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:49.760] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:50.374] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:50.718] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:50.787] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:51.108] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:51.299] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:51.507] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:51.547] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:51.930] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:52.324] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:52.688] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:53.31] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:53.392] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:53.505] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:53.692] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:13:53.877] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:54.233] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:54.580] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:55.5] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:55.338] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:13:55.338] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:13:55.341] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:13:55.344] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:13:55.347] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:13:55.350] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:13:55.354] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:13:55.357] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:13:55.359] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:13:55.362] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:13:55.364] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:13:55.366] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:13:55.368] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:13:55.369] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:13:55.371] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:13:55.373] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:13:55.375] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:13:55.377] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:13:55.379] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:13:55.381] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:13:55.383] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:13:55.385] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:13:55.387] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:13:55.389] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:13:55.391] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:13:55.393] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:13:55.395] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:13:55.397] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:13:55.399] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:13:55.401] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:13:55.403] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:13:55.404] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:13:55.406] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:13:55.408] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:13:55.409] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:13:55.411] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:13:55.412] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:13:55.414] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:13:55.415] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:13:55.416] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:13:55.418] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:13:55.420] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:13:55.421] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:13:55.423] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:13:55.425] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:13:55.427] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:13:55.428] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:13:55.430] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:13:55.432] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:13:55.434] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:13:55.435] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:13:55.436] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:13:55.438] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:13:55.439] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:13:55.440] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:13:55.441] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:13:55.442] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:13:55.443] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:13:55.444] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:13:55.445] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:13:55.446] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:13:55.447] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:13:55.447] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:13:55.448] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:13:55.449] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:13:55.450] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:13:55.450] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:13:55.451] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:13:55.452] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:13:55.453] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:13:55.453] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:13:55.454] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:13:55.455] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:13:55.455] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:13:55.456] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:13:55.457] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:13:55.457] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:13:55.458] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:13:55.459] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:13:55.460] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:13:55.460] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:13:55.461] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:13:55.462] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:13:55.462] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:13:55.463] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:13:55.464] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:13:55.465] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:13:55.466] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:13:55.467] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:13:55.468] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:13:55.468] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:13:55.469] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:13:55.470] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:13:55.471] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:13:55.472] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:13:55.473] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:13:55.473] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:13:55.474] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:13:55.475] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:13:55.476] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:13:55.477] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:13:55.478] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:13:55.478] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:13:55.479] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:13:55.480] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:13:55.481] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:13:55.482] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:13:55.483] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:13:55.484] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:13:55.484] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:13:55.485] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:13:55.486] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:13:55.487] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:13:55.488] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:13:55.489] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:13:55.490] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:13:55.491] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:13:55.492] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:13:55.493] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:13:55.494] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:13:55.495] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:13:55.496] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:13:55.497] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:13:55.498] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:13:55.500] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:13:55.501] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:13:55.502] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:13:55.503] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:13:55.505] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:13:55.506] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:13:55.507] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:13:55.508] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:13:55.510] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:13:55.511] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:13:55.513] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:13:55.514] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:13:55.515] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:13:55.516] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:13:55.517] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:13:55.518] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:13:55.520] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:13:55.521] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:13:55.522] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:13:55.523] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:13:55.524] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:13:55.525] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:13:55.526] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:13:55.527] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:13:55.528] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:13:55.529] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:13:55.530] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:13:55.531] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:13:55.532] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:13:55.533] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:13:55.534] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:13:55.535] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:13:55.536] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:13:55.537] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:13:55.538] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:13:55.539] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:13:55.540] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:13:55.541] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:13:55.542] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:13:55.543] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:13:55.544] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:13:55.545] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:13:55.546] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:13:55.548] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:13:55.549] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:13:55.550] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:13:55.551] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:13:55.552] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:13:55.553] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:13:55.554] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:13:55.555] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:13:55.556] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:13:55.557] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:13:55.557] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:13:55.558] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:13:55.559] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:13:55.560] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:13:55.561] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:13:55.562] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:13:55.563] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:13:55.564] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:13:55.564] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:13:55.565] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:13:55.565] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:13:55.566] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:13:55.567] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:13:55.567] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:13:55.568] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:13:55.569] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:13:55.569] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:13:55.570] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:13:55.570] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:13:55.571] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:13:55.572] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:13:55.572] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:13:55.573] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:13:55.573] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:13:55.574] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:13:55.575] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:13:55.575] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:13:55.576] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:13:55.576] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:13:55.577] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:13:55.577] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:13:55.578] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:13:55.579] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:13:55.579] [SERVER] [INFO] Mandou arquivo
-[2026-06-23 19:14:00.266] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:00.650] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:00.959] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:01.311] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:01.672] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:02.33] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:02.393] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:03.209] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:03.579] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:03.906] [SERVER] [INFO] Recebeu mensagem flecha
-[2026-06-23 19:14:03.906] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:03.909] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:03.912] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:03.914] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:03.917] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:03.920] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:03.923] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:03.925] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:03.927] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:03.929] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:03.932] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:03.933] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:03.935] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:03.937] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:03.939] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:03.941] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:03.943] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:03.944] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:03.946] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:03.948] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:03.949] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:03.951] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:03.953] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:03.955] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:03.956] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:03.958] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:03.960] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:03.962] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:03.963] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:03.965] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:03.966] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:03.968] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:03.969] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:03.970] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:03.972] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:03.973] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:03.974] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:03.976] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:03.977] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:03.978] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:03.980] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:03.981] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:03.982] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:03.983] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:03.984] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:03.985] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:03.986] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:03.987] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:03.988] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:03.989] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:03.990] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:03.991] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:03.992] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:03.993] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:03.994] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:03.995] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:03.996] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:03.997] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:03.998] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:03.999] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.0] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.0] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.1] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.2] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.3] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.4] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.5] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.6] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.6] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.7] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.8] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.9] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.10] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.11] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.11] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.12] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.13] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.14] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.15] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.15] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.16] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.17] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.18] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.18] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.19] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.20] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.21] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.22] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.22] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.23] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.24] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.25] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.26] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.27] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.28] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.29] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.30] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.30] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.31] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.32] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.32] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.33] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.33] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.34] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.35] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.35] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.36] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.37] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.38] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.39] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.40] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.41] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.42] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.43] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.43] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.44] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.44] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.45] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.46] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.46] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.47] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.47] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.48] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.48] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.49] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.50] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.50] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.51] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.51] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.52] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.53] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.53] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.54] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.55] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.56] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.57] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.58] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.59] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.60] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.60] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.61] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.62] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.63] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.64] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.65] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.66] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.67] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.68] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.69] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.70] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.70] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.71] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.72] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.73] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.74] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.75] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.76] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.77] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.78] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.79] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.80] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.81] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.82] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.83] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.84] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.85] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.86] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.87] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.87] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.88] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.90] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.91] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.91] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.92] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.93] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.94] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.95] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.96] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.96] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.97] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.98] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.99] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.100] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.100] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.101] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.102] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.103] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.103] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.104] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.105] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.106] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.107] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.108] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.112] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.113] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.115] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.116] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.117] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.120] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.121] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.122] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.125] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.126] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.127] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.128] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.129] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.130] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.132] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.133] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.134] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.135] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.136] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.137] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.138] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.139] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.140] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.141] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.141] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.142] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.143] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.144] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.145] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.146] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.147] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.148] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.149] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.150] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.151] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.152] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.153] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.154] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.155] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.156] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.157] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.158] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.159] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.160] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.161] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.162] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.163] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.164] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.165] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.166] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.168] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.169] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.171] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.172] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.174] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.175] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.176] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.178] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.179] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.181] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.183] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.185] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.186] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.187] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.189] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.190] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.191] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.192] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.194] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.195] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.196] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.197] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.198] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.199] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.200] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.202] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.203] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.205] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.207] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.208] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.210] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.211] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.212] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.213] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.214] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.215] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.216] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.217] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.218] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.219] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.220] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.221] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.222] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.223] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.224] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.225] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.226] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.226] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.227] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.228] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.229] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.230] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.231] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.232] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.233] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.234] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.235] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.236] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.237] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.238] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.239] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.240] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.241] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.242] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.243] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.244] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.244] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.245] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.246] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.247] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.248] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.249] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.250] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.251] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.252] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.253] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.253] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.254] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.255] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.256] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.257] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.258] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.260] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.261] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.262] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.263] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.263] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.265] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.266] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.267] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.268] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.269] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.270] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.271] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.272] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.273] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.274] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.275] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.276] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.277] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.278] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.279] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.280] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.281] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.282] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.283] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.284] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.285] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.286] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.287] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.288] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.289] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.290] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.291] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.292] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.294] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.295] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.296] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.297] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.298] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.299] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.301] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.302] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.303] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.304] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.305] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.307] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.308] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.309] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.311] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.312] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.313] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.314] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.315] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.316] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.317] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.318] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.319] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.320] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.321] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.322] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.323] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.324] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.325] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.326] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.327] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.328] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.329] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.330] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.331] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.332] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.333] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.334] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.334] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.335] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.336] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.337] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.338] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.339] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.340] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.340] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.341] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.342] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.343] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.344] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.345] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.346] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.347] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.348] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.348] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.349] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.350] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.351] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.352] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.352] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.353] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.354] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.355] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.356] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.357] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.357] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.358] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.359] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.360] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.361] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.362] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.363] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.364] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.365] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.366] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.367] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.368] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.369] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.370] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.371] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.372] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.373] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.374] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.375] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.376] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.377] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.378] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.379] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.380] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.382] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.383] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.384] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.385] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.386] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.388] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.389] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.390] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.391] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.392] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.393] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.395] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.396] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.397] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.398] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.399] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.400] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.401] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.402] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.403] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.404] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.405] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.406] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.407] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.408] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.409] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.411] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.412] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.413] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.414] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.415] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.416] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.417] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.418] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.419] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.420] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.421] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.422] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.422] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.423] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.424] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.425] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.426] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.427] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.428] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.429] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.429] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.430] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.431] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.432] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.432] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.433] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.434] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.435] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.435] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.436] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.437] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.437] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.438] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.438] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.439] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.440] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.441] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.442] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.443] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.444] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.444] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.446] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.446] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.447] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.448] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.449] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.450] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.451] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.452] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.453] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.454] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.454] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.455] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.456] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.457] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.458] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.458] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.459] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.460] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.460] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.461] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.462] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.463] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.464] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.465] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.466] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.467] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.468] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.469] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.470] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.471] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.471] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.472] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.473] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.474] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.475] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.476] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.477] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.477] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.478] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.479] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.480] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.481] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.482] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.482] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.483] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.484] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.485] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.486] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.486] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.487] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.488] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.489] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.490] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.491] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.492] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.493] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.494] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.495] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.496] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.497] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.498] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.499] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.500] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.502] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.503] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.504] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.505] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.506] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.507] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.509] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.510] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.511] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.513] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.514] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.515] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.516] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.517] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.518] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.519] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.520] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.521] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.522] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.523] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.523] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.524] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.525] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.526] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.527] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.527] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.528] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.529] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.530] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.530] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.531] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.532] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.533] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.533] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.534] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.535] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.535] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.536] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.537] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.538] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.539] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.540] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.540] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.541] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.542] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.543] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.544] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.545] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.546] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.546] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.547] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.548] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.549] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.550] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.551] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.551] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.552] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.553] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.554] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.555] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.555] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.556] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.557] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.558] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.559] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.560] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.561] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.561] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.562] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.563] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.564] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.565] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.565] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.566] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.567] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.568] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.569] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.569] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.570] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.571] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.572] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.573] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.574] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.575] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.575] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.576] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.577] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.578] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.579] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.580] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.581] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.581] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.582] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.583] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.584] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.585] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.585] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.587] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.588] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.589] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.590] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.591] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.592] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.593] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.594] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.595] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.596] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.597] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.598] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.599] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.600] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.601] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.602] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.603] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.604] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:04.605] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
-[2026-06-23 19:14:04.606] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
-[2026-06-23 19:14:04.606] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
-[2026-06-23 19:14:04.607] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
-[2026-06-23 19:14:04.608] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
-[2026-06-23 19:14:04.609] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
-[2026-06-23 19:14:04.610] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
-[2026-06-23 19:14:04.610] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
-[2026-06-23 19:14:04.611] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
-[2026-06-23 19:14:04.612] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
-[2026-06-23 19:14:04.613] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
-[2026-06-23 19:14:04.614] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
-[2026-06-23 19:14:04.615] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
-[2026-06-23 19:14:04.616] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
-[2026-06-23 19:14:04.617] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
-[2026-06-23 19:14:04.619] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
-[2026-06-23 19:14:04.620] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
-[2026-06-23 19:14:04.621] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
-[2026-06-23 19:14:04.622] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
-[2026-06-23 19:14:04.623] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
-[2026-06-23 19:14:04.624] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
-[2026-06-23 19:14:04.624] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
-[2026-06-23 19:14:04.625] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
-[2026-06-23 19:14:04.626] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
-[2026-06-23 19:14:04.627] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
-[2026-06-23 19:14:04.628] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
-[2026-06-23 19:14:04.628] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
-[2026-06-23 19:14:04.629] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
-[2026-06-23 19:14:04.630] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
-[2026-06-23 19:14:04.631] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
-[2026-06-23 19:14:04.632] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
-[2026-06-23 19:14:04.632] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
-[2026-06-23 19:14:04.633] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
-[2026-06-23 19:14:04.634] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
-[2026-06-23 19:14:04.635] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
-[2026-06-23 19:14:04.635] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
-[2026-06-23 19:14:04.636] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
-[2026-06-23 19:14:04.637] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
-[2026-06-23 19:14:04.638] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
-[2026-06-23 19:14:04.638] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
-[2026-06-23 19:14:04.639] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
-[2026-06-23 19:14:04.640] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
-[2026-06-23 19:14:04.640] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
-[2026-06-23 19:14:04.641] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
-[2026-06-23 19:14:04.642] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
-[2026-06-23 19:14:04.642] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
-[2026-06-23 19:14:04.643] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
-[2026-06-23 19:14:04.643] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
-[2026-06-23 19:14:04.644] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
-[2026-06-23 19:14:04.645] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
-[2026-06-23 19:14:04.645] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
-[2026-06-23 19:14:04.646] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
-[2026-06-23 19:14:04.647] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
-[2026-06-23 19:14:04.647] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
-[2026-06-23 19:14:04.648] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
-[2026-06-23 19:14:04.649] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
-[2026-06-23 19:14:04.649] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
-[2026-06-23 19:14:04.650] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
-[2026-06-23 19:14:04.650] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
-[2026-06-23 19:14:04.651] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
-[2026-06-23 19:14:04.652] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
-[2026-06-23 19:14:04.653] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
-[2026-06-23 19:14:04.653] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
-[2026-06-23 19:14:04.654] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
-[2026-06-23 19:14:10.465] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:10.477] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:10.767] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:10.771] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:10.937] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:11.151] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:11.305] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:12.329] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:12.338] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:12.477] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:12.767] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:12.787] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:12.871] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:13.872] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:14.965] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:15.47] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:15.422] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:16.250] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:17.875] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:19.701] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:20.123] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:24.442] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:25.883] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:27.994] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:28.688] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:36.840] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:39.303] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:41.529] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:41.887] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:44.65] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:45.498] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:55.720] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:55.723] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:55.981] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:56.12] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:56.16] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:56.65] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:56.617] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:56.719] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:56.912] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:57.642] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:57.719] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:57.742] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:57.744] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:57.748] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:57.753] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:57.862] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:58.12] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:58.110] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:58.135] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:58.703] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:58.822] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:59.114] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:59.553] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:59.746] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:14:59.844] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:00.39] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:00.282] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:00.427] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:00.689] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:00.924] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:01.442] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:02.186] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:02.825] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:03.114] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:03.912] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:04.41] [PROTOCOLO] [ERRO] noise
-[2026-06-23 19:15:04.301] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:45.20] [SERVER] [INICIANDO NOVA TRANSMISSÃO] 
+[2026-06-23 19:25:45.221] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:45.722] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:45.838] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:46.218] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:47.109] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:47.495] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:47.909] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:48.5] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:48.194] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:48.337] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:48.571] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:49.700] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:49.810] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:50.68] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:50.463] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:50.938] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:51.357] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:52.32] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:52.446] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:52.845] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:53.228] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:53.588] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:53.641] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:53.984] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:54.995] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:55.57] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:55.112] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:55.387] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:55.495] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:56.38] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:56.302] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:25:56.302] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
+[2026-06-23 19:25:56.305] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
+[2026-06-23 19:25:56.308] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
+[2026-06-23 19:25:56.311] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
+[2026-06-23 19:25:56.314] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
+[2026-06-23 19:25:56.317] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
+[2026-06-23 19:25:56.320] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
+[2026-06-23 19:25:56.322] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
+[2026-06-23 19:25:56.324] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
+[2026-06-23 19:25:56.325] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
+[2026-06-23 19:25:56.327] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
+[2026-06-23 19:25:56.329] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
+[2026-06-23 19:25:56.331] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
+[2026-06-23 19:25:56.333] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
+[2026-06-23 19:25:56.335] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
+[2026-06-23 19:25:56.337] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
+[2026-06-23 19:25:56.339] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
+[2026-06-23 19:25:56.341] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
+[2026-06-23 19:25:56.343] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
+[2026-06-23 19:25:56.345] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
+[2026-06-23 19:25:56.347] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
+[2026-06-23 19:25:56.349] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
+[2026-06-23 19:25:56.351] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
+[2026-06-23 19:25:56.353] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
+[2026-06-23 19:25:56.355] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
+[2026-06-23 19:25:56.357] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
+[2026-06-23 19:25:56.358] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
+[2026-06-23 19:25:56.360] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
+[2026-06-23 19:25:56.362] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
+[2026-06-23 19:25:56.363] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
+[2026-06-23 19:25:56.364] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
+[2026-06-23 19:25:56.366] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
+[2026-06-23 19:25:56.367] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
+[2026-06-23 19:25:56.368] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
+[2026-06-23 19:25:56.369] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
+[2026-06-23 19:25:56.370] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
+[2026-06-23 19:25:56.371] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
+[2026-06-23 19:25:56.372] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
+[2026-06-23 19:25:56.373] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
+[2026-06-23 19:25:56.374] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
+[2026-06-23 19:25:56.375] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
+[2026-06-23 19:25:56.376] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
+[2026-06-23 19:25:56.377] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
+[2026-06-23 19:25:56.378] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
+[2026-06-23 19:25:56.379] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
+[2026-06-23 19:25:56.380] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
+[2026-06-23 19:25:56.381] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
+[2026-06-23 19:25:56.383] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
+[2026-06-23 19:25:56.384] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
+[2026-06-23 19:25:56.385] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
+[2026-06-23 19:25:56.386] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
+[2026-06-23 19:25:56.387] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
+[2026-06-23 19:25:56.388] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
+[2026-06-23 19:25:56.389] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
+[2026-06-23 19:25:56.390] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
+[2026-06-23 19:25:56.392] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
+[2026-06-23 19:25:56.393] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
+[2026-06-23 19:25:56.394] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
+[2026-06-23 19:25:56.395] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
+[2026-06-23 19:25:56.396] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
+[2026-06-23 19:25:56.397] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
+[2026-06-23 19:25:56.398] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
+[2026-06-23 19:25:56.399] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
+[2026-06-23 19:25:56.400] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
+[2026-06-23 19:25:56.401] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
+[2026-06-23 19:25:56.402] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
+[2026-06-23 19:25:56.403] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
+[2026-06-23 19:25:56.404] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
+[2026-06-23 19:25:56.405] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
+[2026-06-23 19:25:56.406] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
+[2026-06-23 19:25:56.407] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
+[2026-06-23 19:25:56.408] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
+[2026-06-23 19:25:56.409] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
+[2026-06-23 19:25:56.411] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
+[2026-06-23 19:25:56.412] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
+[2026-06-23 19:25:56.413] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
+[2026-06-23 19:25:56.414] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
+[2026-06-23 19:25:56.415] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
+[2026-06-23 19:25:56.416] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
+[2026-06-23 19:25:56.417] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
+[2026-06-23 19:25:56.418] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
+[2026-06-23 19:25:56.419] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
+[2026-06-23 19:25:56.420] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
+[2026-06-23 19:25:56.421] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
+[2026-06-23 19:25:56.422] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
+[2026-06-23 19:25:56.423] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
+[2026-06-23 19:25:56.424] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
+[2026-06-23 19:25:56.425] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
+[2026-06-23 19:25:56.426] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
+[2026-06-23 19:25:56.427] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
+[2026-06-23 19:25:56.428] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
+[2026-06-23 19:25:56.429] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
+[2026-06-23 19:25:56.430] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
+[2026-06-23 19:25:56.431] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
+[2026-06-23 19:25:56.432] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
+[2026-06-23 19:25:56.433] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
+[2026-06-23 19:25:56.434] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
+[2026-06-23 19:25:56.435] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
+[2026-06-23 19:25:56.436] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
+[2026-06-23 19:25:56.437] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
+[2026-06-23 19:25:56.438] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
+[2026-06-23 19:25:56.439] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
+[2026-06-23 19:25:56.440] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
+[2026-06-23 19:25:56.441] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
+[2026-06-23 19:25:56.441] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
+[2026-06-23 19:25:56.442] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
+[2026-06-23 19:25:56.443] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
+[2026-06-23 19:25:56.444] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
+[2026-06-23 19:25:56.445] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
+[2026-06-23 19:25:56.446] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
+[2026-06-23 19:25:56.447] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
+[2026-06-23 19:25:56.448] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
+[2026-06-23 19:25:56.449] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
+[2026-06-23 19:25:56.450] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
+[2026-06-23 19:25:56.451] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
+[2026-06-23 19:25:56.452] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
+[2026-06-23 19:25:56.453] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
+[2026-06-23 19:25:56.454] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
+[2026-06-23 19:25:56.455] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
+[2026-06-23 19:25:56.455] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
+[2026-06-23 19:25:56.456] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
+[2026-06-23 19:25:56.457] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
+[2026-06-23 19:25:56.458] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
+[2026-06-23 19:25:56.458] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
+[2026-06-23 19:25:56.459] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
+[2026-06-23 19:25:56.460] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
+[2026-06-23 19:25:56.461] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
+[2026-06-23 19:25:56.462] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
+[2026-06-23 19:25:56.462] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
+[2026-06-23 19:25:56.463] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
+[2026-06-23 19:25:56.464] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
+[2026-06-23 19:25:56.465] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
+[2026-06-23 19:25:56.466] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
+[2026-06-23 19:25:56.467] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
+[2026-06-23 19:25:56.468] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
+[2026-06-23 19:25:56.469] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
+[2026-06-23 19:25:56.470] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
+[2026-06-23 19:25:56.471] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
+[2026-06-23 19:25:56.472] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
+[2026-06-23 19:25:56.473] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
+[2026-06-23 19:25:56.474] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
+[2026-06-23 19:25:56.475] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
+[2026-06-23 19:25:56.476] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
+[2026-06-23 19:25:56.477] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
+[2026-06-23 19:25:56.478] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
+[2026-06-23 19:25:56.479] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
+[2026-06-23 19:25:56.480] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
+[2026-06-23 19:25:56.481] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
+[2026-06-23 19:25:56.482] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
+[2026-06-23 19:25:56.483] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
+[2026-06-23 19:25:56.484] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
+[2026-06-23 19:25:56.485] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
+[2026-06-23 19:25:56.486] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
+[2026-06-23 19:25:56.487] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
+[2026-06-23 19:25:56.488] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
+[2026-06-23 19:25:56.489] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
+[2026-06-23 19:25:56.490] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
+[2026-06-23 19:25:56.491] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
+[2026-06-23 19:25:56.492] [SERVER] [CLIENT] Enviando arquivo, sequencia: 30
+[2026-06-23 19:25:56.493] [SERVER] [CLIENT] Enviando arquivo, sequencia: 31
+[2026-06-23 19:25:56.494] [SERVER] [CLIENT] Enviando arquivo, sequencia: 32
+[2026-06-23 19:25:56.495] [SERVER] [CLIENT] Enviando arquivo, sequencia: 33
+[2026-06-23 19:25:56.496] [SERVER] [CLIENT] Enviando arquivo, sequencia: 34
+[2026-06-23 19:25:56.497] [SERVER] [CLIENT] Enviando arquivo, sequencia: 35
+[2026-06-23 19:25:56.498] [SERVER] [CLIENT] Enviando arquivo, sequencia: 36
+[2026-06-23 19:25:56.499] [SERVER] [CLIENT] Enviando arquivo, sequencia: 37
+[2026-06-23 19:25:56.500] [SERVER] [CLIENT] Enviando arquivo, sequencia: 38
+[2026-06-23 19:25:56.501] [SERVER] [CLIENT] Enviando arquivo, sequencia: 39
+[2026-06-23 19:25:56.502] [SERVER] [CLIENT] Enviando arquivo, sequencia: 40
+[2026-06-23 19:25:56.503] [SERVER] [CLIENT] Enviando arquivo, sequencia: 41
+[2026-06-23 19:25:56.504] [SERVER] [CLIENT] Enviando arquivo, sequencia: 42
+[2026-06-23 19:25:56.505] [SERVER] [CLIENT] Enviando arquivo, sequencia: 43
+[2026-06-23 19:25:56.506] [SERVER] [CLIENT] Enviando arquivo, sequencia: 44
+[2026-06-23 19:25:56.507] [SERVER] [CLIENT] Enviando arquivo, sequencia: 45
+[2026-06-23 19:25:56.508] [SERVER] [CLIENT] Enviando arquivo, sequencia: 46
+[2026-06-23 19:25:56.509] [SERVER] [CLIENT] Enviando arquivo, sequencia: 47
+[2026-06-23 19:25:56.510] [SERVER] [CLIENT] Enviando arquivo, sequencia: 48
+[2026-06-23 19:25:56.511] [SERVER] [CLIENT] Enviando arquivo, sequencia: 49
+[2026-06-23 19:25:56.512] [SERVER] [CLIENT] Enviando arquivo, sequencia: 50
+[2026-06-23 19:25:56.513] [SERVER] [CLIENT] Enviando arquivo, sequencia: 51
+[2026-06-23 19:25:56.514] [SERVER] [CLIENT] Enviando arquivo, sequencia: 52
+[2026-06-23 19:25:56.515] [SERVER] [CLIENT] Enviando arquivo, sequencia: 53
+[2026-06-23 19:25:56.516] [SERVER] [CLIENT] Enviando arquivo, sequencia: 54
+[2026-06-23 19:25:56.517] [SERVER] [CLIENT] Enviando arquivo, sequencia: 55
+[2026-06-23 19:25:56.518] [SERVER] [CLIENT] Enviando arquivo, sequencia: 56
+[2026-06-23 19:25:56.518] [SERVER] [CLIENT] Enviando arquivo, sequencia: 57
+[2026-06-23 19:25:56.519] [SERVER] [CLIENT] Enviando arquivo, sequencia: 58
+[2026-06-23 19:25:56.520] [SERVER] [CLIENT] Enviando arquivo, sequencia: 59
+[2026-06-23 19:25:56.521] [SERVER] [CLIENT] Enviando arquivo, sequencia: 60
+[2026-06-23 19:25:56.521] [SERVER] [CLIENT] Enviando arquivo, sequencia: 61
+[2026-06-23 19:25:56.522] [SERVER] [CLIENT] Enviando arquivo, sequencia: 62
+[2026-06-23 19:25:56.522] [SERVER] [CLIENT] Enviando arquivo, sequencia: 63
+[2026-06-23 19:25:56.523] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
+[2026-06-23 19:25:56.524] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
+[2026-06-23 19:25:56.525] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
+[2026-06-23 19:25:56.525] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
+[2026-06-23 19:25:56.526] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
+[2026-06-23 19:25:56.527] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
+[2026-06-23 19:25:56.528] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
+[2026-06-23 19:25:56.529] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
+[2026-06-23 19:25:56.530] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
+[2026-06-23 19:25:56.531] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
+[2026-06-23 19:25:56.531] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
+[2026-06-23 19:25:56.532] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
+[2026-06-23 19:25:56.533] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
+[2026-06-23 19:25:56.533] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
+[2026-06-23 19:25:56.534] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
+[2026-06-23 19:25:56.534] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
+[2026-06-23 19:25:56.535] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
+[2026-06-23 19:25:56.535] [SERVER] [INFO] Mandou arquivo
+[2026-06-23 19:25:57.73] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:25:58.794] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:00.162] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:00.563] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:00.867] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:01.243] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:01.579] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:02.123] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:02.473] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:02.822] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:03.168] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:03.456] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:03.957] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:04.188] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:04.465] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:04.766] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:05.844] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:07.534] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:08.43] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:08.375] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:08.478] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:08.768] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:09.140] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:09.502] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:09.895] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:10.377] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:10.914] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:11.127] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:11.496] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:11.938] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:12.486] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:12.564] [SERVER] [INFO] Recebeu mensagem flecha
+[2026-06-23 19:26:12.564] [SERVER] [CLIENT] Enviando arquivo, sequencia: 0
+[2026-06-23 19:26:12.567] [SERVER] [CLIENT] Enviando arquivo, sequencia: 1
+[2026-06-23 19:26:12.593] [SERVER] [CLIENT] Enviando arquivo, sequencia: 2
+[2026-06-23 19:26:12.612] [SERVER] [CLIENT] Enviando arquivo, sequencia: 3
+[2026-06-23 19:26:12.631] [SERVER] [CLIENT] Enviando arquivo, sequencia: 4
+[2026-06-23 19:26:12.650] [SERVER] [CLIENT] Enviando arquivo, sequencia: 5
+[2026-06-23 19:26:12.668] [SERVER] [CLIENT] Enviando arquivo, sequencia: 6
+[2026-06-23 19:26:12.686] [SERVER] [CLIENT] Enviando arquivo, sequencia: 7
+[2026-06-23 19:26:12.705] [SERVER] [CLIENT] Enviando arquivo, sequencia: 8
+[2026-06-23 19:26:12.724] [SERVER] [CLIENT] Enviando arquivo, sequencia: 9
+[2026-06-23 19:26:12.742] [SERVER] [CLIENT] Enviando arquivo, sequencia: 10
+[2026-06-23 19:26:12.761] [SERVER] [CLIENT] Enviando arquivo, sequencia: 11
+[2026-06-23 19:26:12.780] [SERVER] [CLIENT] Enviando arquivo, sequencia: 12
+[2026-06-23 19:26:12.798] [SERVER] [CLIENT] Enviando arquivo, sequencia: 13
+[2026-06-23 19:26:12.816] [SERVER] [CLIENT] Enviando arquivo, sequencia: 14
+[2026-06-23 19:26:12.835] [SERVER] [CLIENT] Enviando arquivo, sequencia: 15
+[2026-06-23 19:26:12.854] [SERVER] [CLIENT] Enviando arquivo, sequencia: 16
+[2026-06-23 19:26:12.873] [SERVER] [CLIENT] Enviando arquivo, sequencia: 17
+[2026-06-23 19:26:12.891] [SERVER] [CLIENT] Enviando arquivo, sequencia: 18
+[2026-06-23 19:26:12.910] [SERVER] [CLIENT] Enviando arquivo, sequencia: 19
+[2026-06-23 19:26:12.929] [SERVER] [CLIENT] Enviando arquivo, sequencia: 20
+[2026-06-23 19:26:12.947] [SERVER] [CLIENT] Enviando arquivo, sequencia: 21
+[2026-06-23 19:26:12.966] [SERVER] [CLIENT] Enviando arquivo, sequencia: 22
+[2026-06-23 19:26:12.985] [SERVER] [CLIENT] Enviando arquivo, sequencia: 23
+[2026-06-23 19:26:13.4] [SERVER] [CLIENT] Enviando arquivo, sequencia: 24
+[2026-06-23 19:26:13.23] [SERVER] [CLIENT] Enviando arquivo, sequencia: 25
+[2026-06-23 19:26:13.43] [SERVER] [CLIENT] Enviando arquivo, sequencia: 26
+[2026-06-23 19:26:13.62] [SERVER] [CLIENT] Enviando arquivo, sequencia: 27
+[2026-06-23 19:26:13.80] [SERVER] [CLIENT] Enviando arquivo, sequencia: 28
+[2026-06-23 19:26:13.98] [SERVER] [CLIENT] Enviando arquivo, sequencia: 29
+[2026-06-23 19:26:13.423] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:18.476] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:18.491] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:18.717] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:18.720] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:18.815] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:18.842] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:19.146] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:20.203] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:20.382] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:20.491] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:20.711] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:20.715] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:20.778] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:21.819] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:22.771] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:22.832] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:23.292] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:24.565] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:25.822] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:27.139] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:27.386] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:33.97] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:33.830] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:36.127] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:36.185] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:37.704] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:43.132] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:49.838] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:50.370] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:52.558] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:26:52.993] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:03.725] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:03.729] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:03.980] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:03.999] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:04.3] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:04.10] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:04.223] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:04.426] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:04.655] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.67] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.232] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.236] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.255] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.427] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.482] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.536] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.642] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.725] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:05.999] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:06.112] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:06.192] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:06.828] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:07.102] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:07.484] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:08.235] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:08.292] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:08.318] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:08.334] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:08.530] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:08.697] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:08.924] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:09.133] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:09.228] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:10.831] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:11.102] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:11.907] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:11.993] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:12.164] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:12.332] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:12.505] [PROTOCOLO] [ERRO] noise
+[2026-06-23 19:27:12.923] [PROTOCOLO] [ERRO] noise
