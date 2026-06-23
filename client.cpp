@@ -19,11 +19,6 @@
 #include "world.h"
 
 
-static void set_recv_timeout_ms(int sock, int ms) {
-    struct timeval tv = { ms / 1000, (ms % 1000) * 1000 };
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-}
-
 static bool load_world_csv(const char* csv_path, char world[SIZE_WORLD][SIZE_WORLD]) {
     std::ifstream in(csv_path);
     if (!in.is_open()) return false;

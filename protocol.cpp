@@ -55,7 +55,7 @@ int create_raw_socket(const char* network_interface_name) {
         exit(-1);
     }
 
-    const int timeoutMillis = 300; // 300 milisegundos de timeout por exemplo
+    const int timeoutMillis = 10; 
     struct timeval timeout = { .tv_sec = timeoutMillis / 1000, .tv_usec = (timeoutMillis % 1000) * 1000 };
     setsockopt(sk, SOL_SOCKET, SO_RCVTIMEO, (char*) &timeout, sizeof(timeout));
 
@@ -234,17 +234,14 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
 
     while (retrans > 0) {
         if (send_frame(sock, f, src_mac, dest_mac, iface) > 0) {
-            // Keep receiving until we get ACK, NACK, or real timeout.
-            // It can't keep waiting for an ACK, after some time if it didn't receive an ack it has to send again -- I think this fixes the cable trick  
-            // -3 means irrelevant ethernet traffic (wrong ethertype/marker) — ignore it.
-            int r = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
-            if (r == 0 && f_recv.type == MSG_ACK) return 0;
-                //if (r == -3) continue; // background frame, keep waiting
-                //break; // timeout (-1), recv error (-2), or NACK: retransmit
+            for (int i = 0; i < 30; i++) {
+                int r = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
+                if (r == 0 && f_recv.type == MSG_ACK) return 0;
+                if (r != -1) break; // NACK or error → retransmit immediately
+                // r == -1 means timeout, keep waiting
+            }
         }
-        //if it didn't receive anything or if ir received an nack sends again
-        // maybe there is a way to put a timer here or just increase the number of times it's willing to retransmit (MAX_RETRANS)
-        log("PROTOCOLO", "INFO", "Retransmitindo"); 
+        log("PROTOCOLO", "INFO", "Retransmitindo");
         retrans--;
     }
 
