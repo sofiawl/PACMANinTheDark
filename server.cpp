@@ -82,13 +82,13 @@ static void send_ghost_positions(int sock, const std::vector<std::pair<int, int>
         send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
 }
 
-void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
+int send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
     update_world_csv(world);
 
     FILE* mundo = fopen("mundo.csv", "rb");
     if (!mundo) {
         fprintf(stderr, "Could not open mundo.csv for sending\n");
-        return;
+        return -1;
     }
 
     Frame f_send;
@@ -97,16 +97,33 @@ void send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
         uint8_t buffer[DATA_SIZE];
         size_t bytes_read = fread(buffer, 1, DATA_SIZE, mundo);
         if (bytes_read == 0) break;
-        if (build_frame(&f_send, seq, MSG_WORLD, buffer, (uint8_t)bytes_read) != 0) break;
-
-        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) break;
-
+        if (build_frame(&f_send, seq, MSG_WORLD, buffer, (uint8_t)bytes_read) != 0) {
+            fclose(mundo);
+            return -1;
+        }
+        if (send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, seq) < 0) {
+            log("SERVER", "ERRO", std::format("Falha ao enviar frame do mundo, seq {}", seq));
+            fclose(mundo);
+            return -1;
+        }
         if (++seq > 63) seq = 0;
     }
     fclose(mundo);
 
     if (build_frame(&f_send, seq, MSG_END, nullptr, 0) == 0)
         send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
+
+    return 0;
+}
+
+static void send_world_with_retry(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
+    int attempts = 100;
+    while (attempts-- > 0) {
+        if (send_world(sock, world) == 0) return;
+        log("SERVER", "INFO", "Falha ao enviar mundo, tentando novamente");
+        usleep(300000);
+    }
+    log("SERVER", "ERRO", "Desistindo de enviar o mundo apos 100 tentativas");
 }
 
 static void remove_pill(std::vector<PillInfo> &pills, char pill_id) {
@@ -132,7 +149,7 @@ static void wait_for_client_and_init(int sock,
                 && f.type == MSG_INIT) {
             uint8_t world_map = f.data[0];
             ghost_coords = init_world(world, pacman_coord, world_map, pills);
-            send_world(sock, world);
+            send_world_with_retry(sock, world);
             if (++exp_seq > 63) exp_seq = 0;
             return;
         }
@@ -170,7 +187,7 @@ int main() {
 
             if (f.type == MSG_INIT) {
                 log ("SERVER", "INFO", "Recebeu mensagem init");
-                send_world(sock, world);
+                send_world_with_retry(sock, world);
                 continue;
             }
 
@@ -212,13 +229,13 @@ int main() {
                         if (result == 0)
                             remove_pill(pills, pill->id);
                     }
-                    send_world(sock, world);
+                    send_world_with_retry(sock, world);
                     if (pills.empty()) {
                         send_game_over(sock, true);
                         break;
                     }
                 } else if (mv == 0) {
-                    send_world(sock, world);
+                    send_world_with_retry(sock, world);
                 }
                 continue;
             }
