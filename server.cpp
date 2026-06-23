@@ -191,8 +191,8 @@ int main() {
                     const PillInfo *pill = find_pill_by_id(pills, (char)mv);
                     if (pill) {
                         ghosts_frozen = true;
-                        send_file(pill->file_path, sock);
-                        remove_pill(pills, pill->id);
+                        if (send_file(pill->file_path, sock) != -1)
+                            remove_pill(pills, pill->id);
                     }
                     send_world(sock, world);
                     if (pills.empty()) {

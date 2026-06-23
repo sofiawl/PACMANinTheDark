@@ -173,7 +173,7 @@ static bool receive_world(int sock, uint8_t *map_data, int timeout_ms) {
 }
 
 static bool wait_for_server_and_world(int sock, uint8_t *map_data) {
-    printf("Waiting for server... (run: sudo ./server in another terminal)\n");
+    printf("Esperando server (run: sudo ./server)\n");
     fflush(stdout);
 
     while (1) {
@@ -316,7 +316,7 @@ int main() {
     int sock = create_raw_socket(INTERFACE_CLIENT);
 
     int num;
-    printf("Type 1 to UFPR map and 2 to default map\n");
+    printf("Digite 1 para UFPR map e 2 para default map\n");
     scanf("%d", &num);
     uint8_t data_map_world[DATA_SIZE];
     if (num == UFPR_MAP)
