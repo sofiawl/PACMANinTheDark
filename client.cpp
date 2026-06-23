@@ -206,6 +206,9 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
         if (rv < 0) {
             if (rv == -2) {
                 log("CLIENT", "INFO", "Interface perdida, aguardando reconexao");
+                if (prize) { fclose(prize); prize = nullptr; }
+                *got_prize = false;
+                exp_seq = 0;
                 close(sock);
                 sock = -1;
                 while (if_nametoindex(INTERFACE_CLIENT) == 0)
@@ -213,6 +216,10 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
                 usleep(500000);
                 log("CLIENT", "INFO", "Interface voltou, recriando socket");
                 sock = create_raw_socket(INTERFACE_CLIENT);
+                Frame resync;
+                build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
+                send_frame(sock, &resync, CLIENT, SERVER, INTERFACE_CLIENT);
+                log("CLIENT", "INFO", "Enviou RESYNC ao servidor");
             }
             if (world_done) return 1;
             continue;
