@@ -237,11 +237,10 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
             for (int i = 0; i < 30; i++) {
                 int r = recv_frame(sock, &f_recv, NULL, NULL, NULL, exp_seq);
                 if (r == 0 && f_recv.type == MSG_ACK) return 0;
-                if (r != -1) break; // NACK or error → retransmit immediately
+                if (r != -1) break; // NACK or error, retransmit immediately
                 // r == -1 means timeout, keep waiting
             }
         }
-        log("PROTOCOLO", "INFO", "Retransmitindo");
         retrans--;
     }
 

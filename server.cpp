@@ -11,6 +11,7 @@
 #include <chrono>
 #include <algorithm>
 #include <format>
+#include <unistd.h>
 
 #include "protocol.h"
 #include "world.h"
@@ -188,7 +189,14 @@ int main() {
                     const PillInfo *pill = find_pill_by_id(pills, (char)mv);
                     if (pill) {
                         ghosts_frozen = true;
-                        if (send_file(pill->file_path, sock) != -1)
+                        int retries = 5;
+                        int result;
+                        do {
+                            result = send_file(pill->file_path, sock);
+                            if (result == -2) sleep(1); 
+                        } while (result == -2 && --retries > 0);
+
+                        if (result == 0)
                             remove_pill(pills, pill->id);
                     }
                     send_world(sock, world);
