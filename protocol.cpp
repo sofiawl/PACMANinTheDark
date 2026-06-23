@@ -10,6 +10,7 @@
 #include <vector>
 #include <cerrno>
 #include <format>
+#include <unistd.h>
 #include "protocol.h"
 #include "log.h"
 
@@ -239,9 +240,14 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
                 if (r == 0 && f_recv.type == MSG_ACK) return 0;
                 if (r == 0 && f_recv.type == MSG_RESYNC) return -2; // client wants file restart
                 if (r == -1 || r == -3) continue; //  timeout or noise
+                if (r == -2) {
+                    usleep(300000);
+                    continue;
+                }
                 break; // only break on nack or recv error
             }
         }
+
         retrans--;
     }
 
