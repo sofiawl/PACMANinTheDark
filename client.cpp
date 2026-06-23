@@ -131,14 +131,15 @@ static void reset_prize_transfer(FILE*& prize, bool* got_prize, int* prize_type,
     prize_path[0] = '\0';
 }
 
-static void send_resync_burst(int sock) {
-    Frame resync;
-    build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
-    for (int i = 0; i < 100; i++) {
-        send_frame(sock, &resync, CLIENT, SERVER, INTERFACE_CLIENT);
+static void reconnect_client_socket(int& sock) {
+    log("CLIENT", "INFO", "Aguardando reconexao da interface");
+    close(sock);
+    sock = -1;
+    while (if_nametoindex(INTERFACE_CLIENT) == 0)
         usleep(500000);
-    }
-    log("CLIENT", "INFO", "Enviou RESYNC ao servidor");
+    usleep(500000);
+    log("CLIENT", "INFO", "Interface voltou, recriando socket");
+    sock = create_raw_socket(INTERFACE_CLIENT);
 }
 
 // timeout_ms == 0 waits until the full world arrives.
@@ -225,7 +226,14 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
 
     uint8_t exp_seq = 0;
     int recv_fail_count = 0;
+    bool resync_pending = false;
     while (1) {
+        if (resync_pending) {
+            Frame resync;
+            build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
+            send_frame(sock, &resync, CLIENT, SERVER, INTERFACE_CLIENT);
+        }
+
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
         if (rv < 0) {
             if (prize || *got_prize) {
@@ -235,21 +243,15 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
                     reset_prize_transfer(prize, got_prize, prize_type, prize_path, prize_path_sz);
                     exp_seq = 0;
                     recv_fail_count = 0;
-                    send_resync_burst(sock);
+                    resync_pending = true;
                 }
             }
             if (rv == -2) {
                 log("CLIENT", "INFO", "Interface perdida, aguardando reconexao");
                 reset_prize_transfer(prize, got_prize, prize_type, prize_path, prize_path_sz);
                 exp_seq = 0;
-                close(sock);
-                sock = -1;
-                while (if_nametoindex(INTERFACE_CLIENT) == 0)
-                    usleep(500000);
-                usleep(500000);
-                log("CLIENT", "INFO", "Interface voltou, recriando socket");
-                sock = create_raw_socket(INTERFACE_CLIENT);
-                send_resync_burst(sock);
+                reconnect_client_socket(sock);
+                resync_pending = true;
             }
             if (world_done) return 1;
             continue;
@@ -270,6 +272,7 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             log("CLIENT", "INFO", "Recebeu RESYNC do servidor");
             reset_prize_transfer(prize, got_prize, prize_type, prize_path, prize_path_sz);
             exp_seq = 0;
+            resync_pending = false;
             continue;
         }
 
@@ -298,6 +301,7 @@ static int sync_after_move(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
                     prize = fopen(prize_path, "wb");
                     if (!prize) { fclose(mundo); return -1; }
                     *got_prize = true;
+                    resync_pending = false;
                 }
                 fwrite(frame.data, 1, frame.size, prize);
                 continue;

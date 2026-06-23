@@ -126,6 +126,49 @@ static void send_world_with_retry(int sock, char world[SIZE_WORLD][SIZE_WORLD]) 
     log("SERVER", "ERRO", "Desistindo de enviar o mundo apos 100 tentativas");
 }
 
+static void reconnect_server_socket(int& sock) {
+    log("SERVER", "INFO", "Interface perdida, aguardando reconexao");
+    close(sock);
+    sock = -1;
+    while (if_nametoindex(INTERFACE_SERVER) == 0)
+        usleep(500000);
+    usleep(500000);
+    log("SERVER", "INFO", "Interface voltou, recriando socket");
+    sock = create_raw_socket(INTERFACE_SERVER);
+}
+
+static bool wait_client_resync_ack(int& sock) {
+    Frame resync;
+    build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
+    log("SERVER", "INFO", "Aguardando ack RESYNC do client");
+    for (int i = 0; i < 100; i++) {
+        send_frame(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER);
+        Frame ack;
+        int r = recv_frame(sock, &ack, NULL, NULL, NULL, 0);
+        if (r == -2) {
+            reconnect_server_socket(sock);
+            continue;
+        }
+        if (r == 0 && ack.type == MSG_ACK) {
+            log("SERVER", "INFO", "Recebido ack RESYNC do client");
+            return true;
+        }
+        usleep(500000);
+    }
+    return false;
+}
+
+static int send_pill_with_resync(int& sock, const char* path) {
+    int result = send_file(path, sock);
+    while (result == -2) {
+        if (!wait_client_resync_ack(sock))
+            return -1;
+        log("SERVER", "INFO", "Reenviando arquivo do zero");
+        result = send_file(path, sock);
+    }
+    return result;
+}
+
 static void remove_pill(std::vector<PillInfo> &pills, char pill_id) {
     pills.erase(
         std::remove_if(pills.begin(), pills.end(),
@@ -178,8 +221,14 @@ int main() {
     const auto ghost_interval = std::chrono::milliseconds(300);
 
     uint8_t exp_seq = 0;
+    char pending_pill_path[256] = {0};
     while (1) {
-        if (recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER, exp_seq) >= 0) {
+        int rv = recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER, exp_seq);
+        if (rv == -2) {
+            reconnect_server_socket(sock);
+            continue;
+        }
+        if (rv >= 0) {
             if (f.type == MSG_END){
                 log ("SERVER", "INFO", "Recebeu mensagem end");
                 continue;
@@ -188,6 +237,17 @@ int main() {
             if (f.type == MSG_INIT) {
                 log ("SERVER", "INFO", "Recebeu mensagem init");
                 send_world_with_retry(sock, world);
+                continue;
+            }
+
+            if (f.type == MSG_RESYNC) {
+                log("SERVER", "INFO", "Recebeu RESYNC do client");
+                if (pending_pill_path[0] != '\0') {
+                    if (wait_client_resync_ack(sock)) {
+                        log("SERVER", "INFO", "Reenviando arquivo do zero");
+                        send_pill_with_resync(sock, pending_pill_path);
+                    }
+                }
                 continue;
             }
 
@@ -206,17 +266,12 @@ int main() {
                     const PillInfo *pill = find_pill_by_id(pills, (char)mv);
                     if (pill) {
                         ghosts_frozen = true;
-                        int result = send_file(pill->file_path, sock);
-                        while (result == -2) {
-                            Frame resync;
-                            build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
-                            send_frame(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER);
-                            log("SERVER", "INFO", "Reenviando arquivo do zero");
-                            result = send_file(pill->file_path, sock);
-                        }
-
-                        if (result == 0)
+                        snprintf(pending_pill_path, sizeof(pending_pill_path), "%s", pill->file_path);
+                        int result = send_pill_with_resync(sock, pending_pill_path);
+                        if (result == 0) {
+                            pending_pill_path[0] = '\0';
                             remove_pill(pills, pill->id);
+                        }
                     }
                     send_world_with_retry(sock, world);
                     if (pills.empty()) {
