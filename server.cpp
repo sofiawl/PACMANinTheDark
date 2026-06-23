@@ -189,12 +189,19 @@ int main() {
                     const PillInfo *pill = find_pill_by_id(pills, (char)mv);
                     if (pill) {
                         ghosts_frozen = true;
-                        int retries = 5;
-                        int result;
-                        do {
-                            result = send_file(pill->file_path, sock);
-                            if (result == -2) sleep(1); 
-                        } while (result == -2 && --retries > 0);
+                        int result = send_file(pill->file_path, sock);
+                        if (result == -2) {
+                            Frame resync;
+                            build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
+                            int attempts = 100;
+                            while (attempts-- > 0) {
+                                if (send(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER, 0) == 0) {
+                                    // got ACK: client is back, retry the file
+                                    result = send_file(pill->file_path, sock);
+                                    break;
+                                }
+                            }
+                        }
 
                         if (result == 0)
                             remove_pill(pills, pill->id);

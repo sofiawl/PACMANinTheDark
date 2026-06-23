@@ -51,6 +51,7 @@ typedef enum {
     MSG_WORLD = 14,
     MSG_ERROR = 15,
     MSG_END = 16,
+    MSG_RESYNC = 17,
 } MessageType;
 
 // Bit-Fields insted of Bit-Masking

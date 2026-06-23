@@ -224,6 +224,13 @@ static int sync_after_move(int sock, char client_world[SIZE_WORLD][SIZE_WORLD],
             continue;
         }
 
+        if (frame.type == MSG_RESYNC) {
+            if (prize) { fclose(prize); prize = nullptr; }
+            *got_prize = false;
+            exp_seq = 0;
+            continue; // go back to waiting for file frames
+        }
+
         if (frame.type == MSG_OVER) {
             log ("CLIENT", "INFO", "Recebeu mensagem over");
             if (prize) { fclose(prize); prize = nullptr; }
