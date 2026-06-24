@@ -68,12 +68,12 @@ static void make_map(char world[SIZE_WORLD][SIZE_WORLD], int type) {
 }
 
 static const char* PILL_FILES[] = {
-    "pills/pill1.txt",
-    "pills/pill2.txt",
-    "pills/pill3.jpg",
-    "pills/pill4.jpg",
-    "pills/pill5.mp4",
-    "pills/pill6.mp4",
+    "pills/1.txt",
+    "pills/2.txt",
+    "pills/3.jpg",
+    "pills/4.jpg",
+    "pills/5.mp4",
+    "pills/6.mp4",
 };
 
 const PillInfo* find_pill_by_id(const std::vector<PillInfo> &pills, char pill_id) {
