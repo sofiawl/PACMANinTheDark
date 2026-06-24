@@ -251,11 +251,13 @@ int main() {
                             ghosts_frozen = false;
                     }
                 } else {
+                    reconnect_server_socket(sock);
                     if (wait_client_resync_ack(sock)) {
-                        log("SERVER", "INFO", "Reenviando mundo do zero");
-                        send_world_with_retry(sock, world);
+                        log("SERVER", "INFO", "Reenviando posicao dos fantasmas");
+                        for (int i = 0; i < 5; i++)
+                            send_ghost_positions(sock, ghost_coords);
+                        ghosts_frozen = false;
                     }
-                    ghosts_frozen = false;
                 }
                 continue;
             }
