@@ -301,21 +301,19 @@ Review this logic in the future, when we are sending archives that are really bi
 
 
 #### Thing sofia must add
-[x] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
+- [x] UFPR page is the standard map where the U F P and R are walls that the ghosts and pacman hit. If the client wants they can add another map and then the UPFR map is not used.
 
-[x] EndGame page
+- [x] EndGame page
 
-[x] Vision expansion grr
+- [x] Vision expansion grr
 
-[x] Protection to other keyboard selection from client
+- [x] Protection to other keyboard selection from client
 
-[x] pills 
-
-[ ] check error handling
+- [x] pills 
  
-[ ] test test and test again
+- [x] test test and test again
 
-[ ] Handle the prohibited bytes that block the network thing 
+- [x] Handle the prohibited bytes that block the network thing 
  
 #### Thing Helena must add
 - [x] Ack / nack
@@ -334,13 +332,11 @@ Review this logic in the future, when we are sending archives that are really bi
 
 - [x] Show the files for the client  
 
-- [ ] Error handling 
-
 - [x] EndGame send throught both ways. If the pacman dies server tells client and client stop the running. If client clicks q client tells server and server stop working
 
 - [x] If pacman hits a ghost send MESG_END
 
-- [ ] Log
+- [x] Log
 
 And then, if everything works perfectly:
 
@@ -422,6 +418,3 @@ xdg-mime default vlc.desktop video/mp4
 ## Log 
 tail -f log_redes.txt
 
-
-### How to deal with error 
-Send the error to the log and then go back to the part that is error free, the program doesn't have to stop or show the error in the screen 

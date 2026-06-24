@@ -103,7 +103,6 @@ uint8_t calc_CRC(Frame* f) {
 
     // while there is a '1' in the INPUT portion (not the padding)
     while (true) {
-        // FIXED: search only within [:len_input], not the whole array. THIS WAS THE PROBLEM ALBINI TOLD US ABOUT
         int cur_shift = -1;
         for (int i = 0; i < len_input; i++) {
             if (arr[i] == '1') { cur_shift = i; break; }
@@ -115,23 +114,10 @@ uint8_t calc_CRC(Frame* f) {
             arr[cur_shift + i] = (poly[i] != arr[cur_shift + i]) ? '1': '0';
     }
 
-    // the remainder is the padding portion (everything after len_input)
     std::string remainder(arr.begin() + len_input, arr.end());
     return bitstring_to_byte(remainder);
 }
-/*
- * BITMASK, how it works
- *
- * example:
- * if seq = 70 -> in binary 01000110
- * seq & 0x3F = 01000110 & 00111111 = 00000110 = 6
- *
- * It prevents sequence, type and size of the frame from exceeding 6 bits, 5 bits and 5 bits respectively
- * prevents them from overflowing
- *
- * But it was baaaad, because it crashed without warning. So i changed it
- */
- // it is using 3 bytes and can only use 2. The bitmask is not working
+
 int build_frame(Frame *f, uint8_t seq, MessageType msgtype, uint8_t *data, uint8_t data_size){
     if (seq > 63) {
         fprintf(stderr, "build_frame: sequence %d out of range(0-63)\n", seq);
@@ -164,8 +150,6 @@ int build_frame(Frame *f, uint8_t seq, MessageType msgtype, uint8_t *data, uint8
 }
 
 int send_frame(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6], const char* iface){
-
-    //printf("Estou mandando seq: %d, type: %d\n", f->sequence, f->type); 
 
     /* This is necessary even for two PCs connected to the same network cable
      * because RAWsocket operates at layer 2, enlace, it sends and receives full ethernet frames.
@@ -244,7 +228,7 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
                     usleep(300000);
                     continue;
                 }
-                break; // only break on nack or recv error
+                break;
             }
         }
 
@@ -252,15 +236,12 @@ int send(int sock, Frame *f, unsigned char src_mac[6], unsigned char dest_mac[6]
     }
 
     log("PROTOCOLO", "INFO", "Timeout"); 
-    // How do we deal with timeout? it prints a message saying it wasn't possible to send the file? 
-    // When send returns -1 we know is timeout  
     return -1;
 }
 
 
 
 int send_ack(int sock, uint16_t seq, uint8_t *src_mac, uint8_t *dest_mac, const char* iface){
-    //printf("Debug: [send_ack]\n");
     Frame f;
 
     //log("PROTOCOLO", "INFO", "Enviando ack");
@@ -291,23 +272,3 @@ int send_init(int sock, uint8_t *map) {
 
 
 
-/*
- *
- * 2. i dont get these values, how does this actually works?
- *     f->sequence = seq & 0x3F; // clamp to 6 bits
- *     f->type = msgtype & 0x1F; // clamp to 5 bits
- *     f->size = data_size & 0x1F; // clamp to 5 bits
- *
- * 3. Is this really necessary? Since it is just two computers liked by a network cable
- * unsigned char eth_frame[14 + sizeof(Frame)];
- memcpy(eth_frame, dest_mac, 6);
- memset(eth_frame + 6, 0x00, 6);
-
- eth_frame[12] = 0x08;
- eth_frame[13] = 0x88;
-
-
- server recebe que quer mundo
- e manda ack
- ai recebe ack só né
- */

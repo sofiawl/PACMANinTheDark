@@ -15,17 +15,7 @@
 #define UFPR_MAP    1
 #define DEFAULT_MAP 2
 
-// quantas vezes ele quer retransmitir antes de dar timeout?
 #define MAX_RETRANS 1000
-
-
-// Loopback
-/*
-#define INTERFACE_SERVER "veth1"
-#define INTERFACE_CLIENT "veth0"
-extern unsigned char SERVER[6]; // = {0x9e, 0x82, 0xe1, 0x6d, 0x4d, 0x6c}
-extern unsigned char CLIENT[6]; // = {0x52, 0x07, 0x95, 0x37, 0x1a, 0xc7}
-*/
 
 //Sofia
 #define INTERFACE_SERVER "enp4s0"
@@ -54,8 +44,7 @@ typedef enum {
     MSG_RESYNC = 17,
 } MessageType;
 
-// Bit-Fields insted of Bit-Masking
-// packed assures that no padding is in between bytes 
+
 typedef struct __attribute__((packed)) {
     uint8_t marker;        
 
