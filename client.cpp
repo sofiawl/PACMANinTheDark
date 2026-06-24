@@ -16,6 +16,7 @@
 
 #define WORLD_WAIT_MS 3000
 #define CONNECT_RETRY_MS 500
+#define IDLE_GHOST_WAIT_MS 3000
 #include "client_view.h"
 #include "world.h"
 
@@ -121,8 +122,20 @@ static bool wait_idle_resync(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD
     bool handshake_done = false;
     bool resync_pending = true;
     int recv_fail_count = 0;
+    auto ghosts_deadline = std::chrono::steady_clock::time_point{};
 
     while (1) {
+        if (handshake_done && ghosts_deadline != std::chrono::steady_clock::time_point{} &&
+                std::chrono::steady_clock::now() >= ghosts_deadline) {
+            log("CLIENT", "INFO", "Timeout aguardando fantasmas, reiniciando resync");
+            handshake_done = false;
+            resync_pending = true;
+            exp_seq = 0;
+            recv_fail_count = 0;
+            ghosts_deadline = {};
+            continue;
+        }
+
         if (resync_pending) {
             Frame resync;
             build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
@@ -138,11 +151,15 @@ static bool wait_idle_resync(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD
                 resync_pending = true;
                 exp_seq = 0;
                 recv_fail_count = 0;
-            } else if (!handshake_done && recv_fail_count >= 30) {
-                reconnect_client_socket(sock);
+                ghosts_deadline = {};
+            } else if (recv_fail_count >= 30) {
+                if (!handshake_done)
+                    reconnect_client_socket(sock);
+                handshake_done = false;
                 resync_pending = true;
                 exp_seq = 0;
                 recv_fail_count = 0;
+                ghosts_deadline = {};
             }
             continue;
         }
@@ -155,10 +172,15 @@ static bool wait_idle_resync(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD
             return false;
 
         if (frame.type == MSG_RESYNC) {
-            log("CLIENT", "INFO", "Recebeu RESYNC do servidor, aguardando fantasmas");
+            if (!handshake_done)
+                log("CLIENT", "INFO", "Recebeu RESYNC do servidor, aguardando fantasmas");
+            for (int i = 0; i < 3; i++)
+                send_ack(sock, frame.sequence, CLIENT, SERVER, INTERFACE_CLIENT);
             handshake_done = true;
             resync_pending = false;
             exp_seq = 0;
+            ghosts_deadline = std::chrono::steady_clock::now()
+                + std::chrono::milliseconds(IDLE_GHOST_WAIT_MS);
             continue;
         }
 

@@ -82,6 +82,25 @@ static void send_ghost_positions(int sock, const std::vector<std::pair<int, int>
         send_frame(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER);
 }
 
+static bool send_ghost_positions_reliable(int sock,
+    const std::vector<std::pair<int, int>> &ghost_coords) {
+    uint8_t data[8];
+    for (int i = 0; i < 4; ++i) {
+        data[i * 2]     = (uint8_t)ghost_coords[i].first;
+        data[i * 2 + 1] = (uint8_t)ghost_coords[i].second;
+    }
+    Frame f_send;
+    if (build_frame(&f_send, 0, MSG_GHOSTS, data, 8) != 0)
+        return false;
+    for (int attempt = 0; attempt < 30; attempt++) {
+        int r = send(sock, &f_send, SERVER, CLIENT, INTERFACE_SERVER, 0);
+        if (r == 0) return true;
+        if (r == -2) return false;
+        usleep(100000);
+    }
+    return false;
+}
+
 int send_world(int sock, char world[SIZE_WORLD][SIZE_WORLD]) {
     update_world_csv(world);
 
@@ -141,19 +160,21 @@ static bool wait_client_resync_ack(int& sock) {
     Frame resync;
     build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
     log("SERVER", "INFO", "Aguardando ack RESYNC do client");
-    for (int i = 0; i < 100; i++) {
+    for (int round = 0; round < 100; round++) {
         send_frame(sock, &resync, SERVER, CLIENT, INTERFACE_SERVER);
-        Frame ack;
-        int r = recv_frame(sock, &ack, NULL, NULL, NULL, 0);
-        if (r == -2) {
-            reconnect_server_socket(sock);
-            continue;
+        for (int i = 0; i < 50; i++) {
+            Frame ack;
+            int r = recv_frame(sock, &ack, NULL, NULL, NULL, 0);
+            if (r == -2) {
+                reconnect_server_socket(sock);
+                break;
+            }
+            if (r == 0 && ack.type == MSG_ACK) {
+                log("SERVER", "INFO", "Recebido ack RESYNC do client");
+                return true;
+            }
         }
-        if (r == 0 && ack.type == MSG_ACK) {
-            log("SERVER", "INFO", "Recebido ack RESYNC do client");
-            return true;
-        }
-        usleep(500000);
+        usleep(100000);
     }
     return false;
 }
@@ -251,12 +272,10 @@ int main() {
                             ghosts_frozen = false;
                     }
                 } else {
-                    reconnect_server_socket(sock);
                     if (wait_client_resync_ack(sock)) {
                         log("SERVER", "INFO", "Reenviando posicao dos fantasmas");
-                        for (int i = 0; i < 5; i++)
-                            send_ghost_positions(sock, ghost_coords);
-                        ghosts_frozen = false;
+                        if (send_ghost_positions_reliable(sock, ghost_coords))
+                            ghosts_frozen = false;
                     }
                 }
                 continue;
