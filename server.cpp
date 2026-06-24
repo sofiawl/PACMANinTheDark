@@ -225,6 +225,7 @@ int main() {
     while (1) {
         int rv = recv_frame(sock, &f, SERVER, CLIENT, INTERFACE_SERVER, exp_seq);
         if (rv == -2) {
+            ghosts_frozen = true;
             reconnect_server_socket(sock);
             continue;
         }
@@ -242,11 +243,19 @@ int main() {
 
             if (f.type == MSG_RESYNC) {
                 log("SERVER", "INFO", "Recebeu RESYNC do client");
+                ghosts_frozen = true;
                 if (pending_pill_path[0] != '\0') {
                     if (wait_client_resync_ack(sock)) {
                         log("SERVER", "INFO", "Reenviando arquivo do zero");
-                        send_pill_with_resync(sock, pending_pill_path);
+                        if (send_pill_with_resync(sock, pending_pill_path) == 0)
+                            ghosts_frozen = false;
                     }
+                } else {
+                    if (wait_client_resync_ack(sock)) {
+                        log("SERVER", "INFO", "Reenviando mundo do zero");
+                        send_world_with_retry(sock, world);
+                    }
+                    ghosts_frozen = false;
                 }
                 continue;
             }

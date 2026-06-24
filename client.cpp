@@ -64,15 +64,31 @@ static void apply_ghost_update(char world[SIZE_WORLD][SIZE_WORLD], const uint8_t
     }
 }
 
-// 0 = nothing, 1 = ghosts moved, -1 = lose, -2 = win
-static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
+static void reconnect_client_socket(int& sock);
+
+// 0 = nothing, 1 = ghosts moved, -1 = lose, -2 = win, -3 = cable down (world resync needed)
+static int poll_network(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
     int changed = 0;
     Frame frame;
 
     uint8_t exp_seq = 0;
+    int recv_fail_count = 0;
     while (1) {
         int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
-        if (rv < 0) break;
+        if (rv < 0) {
+            recv_fail_count++;
+            if (rv == -2) {
+                log("CLIENT", "INFO", "Interface perdida durante jogo, pedindo resync do mundo");
+                reconnect_client_socket(sock);
+                return -3;
+            }
+            if (recv_fail_count >= 30) {
+                log("CLIENT", "INFO", "Link instavel, pedindo resync do mundo");
+                return -3;
+            }
+            break;
+        }
+        recv_fail_count = 0;
 
         if (frame.type == MSG_ACK || frame.type == MSG_NACK)
             continue;
@@ -93,6 +109,81 @@ static int poll_network(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
     }
 
     return changed;
+}
+
+// Blocks until server resends the world. Returns false on game over.
+static bool wait_world_resync(int& sock, char client_world[SIZE_WORLD][SIZE_WORLD],
+    std::pair<int, int> &pacman_coord) {
+
+    log("CLIENT", "INFO", "Aguardando resync do mundo");
+    FILE* mundo = fopen("mundo.csv", "wb");
+    if (!mundo) return false;
+
+    Frame frame;
+    uint8_t exp_seq = 0;
+    bool got_world_data = false;
+    bool resync_pending = true;
+    int recv_fail_count = 0;
+
+    while (1) {
+        if (resync_pending) {
+            Frame resync;
+            build_frame(&resync, 0, MSG_RESYNC, nullptr, 0);
+            send_frame(sock, &resync, CLIENT, SERVER, INTERFACE_CLIENT);
+        }
+
+        int rv = recv_frame(sock, &frame, CLIENT, SERVER, INTERFACE_CLIENT, exp_seq);
+        if (rv < 0) {
+            recv_fail_count++;
+            if (rv == -2) {
+                reconnect_client_socket(sock);
+                resync_pending = true;
+                recv_fail_count = 0;
+            } else if (recv_fail_count >= 30) {
+                resync_pending = true;
+                recv_fail_count = 0;
+            }
+            continue;
+        }
+        recv_fail_count = 0;
+
+        if (frame.type == MSG_ACK || frame.type == MSG_NACK)
+            continue;
+
+        if (frame.type == MSG_RESYNC) {
+            log("CLIENT", "INFO", "Recebeu RESYNC do servidor, aguardando mundo");
+            fclose(mundo);
+            mundo = fopen("mundo.csv", "wb");
+            if (!mundo) return false;
+            got_world_data = false;
+            exp_seq = 0;
+            resync_pending = false;
+            continue;
+        }
+
+        if (frame.type == MSG_OVER) {
+            if (mundo) fclose(mundo);
+            return false;
+        }
+
+        if (++exp_seq > 63) exp_seq = 0;
+
+        if (frame.type == MSG_WORLD) {
+            fwrite(frame.data, 1, frame.size, mundo);
+            got_world_data = true;
+            resync_pending = false;
+            continue;
+        }
+
+        if (frame.type == MSG_END && got_world_data) {
+            fflush(mundo);
+            fclose(mundo);
+            load_world_csv("mundo.csv", client_world);
+            sync_pacman_from_world(client_world, pacman_coord);
+            log("CLIENT", "INFO", "Mundo resincronizado");
+            return true;
+        }
+    }
 }
 
 static void drain_ghost_updates(int sock, char client_world[SIZE_WORLD][SIZE_WORLD]) {
@@ -406,10 +497,16 @@ int main() {
 
         int key = ERR;
         while (key == ERR) {
-            key = poll_client_key();
-            if (key != ERR) break;
-
             int net = poll_network(sock, client_world);
+            if (net == -3) {
+                if (!wait_world_resync(sock, client_world, pacman_coord)) {
+                    game_result = 1;
+                    break;
+                }
+                flushinp();
+                redraw_client_view_full(client_world, pacman_coord, radius);
+                continue;
+            }
             if (net == -1) {
                 game_result = 1;
                 break;
@@ -420,6 +517,8 @@ int main() {
             }
             if (net == 1)
                 draw_client_view_world(client_world, pacman_coord, radius);
+
+            key = poll_client_key();
         }
 
         if (game_result)
